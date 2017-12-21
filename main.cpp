@@ -42,8 +42,9 @@ int checkVectorization(int startNode, int frameSize) {
         ithNode = ithNode + 1;
         nodeMap[_node] = ithNode;
         for (int v = 0; v < loopCondition; ++v) {
+            int C = zeta[v];
             if(_neighbor[_node][v] != -1){
-                tempTurboAffinity[tid][ithNode][zeta[v]] = -1;
+                tempTurboAffinity[tid][ithNode][C] = -1;
             }
         }
         tempTurboAffinity[tid][nodeMap[_node]][zeta[_node]] = 0;
