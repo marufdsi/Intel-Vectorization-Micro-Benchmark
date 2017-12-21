@@ -29,13 +29,13 @@ int checkVectorization(int startNode, int frameSize) {
     }
     int tid = 5;
     int ithNode = -1;
-    unordered_map<int, int> nodeMap;
+    int nodeMap[16];
     vector<std::vector<std::vector<double> > > tempTurboAffinity(32, std::vector<std::vector<double> >(16, std::vector<double>(16)));
     vector<std::vector<std::vector<int> > > temp_neigh_comm(32, std::vector<std::vector<int> >(16, std::vector<int>(16)));
     for (int start = 0; start < loopCondition; start++) {
 
-        int jump = start*_frame_size;
-        int _node = u + jump;
+        int jump = start*frameSize;
+        int _node = startNode + jump;
         int _deg = deg[_node];
         if (_deg > maxDeg) {
             maxDeg = _deg;
@@ -52,8 +52,8 @@ int checkVectorization(int startNode, int frameSize) {
     }
     for (int i_out = 0; i_out < maxDeg; i_out++) {
         for (int start = 0; start < loopCondition; start++) {
-            int nextJump = start*_frame_size;
-            node xp = startNode + nextJump;
+            int nextJump = start*frameSize;
+            int xp = startNode + nextJump;
 
             int v = _neighbor[xp][i_out];
             double weight = _eadgWeight[xp][i_out];
