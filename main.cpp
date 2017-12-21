@@ -29,9 +29,9 @@ int checkVectorization(int startNode, int frameSize) {
     }
     int tid = 5;
     int ithNode = -1;
-    std::unordered_map<int, int> nodeMap;
-    std::vector<std::vector<std::vector<double> > > tempTurboAffinity(32, std::vector<std::vector<double> >(16, std::vector<double>(16)));
-    std::vector<std::vector<std::vector<int> > > temp_neigh_comm(32, std::vector<std::vector<int> >(16, std::vector<int>(16)));
+    unordered_map<int, int> nodeMap;
+    vector<std::vector<std::vector<double> > > tempTurboAffinity(32, std::vector<std::vector<double> >(16, std::vector<double>(16)));
+    vector<std::vector<std::vector<int> > > temp_neigh_comm(32, std::vector<std::vector<int> >(16, std::vector<int>(16)));
     for (int start = 0; start < loopCondition; start++) {
 
         int jump = start*_frame_size;
