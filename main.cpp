@@ -8,15 +8,15 @@ int block_size = 16;
 int checkVectorization(int startNode, int frameSize) {
     int node;
     int maxDeg;
-    int _deg[16];
+    int deg[16];
     for (int i=0; i<16; i++){
-        _deg[i] = i;
+        deg[i] = i;
     }
     for (int start = 0; start < frameSize; ++start) {
         int nextJump = start * frameSize;
         node = startNode + nextJump;
         int max_deg = 0;
-        int  _deg = _deg[node];
+        int  _deg = deg[node];
         if (_deg > max_deg) {
             max_deg = _deg;
         }
