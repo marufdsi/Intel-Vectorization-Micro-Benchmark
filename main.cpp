@@ -2,22 +2,6 @@
 
 using namespace std;
 
-void foo0(int n, int *a) {
-    for (int i = 0; i < n; ++i) {
-        if (n & 1) {
-            a[i] = a[i + 1];
-        }
-    }
-}
-
-void foo1(int n, int *a) {
-    // will not be vectorized due to data dependency.
-    for (int i = 1; i < n; ++i) {
-        if (n & 1) {
-            a[i] = a[i + 1];
-        }
-    }
-}
 
 int block_size = 16;
 
