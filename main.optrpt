@@ -1,0 +1,61 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+Begin optimization report for: main()
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at main.cpp(39,1)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at main.cpp(39,1)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at main.cpp(43,1)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at main.cpp(43,1)
+<Remainder loop for vectorization>
+LOOP END
+===========================================================================
+
+Begin optimization report for: foo0(int, int *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at main.cpp(6,5)
+<Peeled loop for vectorization>
+LOOP END
+
+LOOP BEGIN at main.cpp(6,5)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at main.cpp(6,5)
+<Remainder loop for vectorization>
+LOOP END
+===========================================================================
+
+Begin optimization report for: foo1(int, int *)
+
+    Report from: Vector optimizations [vec]
+
+
+LOOP BEGIN at main.cpp(16,5)
+<Peeled loop for vectorization>
+LOOP END
+
+LOOP BEGIN at main.cpp(16,5)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at main.cpp(16,5)
+<Remainder loop for vectorization>
+LOOP END
+===========================================================================
