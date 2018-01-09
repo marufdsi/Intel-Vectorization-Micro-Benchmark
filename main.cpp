@@ -72,11 +72,20 @@ int checkVectorization(int startNode, int frameSize) {
 }
 
 int main() {
-    std::cout << "Hello World" << std::endl;
-    int value = 0;
-    int a[100], b[100], c[100];
-    int node;
-    checkVectorization(0, 1);
-    std::cout << "Value of c[50] = " << c[50] << std::endl;
+    vector<vector<int> > myVector(10, vector<int>(5));
+    int count = 0;
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 5; ++j) {
+            myVector[i][j] = ++count;
+        }
+    }
+    int** myPointer;
+    *myPointer = &myVector[0][0];
+    for (int k = 0; k < 10; ++k) {
+        for (int i = 0; i < 5; ++i) {
+            cout<<myPointer[k][i]<<" "<<endl;
+        }
+        cout<<endl;
+    }
     return 0;
 }
