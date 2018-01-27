@@ -19,6 +19,8 @@ int main(){
     count zeta[z];
     index min_deg = 100;
     count block_size = 16;
+    index neighbor_count[block_size] __attribute__((aligned(32)));
+    node nodes[block_size] __attribute__((aligned(32)));
     const node* temp_outEdges[block_size] __attribute__((aligned(32)));
     std::vector<edgeweight> *affinity_pointer __attribute__((aligned(32)));
     index* neighbor_community[block_size] __attribute__((aligned(32)));
