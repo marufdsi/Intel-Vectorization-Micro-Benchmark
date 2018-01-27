@@ -29,7 +29,7 @@ int main(){
     for (index ithEdge = 0; ithEdge < min_deg; ++ithEdge) {
         #pragma omp simd
         for (index counter = 0; counter < block_size; ++counter) {
-            node v = temp_outEdges[counter][ithEdge];
+            node v = *(temp_outEdges[counter] + ithEdge);
             index C = zeta[v];
             edgeweight* affinity_u = &affinity_pointer[counter][C];
             /*if (nodes[counter] != v) {
