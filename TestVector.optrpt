@@ -1,0 +1,152 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+
+    Report from: Interprocedural optimizations [ipo]
+
+  WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
+  WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: 10000
+  -inline-max-per-compile: 500000
+
+In the inlining report below:
+   "sz" refers to the "size" of the routine. The smaller a routine's size,
+      the more likely it is to be inlined.
+   "isz" refers to the "inlined size" of the routine. This is the amount
+      the calling routine will grow if the called routine is inlined into it.
+      The compiler generally limits the amount a routine can grow by having
+      routines inlined into it.
+
+Begin optimization report for: main()
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (main()) [1/8=12.5%] TestVector.cpp(13,11)
+
+===========================================================================
+
+Begin optimization report for: foo..xN4uv(int *, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (foo..xN4uv(int *, int)) [2/8=25.0%] TestVector.cpp(10,24)
+  -> EXTERN: (11,12) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, int)
+  -> (11,18) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
+     [[ Called routine is noinline  <1>]]
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+remark #15301: FUNCTION WAS VECTORIZED   [ TestVector.cpp(10,24) ]
+remark #15525: call to function '_ZNSolsEi' is serialized   [ TestVector.cpp(11,12) ]
+remark #15525: call to function '_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc' is serialized   [ TestVector.cpp(11,18) ]
+===========================================================================
+
+Begin optimization report for: foo..xM4uv(int *, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (foo..xM4uv(int *, int)) [2/8=25.0%] TestVector.cpp(10,24)
+  -> EXTERN: (11,12) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, int)
+  -> (11,18) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
+     [[ Called routine is noinline  <1>]]
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+remark #15301: FUNCTION WAS VECTORIZED   [ TestVector.cpp(10,24) ]
+remark #15525: call to function '_ZNSolsEi' is serialized   [ TestVector.cpp(11,12) ]
+remark #15525: call to function '_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc' is serialized   [ TestVector.cpp(11,18) ]
+===========================================================================
+
+Begin optimization report for: foo..xN4ul(int *, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (foo..xN4ul(int *, int)) [2/8=25.0%] TestVector.cpp(10,24)
+  -> EXTERN: (11,12) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, int)
+  -> (11,18) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
+     [[ Called routine is noinline  <1>]]
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+remark #15389: vectorization support: reference a has unaligned access   [ TestVector.cpp(11,12) ]
+remark #15381: vectorization support: unaligned access used inside loop body   [ <compiler generated> ]
+remark #15301: FUNCTION WAS VECTORIZED   [ TestVector.cpp(10,24) ]
+remark #15525: call to function '_ZNSolsEi' is serialized   [ TestVector.cpp(11,12) ]
+remark #15525: call to function '_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc' is serialized   [ TestVector.cpp(11,18) ]
+===========================================================================
+
+Begin optimization report for: foo..xM4ul(int *, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (foo..xM4ul(int *, int)) [2/8=25.0%] TestVector.cpp(10,24)
+  -> EXTERN: (11,12) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, int)
+  -> (11,18) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
+     [[ Called routine is noinline  <1>]]
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+remark #15389: vectorization support: reference a has unaligned access   [ TestVector.cpp(11,12) ]
+remark #15381: vectorization support: unaligned access used inside loop body   [ <compiler generated> ]
+remark #15301: FUNCTION WAS VECTORIZED   [ TestVector.cpp(10,24) ]
+remark #15525: call to function '_ZNSolsEi' is serialized   [ TestVector.cpp(11,12) ]
+remark #15525: call to function '_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc' is serialized   [ TestVector.cpp(11,18) ]
+===========================================================================
+
+Begin optimization report for: foo(int *, int)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (foo(int *, int)) [2/8=25.0%] TestVector.cpp(10,24)
+  -> EXTERN: (11,12) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, int)
+  -> (11,18) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
+     [[ Called routine is noinline  <1>]]
+
+===========================================================================
+
+Begin optimization report for: std::char_traits<char>::length(const std::char_traits<char>::char_type *)
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (std::char_traits<char>::length(const std::char_traits<char>::char_type *)) [5/8=62.5%] /usr/include/c++/4.8.5/bits/char_traits.h(259,7)
+  -> EXTERN: (259,16) __builtin_strlen(const char *)
+
+===========================================================================
+
+Begin optimization report for: std::operator|(std::_Ios_Iostate, std::_Ios_Iostate)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::operator|(std::_Ios_Iostate, std::_Ios_Iostate)) /usr/include/c++/4.8.5/bits/ios_base.h(158,3)
+
+===========================================================================
+
+Begin optimization report for: __sti__$E()
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (__sti__$E()) [8/8=100.0%] <compiler generated>
+  -> EXTERN: /usr/include/c++/4.8.5/iostream:(74,25) __cxa_atexit()
+  -> EXTERN: /usr/include/c++/4.8.5/iostream:(74,25) std::ios_base::Init::Init(std::ios_base::Init *)
+
+===========================================================================
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINING FOOTNOTES:
+
+<1> The routine declaration is annotated with "__attribute__((noinline))".  
+    Remove this annotation to permit the compiler to inline this routine.
+
