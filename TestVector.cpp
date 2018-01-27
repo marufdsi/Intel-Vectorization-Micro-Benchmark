@@ -27,6 +27,7 @@ int main(){
     const edgeweight * temp_outEdgeWeight[block_size] __attribute__((aligned(32)));
     #pragma omp simd collapse(2) safelen(4)
     for (index ithEdge = 0; ithEdge < min_deg; ++ithEdge) {
+        #pragma omp simd safelen(4)
         for (index counter = 0; counter < block_size; ++counter) {
             node v = temp_outEdges[counter][ithEdge];
             index C = zeta[v];
