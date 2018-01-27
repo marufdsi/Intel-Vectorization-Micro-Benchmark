@@ -29,7 +29,20 @@ Begin optimization report for: main()
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (main()) [1/8=12.5%] TestVector.cpp(13,11)
+INLINE REPORT: (main()) [1/9=11.1%] TestVector.cpp(13,11)
+  -> EXTERN: (19,11) _vla_alloc(long)
+  -> EXTERN: (22,11) _vla_alloc(long)
+  -> EXTERN: (23,10) _vla_alloc(long)
+  -> EXTERN: (24,17) _vla_alloc(long)
+  -> EXTERN: (26,12) _vla_alloc(long)
+  -> EXTERN: (27,24) _vla_alloc(long)
+  -> INLINE (MANUAL): (33,64) std::vector<double, std::allocator<double>>::operator[](std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type) (isz = 1) (sz = 9)
+  -> EXTERN: (44,5) _vla_free(void *, long)
+  -> EXTERN: (44,5) _vla_free(void *, long)
+  -> EXTERN: (44,5) _vla_free(void *, long)
+  -> EXTERN: (44,5) _vla_free(void *, long)
+  -> EXTERN: (44,5) _vla_free(void *, long)
+  -> EXTERN: (44,5) _vla_free(void *, long)
 
 ===========================================================================
 
@@ -37,7 +50,7 @@ Begin optimization report for: foo..xN4uv(int *, int)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (foo..xN4uv(int *, int)) [2/8=25.0%] TestVector.cpp(10,24)
+INLINE REPORT: (foo..xN4uv(int *, int)) [2/9=22.2%] TestVector.cpp(10,24)
   -> EXTERN: (11,12) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, int)
   -> (11,18) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
      [[ Called routine is noinline  <1>]]
@@ -54,7 +67,7 @@ Begin optimization report for: foo..xM4uv(int *, int)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (foo..xM4uv(int *, int)) [2/8=25.0%] TestVector.cpp(10,24)
+INLINE REPORT: (foo..xM4uv(int *, int)) [2/9=22.2%] TestVector.cpp(10,24)
   -> EXTERN: (11,12) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, int)
   -> (11,18) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
      [[ Called routine is noinline  <1>]]
@@ -71,7 +84,7 @@ Begin optimization report for: foo..xN4ul(int *, int)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (foo..xN4ul(int *, int)) [2/8=25.0%] TestVector.cpp(10,24)
+INLINE REPORT: (foo..xN4ul(int *, int)) [2/9=22.2%] TestVector.cpp(10,24)
   -> EXTERN: (11,12) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, int)
   -> (11,18) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
      [[ Called routine is noinline  <1>]]
@@ -90,7 +103,7 @@ Begin optimization report for: foo..xM4ul(int *, int)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (foo..xM4ul(int *, int)) [2/8=25.0%] TestVector.cpp(10,24)
+INLINE REPORT: (foo..xM4ul(int *, int)) [2/9=22.2%] TestVector.cpp(10,24)
   -> EXTERN: (11,12) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, int)
   -> (11,18) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
      [[ Called routine is noinline  <1>]]
@@ -109,7 +122,7 @@ Begin optimization report for: foo(int *, int)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (foo(int *, int)) [2/8=25.0%] TestVector.cpp(10,24)
+INLINE REPORT: (foo(int *, int)) [2/9=22.2%] TestVector.cpp(10,24)
   -> EXTERN: (11,12) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, int)
   -> (11,18) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
      [[ Called routine is noinline  <1>]]
@@ -120,8 +133,16 @@ Begin optimization report for: std::char_traits<char>::length(const std::char_tr
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (std::char_traits<char>::length(const std::char_traits<char>::char_type *)) [5/8=62.5%] /usr/include/c++/4.8.5/bits/char_traits.h(259,7)
+INLINE REPORT: (std::char_traits<char>::length(const std::char_traits<char>::char_type *)) [5/9=55.6%] /usr/include/c++/4.8.5/bits/char_traits.h(259,7)
   -> EXTERN: (259,16) __builtin_strlen(const char *)
+
+===========================================================================
+
+Begin optimization report for: std::vector<double, std::allocator<double>>::operator[](std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type)
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::vector<double, std::allocator<double>>::operator[](std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type)) /usr/include/c++/4.8.5/bits/stl_vector.h(771,7)
 
 ===========================================================================
 
@@ -137,7 +158,7 @@ Begin optimization report for: __sti__$E()
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (__sti__$E()) [8/8=100.0%] <compiler generated>
+INLINE REPORT: (__sti__$E()) [9/9=100.0%] <compiler generated>
   -> EXTERN: /usr/include/c++/4.8.5/iostream:(74,25) __cxa_atexit()
   -> EXTERN: /usr/include/c++/4.8.5/iostream:(74,25) std::ios_base::Init::Init(std::ios_base::Init *)
 
