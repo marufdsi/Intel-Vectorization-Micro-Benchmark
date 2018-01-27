@@ -32,15 +32,15 @@ int main(){
             node v = temp_outEdges[counter][ithEdge];
             index C = zeta[v];
             edgeweight* affinity_u = &affinity_pointer[counter][C];
-            if (nodes[counter] != v) {
+            /*if (nodes[counter] != v) {
                 if (*affinity_u == -1) {
                     // found the neighbor for the first time, initialize to 0 and add to list of neighboring communities
                     *affinity_u = 0;
                     neighbor_community[counter][neighbor_count[counter]] = C;
                     neighbor_count[counter] += 1;
                 }
-//                *affinity_u += temp_outEdgeWeight[counter][ithEdge];
-            }
+                *affinity_u += temp_outEdgeWeight[counter][ithEdge];
+            }*/
         }
     }
 
