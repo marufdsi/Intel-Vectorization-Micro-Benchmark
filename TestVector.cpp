@@ -11,17 +11,35 @@ void foo(int *a, int i){
   std::cout<<a[i]<<"\n";
 }
 int main(){
-  //typedef int64_t index;
-  int *a, n = 100, sum, step=4;
-  int b[100], c[100];
-#pragma omp simd collapse(2) safelen(4)
-  for(int k=0; k<n; k+=8){
-#pragma omp simd
-    for(int i=k; i<k+8; i++){
-      sum += *a;
-      a += step;
+    typedef int32_t index;
+    typedef int32_t node;
+    typedef int32_t count;
+    typedef double edgeweight;
+    count z=100;
+    count zeta[z];
+    index min_deg = 100;
+    count block_size = 16;
+    const node* temp_outEdges[block_size] __attribute__((aligned(32)));
+    std::vector<edgeweight> *affinity_pointer __attribute__((aligned(32)));
+    index* neighbor_community[block_size] __attribute__((aligned(32)));
+    const edgeweight * temp_outEdgeWeight[block_size] __attribute__((aligned(32)));
+    #pragma omp simd collapse(2) safelen(4)
+    for (index ithEdge = 0; ithEdge < min_deg; ++ithEdge) {
+        for (index counter = 0; counter < block_size; ++counter) {
+            node v = temp_outEdges[counter][ithEdge];
+            index C = zeta[v];
+            edgeweight* affinity_u = &affinity_pointer[counter][C];
+            if (nodes[counter] != v) {
+                if (affinity_pointer[counter][C] == -1) {
+                    // found the neighbor for the first time, initialize to 0 and add to list of neighboring communities
+                    affinity_pointer[counter][C] = 0;
+                    neighbor_community[counter][neighbor_count[counter]] = C;
+                    neighbor_count[counter] += 1;
+                }
+                affinity_pointer[counter][C] += temp_outEdgeWeight[counter][ithEdge];
+            }
+        }
     }
-  }
 
   return 0;
 }
