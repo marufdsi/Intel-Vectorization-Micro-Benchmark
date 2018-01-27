@@ -5,11 +5,11 @@ using namespace std;
 
 
 
-#pragma omp declare simd uniform(a), linear(i:1), simdlen(4)
+/*#pragma omp declare simd uniform(a), linear(i:1), simdlen(4)
 #pragma omp declare simd uniform(a), simdlen(4)
 void foo(int *a, int i){
   std::cout<<a[i]<<"\n";
-}
+}*/
 int main(){
     typedef int32_t index;
     typedef int32_t node;
@@ -25,7 +25,7 @@ int main(){
     std::vector<edgeweight> *affinity_pointer __attribute__((aligned(32)));
     index* neighbor_community[block_size] __attribute__((aligned(32)));
     const edgeweight * temp_outEdgeWeight[block_size] __attribute__((aligned(32)));
-    #pragma omp simd collapse(2) safelen(4)
+//    #pragma omp simd collapse(2) safelen(4)
     for (index ithEdge = 0; ithEdge < min_deg; ++ithEdge) {
         #pragma omp simd safelen(4)
         for (index counter = 0; counter < block_size; ++counter) {
