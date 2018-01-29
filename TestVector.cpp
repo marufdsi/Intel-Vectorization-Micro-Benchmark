@@ -25,6 +25,27 @@ int main(){
     std::vector<edgeweight> *affinity_pointer __attribute__((aligned(32)));
     index* neighbor_community[block_size] __attribute__((aligned(32)));
     const edgeweight * temp_outEdgeWeight[block_size] __attribute__((aligned(32)));
+    node u=4;
+    std::vector<edgeweight> affinity(z);
+    std::vector<node> neighbor_comm(z);
+    count counter=0;
+    #pragma omp simd
+    for (index ithEdge = 0; ithEdge < min_deg; ++ithEdge) {
+      node v = temp_outEdges[u][ithEdge];
+      //      if (u != v) {
+	index C = zeta[v];
+	//	if (affinity[C] == -1) {
+	  // found the neighbor for the first time, initialize to 0 and add to list of neighboring communities
+	  affinity[C] = temp_outEdgeWeight[u][ithEdge];
+	  neighbor_comm[counter] = C;
+	  counter += 1;
+	  //	} else {
+	  affinity[C] += temp_outEdgeWeight[u][ithEdge];
+	  //}
+	  // }
+    }
+
+
 //    #pragma omp simd collapse(2) safelen(4)
     for (index ithEdge = 0; ithEdge < min_deg; ++ithEdge) {
         #pragma omp simd
