@@ -17,7 +17,7 @@ int main(){
     typedef double edgeweight;
     count z=100;
     count zeta[z];
-    index min_deg = 100;
+    index min_deg[4];
     count block_size = 16;
     index neighbor_count[block_size] __attribute__((aligned(32)));
     node nodes[block_size] __attribute__((aligned(32)));
@@ -29,39 +29,25 @@ int main(){
     std::vector<edgeweight> affinity(z);
     std::vector<node> neighbor_comm(z);
     count counter=0;
-    #pragma omp simd
-    for (index ithEdge = 0; ithEdge < min_deg; ++ithEdge) {
-      node v = temp_outEdges[u][ithEdge];
-      //      if (u != v) {
-	index C = zeta[v];
-	//	if (affinity[C] == -1) {
-	  // found the neighbor for the first time, initialize to 0 and add to list of neighboring communities
-	  affinity[C] = temp_outEdgeWeight[u][ithEdge];
-	  neighbor_comm[counter] = C;
-	  counter += 1;
-	  //	} else {
-	  affinity[C] += temp_outEdgeWeight[u][ithEdge];
-	  //}
-	  // }
-    }
 
 
-//    #pragma omp simd collapse(2) safelen(4)
-    for (index ithEdge = 0; ithEdge < min_deg; ++ithEdge) {
+    #pragma omp simd collapse(2) safelen(4)
+    for (node counter = 0; counter < block_size; ++counter) {
+        node _node = nodes[counter];
         #pragma omp simd
-        for (index counter = 0; counter < block_size; ++counter) {
-            node v = *(temp_outEdges[counter] + ithEdge);
+        for (index _edge = 0; _edge < min_deg[counter]; ++_edge) {
+            node v = temp_outEdges[counter][_edge];
             index C = zeta[v];
             edgeweight* affinity_u = &affinity_pointer[counter][C];
-            /*if (nodes[counter] != v) {
+            if (_node != v) {
                 if (*affinity_u == -1) {
                     // found the neighbor for the first time, initialize to 0 and add to list of neighboring communities
                     *affinity_u = 0;
                     neighbor_community[counter][neighbor_count[counter]] = C;
                     neighbor_count[counter] += 1;
                 }
-                *affinity_u += temp_outEdgeWeight[counter][ithEdge];
-            }*/
+                *affinity_u += temp_outEdgeWeight[counter][_edge];
+            }
         }
     }
 
