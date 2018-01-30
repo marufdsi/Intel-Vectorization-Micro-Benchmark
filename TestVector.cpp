@@ -31,7 +31,6 @@ int main(){
     count counter=0;
 
 
-    #pragma omp simd collapse(2) safelen(4)
     for (node counter = 0; counter < block_size; ++counter) {
         #pragma omp simd
         for (index _edge = 0; _edge < _deg[counter]; ++_edge) {
