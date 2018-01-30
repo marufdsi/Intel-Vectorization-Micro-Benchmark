@@ -21,10 +21,10 @@ int main(){
     count block_size = 16;
     index neighbor_count[block_size] __attribute__((aligned(32)));
     node nodes[block_size] __attribute__((aligned(32)));
-    const node temp_outEdges[block_size][z];
+    node temp_outEdges[block_size][z];
     edgeweight affinity_pointer[block_size][z] __attribute__((aligned(32)));
     index neighbor_community[block_size][z] __attribute__((aligned(32)));
-    const edgeweight temp_outEdgeWeight[block_size][z];
+    edgeweight temp_outEdgeWeight[block_size][z];
     node u=4;
     std::vector<edgeweight> affinity(z);
     std::vector<node> neighbor_comm(z);
