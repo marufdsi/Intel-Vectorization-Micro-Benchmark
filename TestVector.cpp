@@ -18,7 +18,7 @@ int main(){
     typedef double edgeweight;
     index test_value = 8;
     index _signBit = signbit(test_value);
-    cout<<std::signbit(test_value)<<endl;
+    cout<<_signBit<<endl;
     /*count z=100;
     count zeta[z];
     index _deg[16];
