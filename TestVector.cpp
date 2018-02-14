@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include <omp.h>
+#include <cmath>
 using namespace std;
 
 
@@ -15,7 +16,9 @@ int main(){
     typedef int32_t node;
     typedef int32_t count;
     typedef double edgeweight;
-    count z=100;
+    indec test_value = -1;
+    cout<<std::signbit(test_value)<<endl;
+    /*count z=100;
     count zeta[z];
     index _deg[16];
     count block_size = 16;
@@ -42,7 +45,7 @@ int main(){
             neighbor_count[counter] += 1;
             affinity_pointer[counter][C] += temp_outEdgeWeight[counter][_edge];
         }
-    }
+    }*/
 
   return 0;
 }
