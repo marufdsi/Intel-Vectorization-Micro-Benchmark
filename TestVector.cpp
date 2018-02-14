@@ -16,7 +16,7 @@ int main(){
     typedef int32_t node;
     typedef int32_t count;
     typedef double edgeweight;
-    indec test_value = -1;
+    index test_value = -1;
     cout<<std::signbit(test_value)<<endl;
     /*count z=100;
     count zeta[z];
