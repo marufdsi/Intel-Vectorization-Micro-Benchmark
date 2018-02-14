@@ -17,6 +17,7 @@ int main(){
     typedef int32_t count;
     typedef double edgeweight;
     index test_value = 8;
+    index _signBit = signbit(test_value);
     cout<<std::signbit(test_value)<<endl;
     /*count z=100;
     count zeta[z];
