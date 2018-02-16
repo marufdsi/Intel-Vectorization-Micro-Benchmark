@@ -21,6 +21,11 @@ int main(){
     index _signBit = test_value<0;
     //index _signBit = ((unsigned index)test_value) >> (sizeof(index)-1);
     cout<<_signBit<<endl;
+    vector<edgeweight> testWeight;
+    for (int i = 0; i < 5; ++i) {
+        testWeight.resize(i*60);
+    }
+    std::cout<<"size of vector: "<<testWeight.size()<<std::endl;
     /*count z=100;
     count zeta[z];
     index _deg[16];
