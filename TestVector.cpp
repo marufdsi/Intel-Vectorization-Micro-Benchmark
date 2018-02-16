@@ -29,7 +29,7 @@ int main(){
         testWeight[j] = counter++;
     }
 
-    testWeight.resize(70);
+    testWeight.resize(65);
         for (int i = 0; i < testWeight.size(); ++i) {
             std::cout<<testWeight[i] <<" ";
         }
