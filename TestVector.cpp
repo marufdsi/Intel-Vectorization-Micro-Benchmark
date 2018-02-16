@@ -23,7 +23,7 @@ int main(){
     cout<<_signBit<<endl;
     vector<edgeweight> testWeight;
     for (int i = 0; i < 5; ++i) {
-        testWeight.resize(i*60);
+        testWeight.resize(i*6000);
     }
     std::cout<<"size of vector: "<<testWeight.size()<<std::endl;
     /*count z=100;
