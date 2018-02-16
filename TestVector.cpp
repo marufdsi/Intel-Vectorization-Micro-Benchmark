@@ -24,8 +24,9 @@ int main(){
     vector<edgeweight> testWeight;
     count _edge = 0;
     count counter = 1;
-    testWeight.resize(60);
+
     for (int j = 0; j < testWeight.size(); ++j) {
+        testWeight.resize(j+1);
         testWeight[j] = counter++;
     }
 
