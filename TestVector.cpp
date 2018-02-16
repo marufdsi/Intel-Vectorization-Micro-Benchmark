@@ -22,8 +22,22 @@ int main(){
     //index _signBit = ((unsigned index)test_value) >> (sizeof(index)-1);
     cout<<_signBit<<endl;
     vector<edgeweight> testWeight;
-    for (int i = 0; i < 5; ++i) {
-        testWeight.resize(i*6000);
+    count _edge = 0;
+    count counter = 1;
+    for (int i = 0; i < 3; ++i) {
+        testWeight.resize(i*10);
+        _edge -= i - 3;
+        for (int j = 0; j < 10; ++j) {
+            _edge += 3;
+            testWeight[_edge] = counter++;
+        }
+
+    }
+    for (int k = 0; k < 3; ++k) {
+        for (int i = 0; i < 10; ++i) {
+            std::cout<<testWeight <<" ";
+        }
+        std:cout<<endl;
     }
     std::cout<<"size of vector: "<<testWeight.size()<<std::endl;
     /*count z=100;
