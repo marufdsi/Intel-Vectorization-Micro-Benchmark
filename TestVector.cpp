@@ -30,7 +30,6 @@ int main(){
     }
 
     testWeight.resize(70);
-    testWeight.resize(100);
         for (int i = 0; i < testWeight.size(); ++i) {
             std::cout<<testWeight[i] <<" ";
         }
