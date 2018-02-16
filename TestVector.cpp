@@ -39,7 +39,7 @@ int main(){
         _edge = k-3;
         for (int j = 0; j < 10; ++j) {
             _edge += 3;
-            std::cout<<testWeight[i] <<" ";
+            std::cout<<testWeight[_edge] <<" ";
         }
         std:cout<<endl;
     }
