@@ -35,10 +35,14 @@ int main(){
     }
 
     testWeight.resize(65);
-        for (int i = 0; i < testWeight.size(); ++i) {
+    for (int k = 0; k < 3; ++k) {
+        _edge = k-3;
+        for (int j = 0; j < 10; ++j) {
+            _edge += 3;
             std::cout<<testWeight[i] <<" ";
         }
         std:cout<<endl;
+    }
     std::cout<<"size of vector: "<<testWeight.size()<<std::endl;
     /*count z=100;
     count zeta[z];
