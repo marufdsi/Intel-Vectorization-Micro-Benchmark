@@ -24,22 +24,15 @@ int main(){
     vector<edgeweight> testWeight;
     count _edge = 0;
     count counter = 1;
-    for (int i = 0; i < 3; ++i) {
-        testWeight.resize((i+1)*10);
-        _edge -= i - 3;
-        for (int j = 0; j < 10; ++j) {
-            _edge += 3;
-            testWeight[_edge] = counter++;
-        }
-
+    testWeight.resize(60);
+    for (int j = 0; j < testWeight.size(); ++j) {
+        testWeight[j] = counter++;
     }
     _edge = 0;
-    for (int k = 0; k < 3; ++k) {
-        for (int i = 0; i < 10; ++i) {
-            std::cout<<testWeight[_edge++] <<" ";
+        for (int i = 0; i < testWeight.size(); ++i) {
+            std::cout<<testWeight[i] <<" ";
         }
         std:cout<<endl;
-    }
     std::cout<<"size of vector: "<<testWeight.size()<<std::endl;
     /*count z=100;
     count zeta[z];
