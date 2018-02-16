@@ -25,9 +25,13 @@ int main(){
     count _edge = 0;
     count counter = 1;
 
-    for (int j = 0; j < 60; ++j) {
-        testWeight.resize(j+1);
-        testWeight[j] = counter++;
+    for (int k = 0; k < 3; ++k) {
+        testWeight.resize(3*10);
+        _edge = k-3;
+        for (int j = 0; j < 10; ++j) {
+            _edge += 3;
+            testWeight[_edge] = counter++;
+        }
     }
 
     testWeight.resize(65);
