@@ -33,9 +33,10 @@ int main(){
         }
 
     }
+    _edge = 0;
     for (int k = 0; k < 3; ++k) {
         for (int i = 0; i < 10; ++i) {
-            std::cout<<testWeight <<" ";
+            std::cout<<testWeight[_edge++] <<" ";
         }
         std:cout<<endl;
     }
