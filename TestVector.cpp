@@ -18,7 +18,7 @@ int main(){
     typedef double edgeweight;
     index test_value = 0;
     index _mask = -1;
-    index _signBit = (test_value!=0);
+    index _signBit = (test_value==0);
     //index _signBit = ((unsigned index)test_value) >> (sizeof(index)-1);
     cout<<_signBit<<endl;
     vector<edgeweight> testWeight;
