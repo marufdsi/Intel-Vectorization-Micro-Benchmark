@@ -18,6 +18,10 @@ double checkVector(int n){
         A[i] = 1.0;
         B[i] = 1.0;
     }
+
+    for (int i = 0; i < n; ++i) {
+        A[i] += B[i];
+    }
     return A[0];
 }
 int main(){
