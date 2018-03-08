@@ -2,6 +2,7 @@
 #include<vector>
 #include <omp.h>
 #include <cmath>
+#include <chrono>
 using namespace std;
 
 
@@ -25,6 +26,13 @@ double checkVector(int n){
     return A[0];
 }
 int main(){
-
+  std::chrono::time_point<std::chrono::system_clock> start, end;
+  start = std::chrono::system_clock::now();
+  checkVector(5000000);
+  end = std::chrono::system_clock::now();
+  std::chrono::duration<double> elapsed_seconds = std::chrono::duration_cast<std::chrono::milliseconds>(
+                        end - start);
+  double elapsedTime = elapsed_seconds.count();
+  cout<<"Time Required: "<<elapsedTime<<endl;
   return 0;
 }

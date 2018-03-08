@@ -6,7 +6,7 @@ See "https://software.intel.com/en-us/intel-advisor-xe" for details.
     Report from: Interprocedural optimizations [ipo]
 
   WHOLE PROGRAM (SAFE) [EITHER METHOD]: false
-  WHOLE PROGRAM (SEEN) [TABLE METHOD]: true
+  WHOLE PROGRAM (SEEN) [TABLE METHOD]: false
   WHOLE PROGRAM (READ) [OBJECT READER METHOD]: false
 
 INLINING OPTION VALUES:
@@ -29,643 +29,585 @@ Begin optimization report for: main()
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (main()) [1/68=1.5%] TestVector.cpp(13,11)
-  -> EXTERN: (19,11) _vla_free(void *, long)
-  -> EXTERN: (19,11) _vla_alloc(long)
-  -> EXTERN: (22,11) _vla_free(void *, long)
-  -> EXTERN: (22,11) _vla_alloc(long)
-  -> EXTERN: (23,10) _vla_free(void *, long)
-  -> EXTERN: (23,10) _vla_alloc(long)
-  -> EXTERN: (24,10) _vla_free(void *, long)
-  -> EXTERN: (24,10) _vla_alloc(long)
-  -> EXTERN: (25,16) _vla_free(void *, long)
-  -> EXTERN: (25,16) _vla_alloc(long)
-  -> EXTERN: (26,11) _vla_free(void *, long)
-  -> EXTERN: (26,11) _vla_alloc(long)
-  -> EXTERN: (27,16) _vla_free(void *, long)
-  -> EXTERN: (27,16) _vla_alloc(long)
-  -> DELETED: (29,29) std::allocator<double>::~allocator(std::allocator<double> *) (isz = 0) (sz = 3)
-  -> (29,38) std::vector<double, std::allocator<double>>::~vector(std::vector<double, std::allocator<double>> *) (isz = 40) (sz = 45)
-     [[ Callee not marked with inlining pragma  <1>]]
-  -> DELETED: (29,38) std::allocator<double>::~allocator(std::allocator<double> *) (isz = 0) (sz = 3)
-  -> INLINE (MANUAL): (29,38) std::vector<double, std::allocator<double>>::vector(std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type, const std::vector<double, std::allocator<double>>::allocator_type &) (isz = 85) (sz = 94)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_vector.h:(270,20) std::_Vector_base<double, std::allocator<double>>::_Vector_base(std::_Vector_base<double, std::allocator<double>> *const, std::size_t, const std::_Vector_base<double, std::allocator<double>>::allocator_type &) (isz = 41) (sz = 50)
-      -> INLINE (MANUAL): (134,7) std::_Vector_base<double, std::allocator<double>>::_Vector_base(std::_Vector_base<double, std::allocator<double>> *, std::size_t, const std::_Vector_base<double, std::allocator<double>>::allocator_type &) (isz = 41) (sz = 50)
-        -> INLINE (MANUAL): (135,17) std::_Vector_base<double, std::allocator<double>>::_Vector_impl::_Vector_impl(std::_Vector_base<double, std::allocator<double>>::_Vector_impl *, const std::_Vector_base<double, std::allocator<double>>::_Tp_alloc_type &) (isz = 11) (sz = 18)
-          -> INLINE (MANUAL): (91,19) std::allocator<double>::allocator(std::allocator<double> *const, const std::allocator<double> &) (isz = 5) (sz = 12)
-            -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/allocator.h:(115,7) std::allocator<double>::allocator(std::allocator<double> *, const std::allocator<double> &) (isz = 5) (sz = 12)
-              -> DELETED: (116,31) __gnu_cxx::new_allocator<double>::new_allocator(__gnu_cxx::new_allocator<double> *const, const __gnu_cxx::new_allocator<double> &) (isz = 0) (sz = 7)
-              -> EXTERN: (116,36) __cxa_call_unexpected
-        -> INLINE (MANUAL): (136,9) std::_Vector_base<double, std::allocator<double>>::_M_create_storage(std::_Vector_base<double, std::allocator<double>> *, std::size_t) (isz = 26) (sz = 33)
-          -> INLINE (MANUAL): (181,33) std::_Vector_base<double, std::allocator<double>>::_M_allocate(std::_Vector_base<double, std::allocator<double>> *, std::size_t) (isz = 15) (sz = 24)
-            -> INLINE (MANUAL): (168,35) __gnu_cxx::new_allocator<double>::allocate(__gnu_cxx::new_allocator<double> *, __gnu_cxx::new_allocator<double>::size_type, const void *) (isz = 7) (sz = 18)
-              -> DELETED: /usr/include/c++/4.8.5/ext/new_allocator.h:(101,18) __gnu_cxx::new_allocator<double>::max_size(const __gnu_cxx::new_allocator<double> *) const (isz = 0) (sz = 5)
-              -> EXTERN: /usr/include/c++/4.8.5/ext/new_allocator.h:(102,4) std::__throw_bad_alloc()
-              -> EXTERN: /usr/include/c++/4.8.5/ext/new_allocator.h:(104,27) operator new(std::size_t)
-    -> /usr/include/c++/4.8.5/bits/stl_vector.h:(270,20) std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *const) (isz = 18) (sz = 23)
-       [[ Unable to inline callsite  <2>]]
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_vector.h:(271,9) std::vector<double, std::allocator<double>>::_M_default_initialize(std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type) (isz = 33) (sz = 40)
-      -> INLINE (MANUAL): (1224,2) std::__uninitialized_default_n_a<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, double>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, std::allocator<double> &) (isz = 23) (sz = 32)
-        -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_uninitialized.h:(605,7) std::__uninitialized_default_n<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type) (isz = 24) (sz = 31)
-          -> INLINE (MANUAL): (543,7) std::__uninitialized_default_n_1<true>::__uninit_default_n<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type) (isz = 24) (sz = 31)
-            -> INLINE (MANUAL): (515,4) std::fill_n<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, const std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type &) (isz = 20) (sz = 31)
-              -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_algobase.h:(786,18) std::__fill_n_a<std::_Iter_base<std::_Vector_base<double, std::allocator<double>>::pointer, false>::iterator_type, std::vector<double, std::allocator<double>>::size_type, std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type>(std::_Iter_base<std::_Vector_base<double, std::allocator<double>>::pointer, false>::iterator_type, std::vector<double, std::allocator<double>>::size_type, const std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type &) (isz = 15) (sz = 26)
-              -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_algobase.h:(786,34) std::__niter_base<std::_Vector_base<double, std::allocator<double>>::pointer>(std::_Vector_base<double, std::allocator<double>>::pointer) (isz = 1) (sz = 8)
-                -> INLINE (MANUAL): (278,14) std::_Iter_base<std::_Vector_base<double, std::allocator<double>>::pointer, false>::_S_base(std::_Vector_base<double, std::allocator<double>>::pointer) (isz = 0) (sz = 5)
-      -> INLINE (MANUAL): (1225,7) std::_Vector_base<double, std::allocator<double>>::_M_get_Tp_allocator(std::_Vector_base<double, std::allocator<double>> *) (isz = 1) (sz = 8)
-  -> INLINE (MANUAL): (29,38) std::allocator<double>::allocator(std::allocator<double> *) (isz = 5) (sz = 10)
-    -> DELETED: /usr/include/c++/4.8.5/bits/allocator.h:(113,7) __gnu_cxx::new_allocator<double>::new_allocator(__gnu_cxx::new_allocator<double> *const) (isz = 0) (sz = 5)
-    -> EXTERN: /usr/include/c++/4.8.5/bits/allocator.h:(113,27) __cxa_call_unexpected
-  -> DELETED: (30,23) std::allocator<int32_t>::~allocator(std::allocator<int32_t> *) (isz = 0) (sz = 3)
-  -> INLINE (MANUAL): (30,37) std::allocator<int32_t>::allocator(std::allocator<int32_t> *) (isz = 5) (sz = 10)
-    -> DELETED: /usr/include/c++/4.8.5/bits/allocator.h:(113,7) __gnu_cxx::new_allocator<int32_t>::new_allocator(__gnu_cxx::new_allocator<int32_t> *const) (isz = 0) (sz = 5)
-    -> EXTERN: /usr/include/c++/4.8.5/bits/allocator.h:(113,27) __cxa_call_unexpected
-  -> INLINE (MANUAL): (30,37) std::vector<int32_t, std::allocator<int32_t>>::vector(std::vector<int32_t, std::allocator<int32_t>> *, std::vector<int32_t, std::allocator<int32_t>>::size_type, const std::vector<int32_t, std::allocator<int32_t>>::allocator_type &) (isz = 85) (sz = 94)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_vector.h:(270,20) std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *const, std::size_t, const std::_Vector_base<int32_t, std::allocator<int32_t>>::allocator_type &) (isz = 41) (sz = 50)
-      -> INLINE (MANUAL): (134,7) std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::size_t, const std::_Vector_base<int32_t, std::allocator<int32_t>>::allocator_type &) (isz = 41) (sz = 50)
-        -> INLINE (MANUAL): (135,17) std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_impl::_Vector_impl(std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_impl *, const std::_Vector_base<int32_t, std::allocator<int32_t>>::_Tp_alloc_type &) (isz = 11) (sz = 18)
-          -> INLINE (MANUAL): (91,19) std::allocator<int32_t>::allocator(std::allocator<int32_t> *const, const std::allocator<int32_t> &) (isz = 5) (sz = 12)
-            -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/allocator.h:(115,7) std::allocator<int32_t>::allocator(std::allocator<int32_t> *, const std::allocator<int32_t> &) (isz = 5) (sz = 12)
-              -> DELETED: (116,31) __gnu_cxx::new_allocator<int32_t>::new_allocator(__gnu_cxx::new_allocator<int32_t> *const, const __gnu_cxx::new_allocator<int32_t> &) (isz = 0) (sz = 7)
-              -> EXTERN: (116,36) __cxa_call_unexpected
-        -> INLINE (MANUAL): (136,9) std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_create_storage(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::size_t) (isz = 26) (sz = 33)
-          -> INLINE (MANUAL): (181,33) std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_allocate(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::size_t) (isz = 15) (sz = 24)
-            -> INLINE (MANUAL): (168,35) __gnu_cxx::new_allocator<int32_t>::allocate(__gnu_cxx::new_allocator<int32_t> *, __gnu_cxx::new_allocator<int32_t>::size_type, const void *) (isz = 7) (sz = 18)
-              -> DELETED: /usr/include/c++/4.8.5/ext/new_allocator.h:(101,18) __gnu_cxx::new_allocator<int32_t>::max_size(const __gnu_cxx::new_allocator<int32_t> *) const (isz = 0) (sz = 5)
-              -> EXTERN: /usr/include/c++/4.8.5/ext/new_allocator.h:(102,4) std::__throw_bad_alloc()
-              -> EXTERN: /usr/include/c++/4.8.5/ext/new_allocator.h:(104,27) operator new(std::size_t)
-    -> /usr/include/c++/4.8.5/bits/stl_vector.h:(270,20) std::_Vector_base<int32_t, std::allocator<int32_t>>::~_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *const) (isz = 18) (sz = 23)
-       [[ Unable to inline callsite  <2>]]
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_vector.h:(271,9) std::vector<int32_t, std::allocator<int32_t>>::_M_default_initialize(std::vector<int32_t, std::allocator<int32_t>> *, std::vector<int32_t, std::allocator<int32_t>>::size_type) (isz = 33) (sz = 40)
-      -> INLINE (MANUAL): (1224,2) std::__uninitialized_default_n_a<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, int32_t>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, std::allocator<int32_t> &) (isz = 23) (sz = 32)
-        -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_uninitialized.h:(605,7) std::__uninitialized_default_n<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type) (isz = 24) (sz = 31)
-          -> INLINE (MANUAL): (543,7) std::__uninitialized_default_n_1<true>::__uninit_default_n<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type) (isz = 24) (sz = 31)
-            -> INLINE (MANUAL): (515,4) std::fill_n<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, const std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type &) (isz = 20) (sz = 31)
-              -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_algobase.h:(786,18) std::__fill_n_a<std::_Iter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, false>::iterator_type, std::vector<int32_t, std::allocator<int32_t>>::size_type, std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type>(std::_Iter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, false>::iterator_type, std::vector<int32_t, std::allocator<int32_t>>::size_type, const std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type &) (isz = 15) (sz = 26)
-              -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_algobase.h:(786,34) std::__niter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer) (isz = 1) (sz = 8)
-                -> INLINE (MANUAL): (278,14) std::_Iter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, false>::_S_base(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer) (isz = 0) (sz = 5)
-      -> INLINE (MANUAL): (1225,7) std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_get_Tp_allocator(std::_Vector_base<int32_t, std::allocator<int32_t>> *) (isz = 1) (sz = 8)
-  -> DELETED: (30,37) std::allocator<int32_t>::~allocator(std::allocator<int32_t> *) (isz = 0) (sz = 3)
-  -> EXTERN: (47,3) _vla_free(void *, long)
-  -> EXTERN: (47,3) _vla_free(void *, long)
-  -> EXTERN: (47,3) _vla_free(void *, long)
-  -> EXTERN: (47,3) _vla_free(void *, long)
-  -> EXTERN: (47,3) _vla_free(void *, long)
-  -> EXTERN: (47,3) _vla_free(void *, long)
-  -> EXTERN: (47,3) _vla_free(void *, long)
-  -> INLINE (MANUAL): (47,3) std::vector<double, std::allocator<double>>::~vector(std::vector<double, std::allocator<double>> *) (isz = 40) (sz = 45)
-    -> /usr/include/c++/4.8.5/bits/stl_vector.h:(415,7) std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *const) (isz = 18) (sz = 23)
-       [[ Unable to inline callsite  <2>]]
-    -> EXTERN: /usr/include/c++/4.8.5/bits/stl_vector.h:(415,7) __cxa_call_unexpected
-    -> DELETED: /usr/include/c++/4.8.5/bits/stl_vector.h:(415,9) std::_Destroy<std::_Vector_base<double, std::allocator<double>>::pointer, double>(std::_Vector_base<double, std::allocator<double>>::pointer, std::_Vector_base<double, std::allocator<double>>::pointer, std::allocator<double> &) (isz = 0) (sz = 8)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_vector.h:(416,9) std::_Vector_base<double, std::allocator<double>>::_M_get_Tp_allocator(std::_Vector_base<double, std::allocator<double>> *) (isz = 1) (sz = 8)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_vector.h:(416,33) std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *const) (isz = 18) (sz = 23)
-      -> INLINE (MANUAL): (159,7) std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *) (isz = 18) (sz = 23)
-        -> EXTERN: (160,7) __cxa_call_unexpected
-        -> INLINE (MANUAL): (160,9) std::_Vector_base<double, std::allocator<double>>::_M_deallocate(std::_Vector_base<double, std::allocator<double>> *, std::_Vector_base<double, std::allocator<double>>::pointer, std::size_t) (isz = 4) (sz = 13)
-          -> INLINE (MANUAL): (174,12) __gnu_cxx::new_allocator<double>::deallocate(__gnu_cxx::new_allocator<double> *, __gnu_cxx::new_allocator<double>::pointer, __gnu_cxx::new_allocator<double>::size_type) (isz = 0) (sz = 7)
-            -> EXTERN: /usr/include/c++/4.8.5/ext/new_allocator.h:(110,9) operator delete(void *)
-  -> INLINE (MANUAL): (47,3) std::vector<int32_t, std::allocator<int32_t>>::~vector(std::vector<int32_t, std::allocator<int32_t>> *) (isz = 40) (sz = 45)
-    -> /usr/include/c++/4.8.5/bits/stl_vector.h:(415,7) std::_Vector_base<int32_t, std::allocator<int32_t>>::~_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *const) (isz = 18) (sz = 23)
-       [[ Unable to inline callsite  <2>]]
-    -> EXTERN: /usr/include/c++/4.8.5/bits/stl_vector.h:(415,7) __cxa_call_unexpected
-    -> DELETED: /usr/include/c++/4.8.5/bits/stl_vector.h:(415,9) std::_Destroy<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, int32_t>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::allocator<int32_t> &) (isz = 0) (sz = 8)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_vector.h:(416,9) std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_get_Tp_allocator(std::_Vector_base<int32_t, std::allocator<int32_t>> *) (isz = 1) (sz = 8)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/bits/stl_vector.h:(416,33) std::_Vector_base<int32_t, std::allocator<int32_t>>::~_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *const) (isz = 18) (sz = 23)
-      -> INLINE (MANUAL): (159,7) std::_Vector_base<int32_t, std::allocator<int32_t>>::~_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *) (isz = 18) (sz = 23)
-        -> EXTERN: (160,7) __cxa_call_unexpected
-        -> INLINE (MANUAL): (160,9) std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_deallocate(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::size_t) (isz = 4) (sz = 13)
-          -> INLINE (MANUAL): (174,12) __gnu_cxx::new_allocator<int32_t>::deallocate(__gnu_cxx::new_allocator<int32_t> *, __gnu_cxx::new_allocator<int32_t>::pointer, __gnu_cxx::new_allocator<int32_t>::size_type) (isz = 0) (sz = 7)
-            -> EXTERN: /usr/include/c++/4.8.5/ext/new_allocator.h:(110,9) operator delete(void *)
+INLINE REPORT: (main()) [1/30=3.3%] TestVector.cpp(28,11)
+  -> INLINE (MANUAL): (29,54) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
+  -> INLINE (MANUAL): (29,61) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
+  -> EXTERN: (30,11) std::chrono::_V2::system_clock::now()
+  -> INLINE: (31,3) checkVector(int) (isz = 65) (sz = 72)
+    -> EXTERN: (17,12) _vla_alloc(long)
+    -> EXTERN: (17,18) _vla_alloc(long)
+    -> EXTERN: (26,12) _vla_free(void *, long)
+    -> EXTERN: (26,12) _vla_free(void *, long)
+  -> EXTERN: (32,9) std::chrono::_V2::system_clock::now()
+  -> INLINE (MANUAL): (34,31) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<int64_t, std::milli, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<int64_t, std::milli> &) (isz = 16) (sz = 23)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,34) std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1L, 1L>>, int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 10) (sz = 17)
+      -> INLINE (MANUAL): (202,22) std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1L, 1L>>, std::ratio_divide<std::milli, std::chrono::duration<double, std::ratio<1L, 1L>>::period>, std::__success_type<double>::type, true, false>::__cast<int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 9) (sz = 16)
+        -> INLINE (MANUAL): (161,20) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<std::chrono::duration<double, std::ratio<1L, 1L>>::rep, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<double, std::ratio<1L, 1L>>::rep &) (isz = 0) (sz = 7)
+        -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::milli>::count(const std::chrono::duration<int64_t, std::milli> *) const (isz = 0) (sz = 6)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,39) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (34,31) std::chrono::duration_cast<std::chrono::milliseconds, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 9) (sz = 16)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(202,22) std::chrono::__duration_cast_impl<std::chrono::milliseconds, std::ratio_divide<std::nano, std::chrono::duration<int64_t, std::milli>::period>, std::__success_type<long>::type, true, false>::__cast<int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 8) (sz = 15)
+      -> INLINE (MANUAL): (161,20) std::chrono::duration<int64_t, std::milli>::duration<std::chrono::duration<int64_t, std::milli>::rep, void>(std::chrono::duration<int64_t, std::milli> *, const std::chrono::duration<int64_t, std::milli>::rep &) (isz = 0) (sz = 7)
+      -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (34,31) std::chrono::operator-<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration, std::chrono::_V2::system_clock::duration>(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &, const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &) (isz = 32) (sz = 41)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,16) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::operator-<int64_t, std::nano, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &, const std::chrono::duration<int64_t, std::nano> &) (isz = 19) (sz = 28)
+      -> INLINE (MANUAL): (398,14) std::chrono::duration<int64_t, std::nano>::duration<std::chrono::duration<int64_t, std::nano>::rep, void>(std::chrono::duration<int64_t, std::nano> *, const std::chrono::duration<int64_t, std::nano>::rep &) (isz = 0) (sz = 7)
+      -> INLINE (MANUAL): (398,26) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+      -> INLINE (MANUAL): (398,48) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (35,40) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
+  -> (36,7) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
+     [[ Called routine is noinline  <1>]]
+  -> (36,26) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double) (isz = 1) (sz = 10)
+     [[ Called routine is noinline  <1>]]
+  -> (36,39) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &)) (isz = 0) (sz = 9)
+     [[ Called routine is noinline  <1>]]
 
 
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
 
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into TestVector.cpp(29,38)
-   remark #25408: memset generated
-   remark #15398: loop was not vectorized: loop was transformed to memset or memcpy
+LOOP BEGIN at TestVector.cpp(18,5) inlined into TestVector.cpp(31,3)
+   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(19,9) ]
+   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(20,9) ]
+   remark #15412: vectorization support: streaming store was generated for A.13749   [ TestVector.cpp(19,9) ]
+   remark #15412: vectorization support: streaming store was generated for B.13749   [ TestVector.cpp(20,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15449: unmasked aligned unit stride stores: 2 
+   remark #15467: unmasked aligned streaming stores: 2 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 0.750 
+   remark #15478: estimated potential speedup: 8.000 
+   remark #15488: --- end vector loop cost summary ---
+   remark #25015: Estimate of max trip count of loop=625000
 LOOP END
 
-LOOP BEGIN at /usr/include/c++/4.8.5/bits/stl_algobase.h(749,7) inlined into TestVector.cpp(30,37)
-   remark #25408: memset generated
-   remark #15398: loop was not vectorized: loop was transformed to memset or memcpy
+LOOP BEGIN at TestVector.cpp(23,5) inlined into TestVector.cpp(31,3)
+   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 2 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 0.620 
+   remark #15478: estimated potential speedup: 9.600 
+   remark #15488: --- end vector loop cost summary ---
+   remark #25015: Estimate of max trip count of loop=625000
+LOOP END
+===========================================================================
+
+Begin optimization report for: main() [future_cpu_22]
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (main()) [1/30=3.3%] TestVector.cpp(28,11)
+  -> INLINE (MANUAL): (29,54) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
+  -> INLINE (MANUAL): (29,61) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
+  -> EXTERN: (30,11) std::chrono::_V2::system_clock::now()
+  -> INLINE: (31,3) checkVector(int) (isz = 65) (sz = 72)
+    -> EXTERN: (17,12) _vla_alloc(long)
+    -> EXTERN: (17,18) _vla_alloc(long)
+    -> EXTERN: (26,12) _vla_free(void *, long)
+    -> EXTERN: (26,12) _vla_free(void *, long)
+  -> EXTERN: (32,9) std::chrono::_V2::system_clock::now()
+  -> INLINE (MANUAL): (34,31) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<int64_t, std::milli, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<int64_t, std::milli> &) (isz = 16) (sz = 23)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,34) std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1L, 1L>>, int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 10) (sz = 17)
+      -> INLINE (MANUAL): (202,22) std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1L, 1L>>, std::ratio_divide<std::milli, std::chrono::duration<double, std::ratio<1L, 1L>>::period>, std::__success_type<double>::type, true, false>::__cast<int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 9) (sz = 16)
+        -> INLINE (MANUAL): (161,20) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<std::chrono::duration<double, std::ratio<1L, 1L>>::rep, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<double, std::ratio<1L, 1L>>::rep &) (isz = 0) (sz = 7)
+        -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::milli>::count(const std::chrono::duration<int64_t, std::milli> *) const (isz = 0) (sz = 6)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,39) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (34,31) std::chrono::duration_cast<std::chrono::milliseconds, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 9) (sz = 16)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(202,22) std::chrono::__duration_cast_impl<std::chrono::milliseconds, std::ratio_divide<std::nano, std::chrono::duration<int64_t, std::milli>::period>, std::__success_type<long>::type, true, false>::__cast<int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 8) (sz = 15)
+      -> INLINE (MANUAL): (161,20) std::chrono::duration<int64_t, std::milli>::duration<std::chrono::duration<int64_t, std::milli>::rep, void>(std::chrono::duration<int64_t, std::milli> *, const std::chrono::duration<int64_t, std::milli>::rep &) (isz = 0) (sz = 7)
+      -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (34,31) std::chrono::operator-<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration, std::chrono::_V2::system_clock::duration>(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &, const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &) (isz = 32) (sz = 41)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,16) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::operator-<int64_t, std::nano, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &, const std::chrono::duration<int64_t, std::nano> &) (isz = 19) (sz = 28)
+      -> INLINE (MANUAL): (398,14) std::chrono::duration<int64_t, std::nano>::duration<std::chrono::duration<int64_t, std::nano>::rep, void>(std::chrono::duration<int64_t, std::nano> *, const std::chrono::duration<int64_t, std::nano>::rep &) (isz = 0) (sz = 7)
+      -> INLINE (MANUAL): (398,26) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+      -> INLINE (MANUAL): (398,48) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (35,40) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
+  -> (36,7) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
+     [[ Called routine is noinline  <1>]]
+  -> (36,26) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double) (isz = 1) (sz = 10)
+     [[ Called routine is noinline  <1>]]
+  -> (36,39) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &)) (isz = 0) (sz = 9)
+     [[ Called routine is noinline  <1>]]
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at TestVector.cpp(18,5) inlined into TestVector.cpp(31,3)
+   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(19,9) ]
+   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(20,9) ]
+   remark #15412: vectorization support: streaming store was generated for A.13749   [ TestVector.cpp(19,9) ]
+   remark #15412: vectorization support: streaming store was generated for B.13749   [ TestVector.cpp(20,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15449: unmasked aligned unit stride stores: 2 
+   remark #15467: unmasked aligned streaming stores: 2 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 0.750 
+   remark #15478: estimated potential speedup: 8.000 
+   remark #15488: --- end vector loop cost summary ---
+   remark #25015: Estimate of max trip count of loop=625000
 LOOP END
 
-LOOP BEGIN at TestVector.cpp(34,5)
-   remark #15542: loop was not vectorized: inner loop was already vectorized
-
-   LOOP BEGIN at TestVector.cpp(36,9)
-      remark #15388: vectorization support: reference temp_outEdges has aligned access   [ TestVector.cpp(38,23) ]
-      remark #15388: vectorization support: reference temp_outEdgeWeight has aligned access   [ TestVector.cpp(43,13) ]
-      remark #15305: vectorization support: vector length 4
-      remark #15309: vectorization support: normalized vectorization overhead 0.031
-      remark #15301: OpenMP SIMD LOOP WAS VECTORIZED
-      remark #15448: unmasked aligned unit stride loads: 2 
-      remark #15458: masked indexed (or gather) loads: 2 
-      remark #15459: masked indexed (or scatter) stores: 3 
-      remark #15475: --- begin vector loop cost summary ---
-      remark #15476: scalar loop cost: 21 
-      remark #15477: vector loop cost: 40.750 
-      remark #15478: estimated potential speedup: 0.510 
-      remark #15488: --- end vector loop cost summary ---
-   LOOP END
-
-   LOOP BEGIN at TestVector.cpp(36,9)
-   <Remainder loop for vectorization>
-   LOOP END
+LOOP BEGIN at TestVector.cpp(23,5) inlined into TestVector.cpp(31,3)
+   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 2 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 0.620 
+   remark #15478: estimated potential speedup: 9.600 
+   remark #15488: --- end vector loop cost summary ---
+   remark #25015: Estimate of max trip count of loop=625000
 LOOP END
 
     Report from: Code generation optimizations [cg]
 
-/usr/include/c++/4.8.5/bits/stl_algobase.h(751,3):remark #34014: optimization advice for memset: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
-/usr/include/c++/4.8.5/bits/stl_algobase.h(751,3):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (1, 0)
-/usr/include/c++/4.8.5/bits/stl_algobase.h(751,3):remark #34014: optimization advice for memset: increase the destination's alignment to 16 (and use __assume_aligned) to increase the width of stores
-/usr/include/c++/4.8.5/bits/stl_algobase.h(751,3):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (1, 0)
+/usr/include/c++/4.8.5/chrono(552,31):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (64, 0)
+/usr/include/c++/4.8.5/chrono(552,31):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (64, 0)
 ===========================================================================
 
-Begin optimization report for: std::allocator<double>::~allocator(std::allocator<double> *)
+Begin optimization report for: main() [generic]
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (std::allocator<double>::~allocator(std::allocator<double> *)) /usr/include/c++/4.8.5/bits/allocator.h(121,28)
+INLINE REPORT: (main()) [1/30=3.3%] TestVector.cpp(28,11)
+  -> INLINE (MANUAL): (29,54) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
+  -> INLINE (MANUAL): (29,61) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
+  -> EXTERN: (30,11) std::chrono::_V2::system_clock::now()
+  -> INLINE: (31,3) checkVector(int) (isz = 65) (sz = 72)
+    -> EXTERN: (17,12) _vla_alloc(long)
+    -> EXTERN: (17,18) _vla_alloc(long)
+    -> EXTERN: (26,12) _vla_free(void *, long)
+    -> EXTERN: (26,12) _vla_free(void *, long)
+  -> EXTERN: (32,9) std::chrono::_V2::system_clock::now()
+  -> INLINE (MANUAL): (34,31) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<int64_t, std::milli, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<int64_t, std::milli> &) (isz = 16) (sz = 23)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,34) std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1L, 1L>>, int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 10) (sz = 17)
+      -> INLINE (MANUAL): (202,22) std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1L, 1L>>, std::ratio_divide<std::milli, std::chrono::duration<double, std::ratio<1L, 1L>>::period>, std::__success_type<double>::type, true, false>::__cast<int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 9) (sz = 16)
+        -> INLINE (MANUAL): (161,20) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<std::chrono::duration<double, std::ratio<1L, 1L>>::rep, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<double, std::ratio<1L, 1L>>::rep &) (isz = 0) (sz = 7)
+        -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::milli>::count(const std::chrono::duration<int64_t, std::milli> *) const (isz = 0) (sz = 6)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,39) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (34,31) std::chrono::duration_cast<std::chrono::milliseconds, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 9) (sz = 16)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(202,22) std::chrono::__duration_cast_impl<std::chrono::milliseconds, std::ratio_divide<std::nano, std::chrono::duration<int64_t, std::milli>::period>, std::__success_type<long>::type, true, false>::__cast<int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 8) (sz = 15)
+      -> INLINE (MANUAL): (161,20) std::chrono::duration<int64_t, std::milli>::duration<std::chrono::duration<int64_t, std::milli>::rep, void>(std::chrono::duration<int64_t, std::milli> *, const std::chrono::duration<int64_t, std::milli>::rep &) (isz = 0) (sz = 7)
+      -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (34,31) std::chrono::operator-<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration, std::chrono::_V2::system_clock::duration>(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &, const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &) (isz = 32) (sz = 41)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,16) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::operator-<int64_t, std::nano, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &, const std::chrono::duration<int64_t, std::nano> &) (isz = 19) (sz = 28)
+      -> INLINE (MANUAL): (398,14) std::chrono::duration<int64_t, std::nano>::duration<std::chrono::duration<int64_t, std::nano>::rep, void>(std::chrono::duration<int64_t, std::nano> *, const std::chrono::duration<int64_t, std::nano>::rep &) (isz = 0) (sz = 7)
+      -> INLINE (MANUAL): (398,26) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+      -> INLINE (MANUAL): (398,48) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (35,40) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
+  -> (36,7) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
+     [[ Called routine is noinline  <1>]]
+  -> (36,26) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double) (isz = 1) (sz = 10)
+     [[ Called routine is noinline  <1>]]
+  -> (36,39) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &)) (isz = 0) (sz = 9)
+     [[ Called routine is noinline  <1>]]
 
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at TestVector.cpp(18,5) inlined into TestVector.cpp(31,3)
+   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(19,9) ]
+   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(20,9) ]
+   remark #15412: vectorization support: streaming store was generated for A.13749   [ TestVector.cpp(19,9) ]
+   remark #15412: vectorization support: streaming store was generated for B.13749   [ TestVector.cpp(20,9) ]
+   remark #15305: vectorization support: vector length 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15449: unmasked aligned unit stride stores: 2 
+   remark #15467: unmasked aligned streaming stores: 2 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 7 
+   remark #15477: vector loop cost: 3.000 
+   remark #15478: estimated potential speedup: 2.330 
+   remark #15488: --- end vector loop cost summary ---
+   remark #25015: Estimate of max trip count of loop=2500000
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(23,5) inlined into TestVector.cpp(31,3)
+   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15305: vectorization support: vector length 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 2 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 2.500 
+   remark #15478: estimated potential speedup: 2.400 
+   remark #15488: --- end vector loop cost summary ---
+   remark #25015: Estimate of max trip count of loop=2500000
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+/usr/include/c++/4.8.5/chrono(552,31):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (16, 0)
+/usr/include/c++/4.8.5/chrono(552,31):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (16, 0)
 ===========================================================================
 
-Begin optimization report for: __gnu_cxx::new_allocator<double>::new_allocator(__gnu_cxx::new_allocator<double> *const)
+Begin optimization report for: std::char_traits<char>::length(const std::char_traits<char>::char_type *)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<double>::new_allocator(__gnu_cxx::new_allocator<double> *const)) /usr/include/c++/4.8.5/ext/new_allocator.h(79,7)
+INLINE REPORT: (std::char_traits<char>::length(const std::char_traits<char>::char_type *)) [4/30=13.3%] /usr/include/c++/4.8.5/bits/char_traits.h(259,7)
+  -> EXTERN: (259,16) __builtin_strlen(const char *)
 
 ===========================================================================
 
-Begin optimization report for: __gnu_cxx::new_allocator<double>::new_allocator(__gnu_cxx::new_allocator<double> *)
+Begin optimization report for: checkVector(int)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<double>::new_allocator(__gnu_cxx::new_allocator<double> *)) /usr/include/c++/4.8.5/ext/new_allocator.h(79,45)
+INLINE REPORT: (checkVector(int)) [7/30=23.3%] TestVector.cpp(16,26)
+  -> EXTERN: (17,12) _vla_alloc(long)
+  -> EXTERN: (17,18) _vla_alloc(long)
+  -> EXTERN: (26,12) _vla_free(void *, long)
+  -> EXTERN: (26,12) _vla_free(void *, long)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at TestVector.cpp(18,5)
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15449: unmasked aligned unit stride stores: 2 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 0.750 
+   remark #15478: estimated potential speedup: 7.500 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(18,5)
+<Remainder loop for vectorization>
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15309: vectorization support: normalized vectorization overhead 0.800
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(23,5)
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 2 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 0.620 
+   remark #15478: estimated potential speedup: 9.000 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(23,5)
+<Remainder loop for vectorization>
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15309: vectorization support: normalized vectorization overhead 0.750
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+===========================================================================
+
+Begin optimization report for: checkVector(int) [future_cpu_22]
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (checkVector(int)) [7/30=23.3%] TestVector.cpp(16,26)
+  -> EXTERN: (17,12) _vla_alloc(long)
+  -> EXTERN: (17,18) _vla_alloc(long)
+  -> EXTERN: (26,12) _vla_free(void *, long)
+  -> EXTERN: (26,12) _vla_free(void *, long)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at TestVector.cpp(18,5)
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15449: unmasked aligned unit stride stores: 2 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 0.750 
+   remark #15478: estimated potential speedup: 7.500 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(18,5)
+<Remainder loop for vectorization>
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15309: vectorization support: normalized vectorization overhead 0.800
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(23,5)
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15399: vectorization support: unroll factor set to 2
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 2 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 0.620 
+   remark #15478: estimated potential speedup: 9.000 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(23,5)
+<Remainder loop for vectorization>
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15309: vectorization support: normalized vectorization overhead 0.750
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+===========================================================================
+
+Begin optimization report for: checkVector(int) [generic]
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (checkVector(int)) [7/30=23.3%] TestVector.cpp(16,26)
+  -> EXTERN: (17,12) _vla_alloc(long)
+  -> EXTERN: (17,18) _vla_alloc(long)
+  -> EXTERN: (26,12) _vla_free(void *, long)
+  -> EXTERN: (26,12) _vla_free(void *, long)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at TestVector.cpp(18,5)
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
+   remark #15305: vectorization support: vector length 2
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15449: unmasked aligned unit stride stores: 2 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 7 
+   remark #15477: vector loop cost: 3.000 
+   remark #15478: estimated potential speedup: 2.290 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(18,5)
+<Remainder loop for vectorization>
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
+   remark #15335: remainder loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 1.000
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(23,5)
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15305: vectorization support: vector length 2
+   remark #15399: vectorization support: unroll factor set to 4
+   remark #15300: LOOP WAS VECTORIZED
+   remark #15448: unmasked aligned unit stride loads: 2 
+   remark #15449: unmasked aligned unit stride stores: 1 
+   remark #15475: --- begin vector loop cost summary ---
+   remark #15476: scalar loop cost: 6 
+   remark #15477: vector loop cost: 2.500 
+   remark #15478: estimated potential speedup: 2.350 
+   remark #15488: --- end vector loop cost summary ---
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(23,5)
+<Remainder loop for vectorization>
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15335: remainder loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+   remark #15305: vectorization support: vector length 2
+   remark #15309: vectorization support: normalized vectorization overhead 0.909
+LOOP END
+===========================================================================
+
+Begin optimization report for: std::ctype<char>::widen(const std::ctype<char> *, char) const
+
+    Report from: Interprocedural optimizations [ipo]
+
+DEAD STATIC FUNCTION: (std::ctype<char>::widen(const std::ctype<char> *, char) const) /usr/include/c++/4.8.5/bits/locale_facets.h(866,7)
 
 ===========================================================================
 
-Begin optimization report for: __gnu_cxx::new_allocator<double>::new_allocator(__gnu_cxx::new_allocator<double> *const, const __gnu_cxx::new_allocator<double> &)
+Begin optimization report for: std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<double>::new_allocator(__gnu_cxx::new_allocator<double> *const, const __gnu_cxx::new_allocator<double> &)) /usr/include/c++/4.8.5/ext/new_allocator.h(81,7)
+DEAD STATIC FUNCTION: (std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const) /usr/include/c++/4.8.5/chrono(278,2)
 
 ===========================================================================
 
-Begin optimization report for: __gnu_cxx::new_allocator<double>::new_allocator(__gnu_cxx::new_allocator<double> *, const __gnu_cxx::new_allocator<double> &)
+Begin optimization report for: std::chrono::duration<int64_t, std::nano>::duration<std::chrono::duration<int64_t, std::nano>::rep, void>(std::chrono::duration<int64_t, std::nano> *, const std::chrono::duration<int64_t, std::nano>::rep &)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<double>::new_allocator(__gnu_cxx::new_allocator<double> *, const __gnu_cxx::new_allocator<double> &)) /usr/include/c++/4.8.5/ext/new_allocator.h(81,65)
+DEAD STATIC FUNCTION: (std::chrono::duration<int64_t, std::nano>::duration<std::chrono::duration<int64_t, std::nano>::rep, void>(std::chrono::duration<int64_t, std::nano> *, const std::chrono::duration<int64_t, std::nano>::rep &)) /usr/include/c++/4.8.5/chrono(263,35)
 
 ===========================================================================
 
-Begin optimization report for: __gnu_cxx::new_allocator<double>::max_size(const __gnu_cxx::new_allocator<double> *) const
+Begin optimization report for: std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<double>::max_size(const __gnu_cxx::new_allocator<double> *) const) /usr/include/c++/4.8.5/ext/new_allocator.h(114,7)
+DEAD STATIC FUNCTION: (std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *)) /usr/include/c++/4.8.5/chrono(553,2)
 
 ===========================================================================
 
-Begin optimization report for: std::vector<double, std::allocator<double>>::~vector(std::vector<double, std::allocator<double>> *)
+Begin optimization report for: std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (std::vector<double, std::allocator<double>>::~vector(std::vector<double, std::allocator<double>> *)) [8/68=11.8%] /usr/include/c++/4.8.5/bits/stl_vector.h(415,7)
-  -> EXTERN: (415,7) __cxa_call_unexpected
-  -> (415,7) std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *const) (isz = 18) (sz = 23)
-     [[ Unable to inline callsite  <2>]]
-  -> DELETED: (415,9) std::_Destroy<std::_Vector_base<double, std::allocator<double>>::pointer, double>(std::_Vector_base<double, std::allocator<double>>::pointer, std::_Vector_base<double, std::allocator<double>>::pointer, std::allocator<double> &) (isz = 0) (sz = 8)
-  -> INLINE (MANUAL): (416,9) std::_Vector_base<double, std::allocator<double>>::_M_get_Tp_allocator(std::_Vector_base<double, std::allocator<double>> *) (isz = 1) (sz = 8)
-  -> INLINE (MANUAL): (416,33) std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *const) (isz = 18) (sz = 23)
-    -> INLINE (MANUAL): (159,7) std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *) (isz = 18) (sz = 23)
-      -> EXTERN: (160,7) __cxa_call_unexpected
-      -> INLINE (MANUAL): (160,9) std::_Vector_base<double, std::allocator<double>>::_M_deallocate(std::_Vector_base<double, std::allocator<double>> *, std::_Vector_base<double, std::allocator<double>>::pointer, std::size_t) (isz = 4) (sz = 13)
-        -> INLINE (MANUAL): (174,12) __gnu_cxx::new_allocator<double>::deallocate(__gnu_cxx::new_allocator<double> *, __gnu_cxx::new_allocator<double>::pointer, __gnu_cxx::new_allocator<double>::size_type) (isz = 0) (sz = 7)
-          -> EXTERN: /usr/include/c++/4.8.5/ext/new_allocator.h:(110,9) operator delete(void *)
+DEAD STATIC FUNCTION: (std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const) /usr/include/c++/4.8.5/chrono(568,2)
 
 ===========================================================================
 
-Begin optimization report for: std::_Destroy<std::_Vector_base<double, std::allocator<double>>::pointer, double>(std::_Vector_base<double, std::allocator<double>>::pointer, std::_Vector_base<double, std::allocator<double>>::pointer, std::allocator<double> &)
+Begin optimization report for: std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (std::_Destroy<std::_Vector_base<double, std::allocator<double>>::pointer, double>(std::_Vector_base<double, std::allocator<double>>::pointer, std::_Vector_base<double, std::allocator<double>>::pointer, std::allocator<double> &)) /usr/include/c++/4.8.5/bits/stl_construct.h(150,5)
+DEAD STATIC FUNCTION: (std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const) /usr/include/c++/4.8.5/chrono(278,2)
 
 ===========================================================================
 
-Begin optimization report for: std::_Destroy<std::_Vector_base<double, std::allocator<double>>::pointer>(std::_Vector_base<double, std::allocator<double>>::pointer, std::_Vector_base<double, std::allocator<double>>::pointer)
+Begin optimization report for: std::chrono::duration<double, std::ratio<1L, 1L>>::duration<int64_t, std::milli, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<int64_t, std::milli> &)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (std::_Destroy<std::_Vector_base<double, std::allocator<double>>::pointer>(std::_Vector_base<double, std::allocator<double>>::pointer, std::_Vector_base<double, std::allocator<double>>::pointer)) /usr/include/c++/4.8.5/bits/stl_construct.h(123,5)
+DEAD STATIC FUNCTION: (std::chrono::duration<double, std::ratio<1L, 1L>>::duration<int64_t, std::milli, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<int64_t, std::milli> &)) /usr/include/c++/4.8.5/chrono(270,48)
 
 ===========================================================================
 
-Begin optimization report for: std::_Destroy_aux<true>::__destroy<std::_Vector_base<double, std::allocator<double>>::pointer>(std::_Vector_base<double, std::allocator<double>>::pointer, std::_Vector_base<double, std::allocator<double>>::pointer)
+Begin optimization report for: std::chrono::duration<double, std::ratio<1L, 1L>>::duration<std::chrono::duration<double, std::ratio<1L, 1L>>::rep, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<double, std::ratio<1L, 1L>>::rep &)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (std::_Destroy_aux<true>::__destroy<std::_Vector_base<double, std::allocator<double>>::pointer>(std::_Vector_base<double, std::allocator<double>>::pointer, std::_Vector_base<double, std::allocator<double>>::pointer)) /usr/include/c++/4.8.5/bits/stl_construct.h(112,55)
+DEAD STATIC FUNCTION: (std::chrono::duration<double, std::ratio<1L, 1L>>::duration<std::chrono::duration<double, std::ratio<1L, 1L>>::rep, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<double, std::ratio<1L, 1L>>::rep &)) /usr/include/c++/4.8.5/chrono(263,35)
 
 ===========================================================================
 
-Begin optimization report for: __gnu_cxx::new_allocator<int32_t>::new_allocator(__gnu_cxx::new_allocator<int32_t> *const, const __gnu_cxx::new_allocator<int32_t> &)
+Begin optimization report for: std::chrono::duration<int64_t, std::milli>::count(const std::chrono::duration<int64_t, std::milli> *) const
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<int32_t>::new_allocator(__gnu_cxx::new_allocator<int32_t> *const, const __gnu_cxx::new_allocator<int32_t> &)) /usr/include/c++/4.8.5/ext/new_allocator.h(81,7)
+DEAD STATIC FUNCTION: (std::chrono::duration<int64_t, std::milli>::count(const std::chrono::duration<int64_t, std::milli> *) const) /usr/include/c++/4.8.5/chrono(278,2)
 
 ===========================================================================
 
-Begin optimization report for: __gnu_cxx::new_allocator<int32_t>::new_allocator(__gnu_cxx::new_allocator<int32_t> *, const __gnu_cxx::new_allocator<int32_t> &)
+Begin optimization report for: std::chrono::duration<int64_t, std::milli>::duration<std::chrono::duration<int64_t, std::milli>::rep, void>(std::chrono::duration<int64_t, std::milli> *, const std::chrono::duration<int64_t, std::milli>::rep &)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<int32_t>::new_allocator(__gnu_cxx::new_allocator<int32_t> *, const __gnu_cxx::new_allocator<int32_t> &)) /usr/include/c++/4.8.5/ext/new_allocator.h(81,65)
+DEAD STATIC FUNCTION: (std::chrono::duration<int64_t, std::milli>::duration<std::chrono::duration<int64_t, std::milli>::rep, void>(std::chrono::duration<int64_t, std::milli> *, const std::chrono::duration<int64_t, std::milli>::rep &)) /usr/include/c++/4.8.5/chrono(263,35)
 
 ===========================================================================
 
-Begin optimization report for: __gnu_cxx::new_allocator<int32_t>::max_size(const __gnu_cxx::new_allocator<int32_t> *) const
+Begin optimization report for: std::chrono::__duration_cast_impl<std::chrono::milliseconds, std::ratio_divide<std::nano, std::chrono::duration<int64_t, std::milli>::period>, std::__success_type<long>::type, true, false>::__cast<int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<int32_t>::max_size(const __gnu_cxx::new_allocator<int32_t> *) const) /usr/include/c++/4.8.5/ext/new_allocator.h(114,7)
+DEAD STATIC FUNCTION: (std::chrono::__duration_cast_impl<std::chrono::milliseconds, std::ratio_divide<std::nano, std::chrono::duration<int64_t, std::milli>::period>, std::__success_type<long>::type, true, false>::__cast<int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &)) /usr/include/c++/4.8.5/chrono(159,4)
 
 ===========================================================================
 
-Begin optimization report for: std::allocator<int32_t>::~allocator(std::allocator<int32_t> *)
+Begin optimization report for: std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1L, 1L>>, std::ratio_divide<std::milli, std::chrono::duration<double, std::ratio<1L, 1L>>::period>, std::__success_type<double>::type, true, false>::__cast<int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (std::allocator<int32_t>::~allocator(std::allocator<int32_t> *)) /usr/include/c++/4.8.5/bits/allocator.h(121,28)
+DEAD STATIC FUNCTION: (std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1L, 1L>>, std::ratio_divide<std::milli, std::chrono::duration<double, std::ratio<1L, 1L>>::period>, std::__success_type<double>::type, true, false>::__cast<int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &)) /usr/include/c++/4.8.5/chrono(159,4)
 
 ===========================================================================
 
-Begin optimization report for: __gnu_cxx::new_allocator<int32_t>::new_allocator(__gnu_cxx::new_allocator<int32_t> *const)
+Begin optimization report for: std::chrono::operator-<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration, std::chrono::_V2::system_clock::duration>(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &, const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<int32_t>::new_allocator(__gnu_cxx::new_allocator<int32_t> *const)) /usr/include/c++/4.8.5/ext/new_allocator.h(79,7)
+DEAD STATIC FUNCTION: (std::chrono::operator-<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration, std::chrono::_V2::system_clock::duration>(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &, const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &)) /usr/include/c++/4.8.5/chrono(651,7)
 
 ===========================================================================
 
-Begin optimization report for: __gnu_cxx::new_allocator<int32_t>::new_allocator(__gnu_cxx::new_allocator<int32_t> *)
+Begin optimization report for: std::chrono::operator-<int64_t, std::nano, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &, const std::chrono::duration<int64_t, std::nano> &)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<int32_t>::new_allocator(__gnu_cxx::new_allocator<int32_t> *)) /usr/include/c++/4.8.5/ext/new_allocator.h(79,45)
+DEAD STATIC FUNCTION: (std::chrono::operator-<int64_t, std::nano, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &, const std::chrono::duration<int64_t, std::nano> &)) /usr/include/c++/4.8.5/chrono(394,7)
 
 ===========================================================================
 
-Begin optimization report for: std::_Vector_base<int32_t, std::allocator<int32_t>>::~_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *const)
+Begin optimization report for: std::chrono::duration_cast<std::chrono::milliseconds, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (std::_Vector_base<int32_t, std::allocator<int32_t>>::~_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *const)) [18/68=26.5%] /usr/include/c++/4.8.5/bits/stl_vector.h(159,7)
-  -> INLINE (MANUAL): (159,7) std::_Vector_base<int32_t, std::allocator<int32_t>>::~_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *) (isz = 18) (sz = 23)
-    -> EXTERN: (160,7) __cxa_call_unexpected
-    -> INLINE (MANUAL): (160,9) std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_deallocate(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::size_t) (isz = 4) (sz = 13)
-      -> INLINE (MANUAL): (174,12) __gnu_cxx::new_allocator<int32_t>::deallocate(__gnu_cxx::new_allocator<int32_t> *, __gnu_cxx::new_allocator<int32_t>::pointer, __gnu_cxx::new_allocator<int32_t>::size_type) (isz = 0) (sz = 7)
-        -> EXTERN: /usr/include/c++/4.8.5/ext/new_allocator.h:(110,9) operator delete(void *)
+DEAD STATIC FUNCTION: (std::chrono::duration_cast<std::chrono::milliseconds, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &)) /usr/include/c++/4.8.5/chrono(194,7)
 
 ===========================================================================
 
-Begin optimization report for: std::_Destroy<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, int32_t>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::allocator<int32_t> &)
+Begin optimization report for: std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1L, 1L>>, int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (std::_Destroy<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, int32_t>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::allocator<int32_t> &)) /usr/include/c++/4.8.5/bits/stl_construct.h(150,5)
+DEAD STATIC FUNCTION: (std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1L, 1L>>, int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &)) /usr/include/c++/4.8.5/chrono(194,7)
 
 ===========================================================================
 
-Begin optimization report for: std::_Destroy<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer)
+Begin optimization report for: std::operator|(std::_Ios_Iostate, std::_Ios_Iostate)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (std::_Destroy<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer)) /usr/include/c++/4.8.5/bits/stl_construct.h(123,5)
+DEAD STATIC FUNCTION: (std::operator|(std::_Ios_Iostate, std::_Ios_Iostate)) /usr/include/c++/4.8.5/bits/ios_base.h(158,3)
 
 ===========================================================================
 
-Begin optimization report for: std::_Destroy_aux<true>::__destroy<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer)
+Begin optimization report for: std::__check_facet<std::basic_ios<char, std::char_traits<char>>::__ctype_type>(const std::basic_ios<char, std::char_traits<char>>::__ctype_type *)
 
     Report from: Interprocedural optimizations [ipo]
 
-DEAD STATIC FUNCTION: (std::_Destroy_aux<true>::__destroy<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer)) /usr/include/c++/4.8.5/bits/stl_construct.h(112,55)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *const)
-
-    Report from: Interprocedural optimizations [ipo]
-
-INLINE REPORT: (std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *const)) [22/68=32.4%] /usr/include/c++/4.8.5/bits/stl_vector.h(159,7)
-  -> INLINE (MANUAL): (159,7) std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *) (isz = 18) (sz = 23)
-    -> EXTERN: (160,7) __cxa_call_unexpected
-    -> INLINE (MANUAL): (160,9) std::_Vector_base<double, std::allocator<double>>::_M_deallocate(std::_Vector_base<double, std::allocator<double>> *, std::_Vector_base<double, std::allocator<double>>::pointer, std::size_t) (isz = 4) (sz = 13)
-      -> INLINE (MANUAL): (174,12) __gnu_cxx::new_allocator<double>::deallocate(__gnu_cxx::new_allocator<double> *, __gnu_cxx::new_allocator<double>::pointer, __gnu_cxx::new_allocator<double>::size_type) (isz = 0) (sz = 7)
-        -> EXTERN: /usr/include/c++/4.8.5/ext/new_allocator.h:(110,9) operator delete(void *)
-
-===========================================================================
-
-Begin optimization report for: std::allocator<double>::allocator(std::allocator<double> *)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::allocator<double>::allocator(std::allocator<double> *)) /usr/include/c++/4.8.5/bits/allocator.h(113,27)
-
-===========================================================================
-
-Begin optimization report for: std::allocator<double>::allocator(std::allocator<double> *, const std::allocator<double> &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::allocator<double>::allocator(std::allocator<double> *, const std::allocator<double> &)) /usr/include/c++/4.8.5/bits/allocator.h(116,36)
-
-===========================================================================
-
-Begin optimization report for: std::allocator<double>::allocator(std::allocator<double> *const, const std::allocator<double> &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::allocator<double>::allocator(std::allocator<double> *const, const std::allocator<double> &)) /usr/include/c++/4.8.5/bits/allocator.h(115,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<double, std::allocator<double>>::_M_get_Tp_allocator(std::_Vector_base<double, std::allocator<double>> *)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<double, std::allocator<double>>::_M_get_Tp_allocator(std::_Vector_base<double, std::allocator<double>> *)) /usr/include/c++/4.8.5/bits/stl_vector.h(114,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<double, std::allocator<double>>::_Vector_base(std::_Vector_base<double, std::allocator<double>> *, std::size_t, const std::_Vector_base<double, std::allocator<double>>::allocator_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<double, std::allocator<double>>::_Vector_base(std::_Vector_base<double, std::allocator<double>> *, std::size_t, const std::_Vector_base<double, std::allocator<double>>::allocator_type &)) /usr/include/c++/4.8.5/bits/stl_vector.h(136,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<double, std::allocator<double>>::_Vector_base(std::_Vector_base<double, std::allocator<double>> *const, std::size_t, const std::_Vector_base<double, std::allocator<double>>::allocator_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<double, std::allocator<double>>::_Vector_base(std::_Vector_base<double, std::allocator<double>> *const, std::size_t, const std::_Vector_base<double, std::allocator<double>>::allocator_type &)) /usr/include/c++/4.8.5/bits/stl_vector.h(134,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<double, std::allocator<double>>::~_Vector_base(std::_Vector_base<double, std::allocator<double>> *)) /usr/include/c++/4.8.5/bits/stl_vector.h(160,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<double, std::allocator<double>>::_M_allocate(std::_Vector_base<double, std::allocator<double>> *, std::size_t)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<double, std::allocator<double>>::_M_allocate(std::_Vector_base<double, std::allocator<double>> *, std::size_t)) /usr/include/c++/4.8.5/bits/stl_vector.h(168,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<double, std::allocator<double>>::_M_deallocate(std::_Vector_base<double, std::allocator<double>> *, std::_Vector_base<double, std::allocator<double>>::pointer, std::size_t)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<double, std::allocator<double>>::_M_deallocate(std::_Vector_base<double, std::allocator<double>> *, std::_Vector_base<double, std::allocator<double>>::pointer, std::size_t)) /usr/include/c++/4.8.5/bits/stl_vector.h(172,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<double, std::allocator<double>>::_M_create_storage(std::_Vector_base<double, std::allocator<double>> *, std::size_t)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<double, std::allocator<double>>::_M_create_storage(std::_Vector_base<double, std::allocator<double>> *, std::size_t)) /usr/include/c++/4.8.5/bits/stl_vector.h(180,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<double, std::allocator<double>>::_Vector_impl::_Vector_impl(std::_Vector_base<double, std::allocator<double>>::_Vector_impl *, const std::_Vector_base<double, std::allocator<double>>::_Tp_alloc_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<double, std::allocator<double>>::_Vector_impl::_Vector_impl(std::_Vector_base<double, std::allocator<double>>::_Vector_impl *, const std::_Vector_base<double, std::allocator<double>>::_Tp_alloc_type &)) /usr/include/c++/4.8.5/bits/stl_vector.h(92,2)
-
-===========================================================================
-
-Begin optimization report for: std::vector<double, std::allocator<double>>::vector(std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type, const std::vector<double, std::allocator<double>>::allocator_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::vector<double, std::allocator<double>>::vector(std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type, const std::vector<double, std::allocator<double>>::allocator_type &)) /usr/include/c++/4.8.5/bits/stl_vector.h(271,7)
-
-===========================================================================
-
-Begin optimization report for: std::allocator<int32_t>::allocator(std::allocator<int32_t> *)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::allocator<int32_t>::allocator(std::allocator<int32_t> *)) /usr/include/c++/4.8.5/bits/allocator.h(113,27)
-
-===========================================================================
-
-Begin optimization report for: std::allocator<int32_t>::allocator(std::allocator<int32_t> *, const std::allocator<int32_t> &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::allocator<int32_t>::allocator(std::allocator<int32_t> *, const std::allocator<int32_t> &)) /usr/include/c++/4.8.5/bits/allocator.h(116,36)
-
-===========================================================================
-
-Begin optimization report for: std::allocator<int32_t>::allocator(std::allocator<int32_t> *const, const std::allocator<int32_t> &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::allocator<int32_t>::allocator(std::allocator<int32_t> *const, const std::allocator<int32_t> &)) /usr/include/c++/4.8.5/bits/allocator.h(115,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_get_Tp_allocator(std::_Vector_base<int32_t, std::allocator<int32_t>> *)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_get_Tp_allocator(std::_Vector_base<int32_t, std::allocator<int32_t>> *)) /usr/include/c++/4.8.5/bits/stl_vector.h(114,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::size_t, const std::_Vector_base<int32_t, std::allocator<int32_t>>::allocator_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::size_t, const std::_Vector_base<int32_t, std::allocator<int32_t>>::allocator_type &)) /usr/include/c++/4.8.5/bits/stl_vector.h(136,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *const, std::size_t, const std::_Vector_base<int32_t, std::allocator<int32_t>>::allocator_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *const, std::size_t, const std::_Vector_base<int32_t, std::allocator<int32_t>>::allocator_type &)) /usr/include/c++/4.8.5/bits/stl_vector.h(134,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<int32_t, std::allocator<int32_t>>::~_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<int32_t, std::allocator<int32_t>>::~_Vector_base(std::_Vector_base<int32_t, std::allocator<int32_t>> *)) /usr/include/c++/4.8.5/bits/stl_vector.h(160,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_allocate(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::size_t)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_allocate(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::size_t)) /usr/include/c++/4.8.5/bits/stl_vector.h(168,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_deallocate(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::size_t)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_deallocate(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::size_t)) /usr/include/c++/4.8.5/bits/stl_vector.h(172,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_create_storage(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::size_t)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<int32_t, std::allocator<int32_t>>::_M_create_storage(std::_Vector_base<int32_t, std::allocator<int32_t>> *, std::size_t)) /usr/include/c++/4.8.5/bits/stl_vector.h(180,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_impl::_Vector_impl(std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_impl *, const std::_Vector_base<int32_t, std::allocator<int32_t>>::_Tp_alloc_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_impl::_Vector_impl(std::_Vector_base<int32_t, std::allocator<int32_t>>::_Vector_impl *, const std::_Vector_base<int32_t, std::allocator<int32_t>>::_Tp_alloc_type &)) /usr/include/c++/4.8.5/bits/stl_vector.h(92,2)
-
-===========================================================================
-
-Begin optimization report for: std::vector<int32_t, std::allocator<int32_t>>::vector(std::vector<int32_t, std::allocator<int32_t>> *, std::vector<int32_t, std::allocator<int32_t>>::size_type, const std::vector<int32_t, std::allocator<int32_t>>::allocator_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::vector<int32_t, std::allocator<int32_t>>::vector(std::vector<int32_t, std::allocator<int32_t>> *, std::vector<int32_t, std::allocator<int32_t>>::size_type, const std::vector<int32_t, std::allocator<int32_t>>::allocator_type &)) /usr/include/c++/4.8.5/bits/stl_vector.h(271,7)
-
-===========================================================================
-
-Begin optimization report for: std::vector<int32_t, std::allocator<int32_t>>::~vector(std::vector<int32_t, std::allocator<int32_t>> *)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::vector<int32_t, std::allocator<int32_t>>::~vector(std::vector<int32_t, std::allocator<int32_t>> *)) /usr/include/c++/4.8.5/bits/stl_vector.h(415,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Iter_base<std::_Vector_base<double, std::allocator<double>>::pointer, false>::_S_base(std::_Vector_base<double, std::allocator<double>>::pointer)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Iter_base<std::_Vector_base<double, std::allocator<double>>::pointer, false>::_S_base(std::_Vector_base<double, std::allocator<double>>::pointer)) /usr/include/c++/4.8.5/bits/stl_iterator_base_types.h(213,7)
-
-===========================================================================
-
-Begin optimization report for: std::_Iter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, false>::_S_base(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::_Iter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, false>::_S_base(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer)) /usr/include/c++/4.8.5/bits/stl_iterator_base_types.h(213,7)
-
-===========================================================================
-
-Begin optimization report for: __gnu_cxx::new_allocator<double>::allocate(__gnu_cxx::new_allocator<double> *, __gnu_cxx::new_allocator<double>::size_type, const void *)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<double>::allocate(__gnu_cxx::new_allocator<double> *, __gnu_cxx::new_allocator<double>::size_type, const void *)) /usr/include/c++/4.8.5/ext/new_allocator.h(100,7)
-
-===========================================================================
-
-Begin optimization report for: __gnu_cxx::new_allocator<double>::deallocate(__gnu_cxx::new_allocator<double> *, __gnu_cxx::new_allocator<double>::pointer, __gnu_cxx::new_allocator<double>::size_type)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<double>::deallocate(__gnu_cxx::new_allocator<double> *, __gnu_cxx::new_allocator<double>::pointer, __gnu_cxx::new_allocator<double>::size_type)) /usr/include/c++/4.8.5/ext/new_allocator.h(110,7)
-
-===========================================================================
-
-Begin optimization report for: __gnu_cxx::new_allocator<int32_t>::allocate(__gnu_cxx::new_allocator<int32_t> *, __gnu_cxx::new_allocator<int32_t>::size_type, const void *)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<int32_t>::allocate(__gnu_cxx::new_allocator<int32_t> *, __gnu_cxx::new_allocator<int32_t>::size_type, const void *)) /usr/include/c++/4.8.5/ext/new_allocator.h(100,7)
-
-===========================================================================
-
-Begin optimization report for: __gnu_cxx::new_allocator<int32_t>::deallocate(__gnu_cxx::new_allocator<int32_t> *, __gnu_cxx::new_allocator<int32_t>::pointer, __gnu_cxx::new_allocator<int32_t>::size_type)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (__gnu_cxx::new_allocator<int32_t>::deallocate(__gnu_cxx::new_allocator<int32_t> *, __gnu_cxx::new_allocator<int32_t>::pointer, __gnu_cxx::new_allocator<int32_t>::size_type)) /usr/include/c++/4.8.5/ext/new_allocator.h(110,7)
-
-===========================================================================
-
-Begin optimization report for: std::fill_n<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, const std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::fill_n<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, const std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type &)) /usr/include/c++/4.8.5/bits/stl_algobase.h(782,5)
-
-===========================================================================
-
-Begin optimization report for: std::__niter_base<std::_Vector_base<double, std::allocator<double>>::pointer>(std::_Vector_base<double, std::allocator<double>>::pointer)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::__niter_base<std::_Vector_base<double, std::allocator<double>>::pointer>(std::_Vector_base<double, std::allocator<double>>::pointer)) /usr/include/c++/4.8.5/bits/stl_algobase.h(278,5)
-
-===========================================================================
-
-Begin optimization report for: std::__fill_n_a<std::_Iter_base<std::_Vector_base<double, std::allocator<double>>::pointer, false>::iterator_type, std::vector<double, std::allocator<double>>::size_type, std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type>(std::_Iter_base<std::_Vector_base<double, std::allocator<double>>::pointer, false>::iterator_type, std::vector<double, std::allocator<double>>::size_type, const std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::__fill_n_a<std::_Iter_base<std::_Vector_base<double, std::allocator<double>>::pointer, false>::iterator_type, std::vector<double, std::allocator<double>>::size_type, std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type>(std::_Iter_base<std::_Vector_base<double, std::allocator<double>>::pointer, false>::iterator_type, std::vector<double, std::allocator<double>>::size_type, const std::iterator_traits<std::_Vector_base<double, std::allocator<double>>::pointer>::value_type &)) /usr/include/c++/4.8.5/bits/stl_algobase.h(747,5)
-
-===========================================================================
-
-Begin optimization report for: std::fill_n<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, const std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::fill_n<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, const std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type &)) /usr/include/c++/4.8.5/bits/stl_algobase.h(782,5)
-
-===========================================================================
-
-Begin optimization report for: std::__niter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::__niter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer)) /usr/include/c++/4.8.5/bits/stl_algobase.h(278,5)
-
-===========================================================================
-
-Begin optimization report for: std::__fill_n_a<std::_Iter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, false>::iterator_type, std::vector<int32_t, std::allocator<int32_t>>::size_type, std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type>(std::_Iter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, false>::iterator_type, std::vector<int32_t, std::allocator<int32_t>>::size_type, const std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::__fill_n_a<std::_Iter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, false>::iterator_type, std::vector<int32_t, std::allocator<int32_t>>::size_type, std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type>(std::_Iter_base<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, false>::iterator_type, std::vector<int32_t, std::allocator<int32_t>>::size_type, const std::iterator_traits<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer>::value_type &)) /usr/include/c++/4.8.5/bits/stl_algobase.h(747,5)
+DEAD STATIC FUNCTION: (std::__check_facet<std::basic_ios<char, std::char_traits<char>>::__ctype_type>(const std::basic_ios<char, std::char_traits<char>>::__ctype_type *)) /usr/include/c++/4.8.5/bits/basic_ios.h(47,5)
 
 ===========================================================================
 
@@ -673,73 +615,9 @@ Begin optimization report for: __sti__$E()
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (__sti__$E()) [60/68=88.2%] <compiler generated>
+INLINE REPORT: (__sti__$E()) [30/30=100.0%] <compiler generated>
   -> EXTERN: /usr/include/c++/4.8.5/iostream:(74,25) __cxa_atexit()
   -> EXTERN: /usr/include/c++/4.8.5/iostream:(74,25) std::ios_base::Init::Init(std::ios_base::Init *)
-
-===========================================================================
-
-Begin optimization report for: std::__uninitialized_default_n<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::__uninitialized_default_n<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type)) /usr/include/c++/4.8.5/bits/stl_uninitialized.h(539,5)
-
-===========================================================================
-
-Begin optimization report for: std::__uninitialized_default_n_a<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, int32_t>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, std::allocator<int32_t> &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::__uninitialized_default_n_a<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, int32_t>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type, std::allocator<int32_t> &)) /usr/include/c++/4.8.5/bits/stl_uninitialized.h(605,5)
-
-===========================================================================
-
-Begin optimization report for: std::__uninitialized_default_n<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::__uninitialized_default_n<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type)) /usr/include/c++/4.8.5/bits/stl_uninitialized.h(539,5)
-
-===========================================================================
-
-Begin optimization report for: std::__uninitialized_default_n_a<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, double>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, std::allocator<double> &)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::__uninitialized_default_n_a<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, double>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type, std::allocator<double> &)) /usr/include/c++/4.8.5/bits/stl_uninitialized.h(605,5)
-
-===========================================================================
-
-Begin optimization report for: std::vector<int32_t, std::allocator<int32_t>>::_M_default_initialize(std::vector<int32_t, std::allocator<int32_t>> *, std::vector<int32_t, std::allocator<int32_t>>::size_type)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::vector<int32_t, std::allocator<int32_t>>::_M_default_initialize(std::vector<int32_t, std::allocator<int32_t>> *, std::vector<int32_t, std::allocator<int32_t>>::size_type)) /usr/include/c++/4.8.5/bits/stl_vector.h(1223,7)
-
-===========================================================================
-
-Begin optimization report for: std::vector<double, std::allocator<double>>::_M_default_initialize(std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::vector<double, std::allocator<double>>::_M_default_initialize(std::vector<double, std::allocator<double>> *, std::vector<double, std::allocator<double>>::size_type)) /usr/include/c++/4.8.5/bits/stl_vector.h(1223,7)
-
-===========================================================================
-
-Begin optimization report for: std::__uninitialized_default_n_1<true>::__uninit_default_n<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::__uninitialized_default_n_1<true>::__uninit_default_n<std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type>(std::_Vector_base<int32_t, std::allocator<int32_t>>::pointer, std::vector<int32_t, std::allocator<int32_t>>::size_type)) /usr/include/c++/4.8.5/bits/stl_uninitialized.h(511,9)
-
-===========================================================================
-
-Begin optimization report for: std::__uninitialized_default_n_1<true>::__uninit_default_n<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type)
-
-    Report from: Interprocedural optimizations [ipo]
-
-DEAD STATIC FUNCTION: (std::__uninitialized_default_n_1<true>::__uninit_default_n<std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type>(std::_Vector_base<double, std::allocator<double>>::pointer, std::vector<double, std::allocator<double>>::size_type)) /usr/include/c++/4.8.5/bits/stl_uninitialized.h(511,9)
 
 ===========================================================================
 
@@ -747,10 +625,6 @@ DEAD STATIC FUNCTION: (std::__uninitialized_default_n_1<true>::__uninit_default_
 
 INLINING FOOTNOTES:
 
-<1> The compiler's heuristics indicate that the function is not profitable to 
-    inline.  Override this decision by adding "inline 
-    __attribute__((always_inline))" to the declaration of the called function, 
-    or add "#pragma forceinline" before the call site.
-
-<2> Inlining the function will lead to incorrect program behavior.
+<1> The routine declaration is annotated with "__attribute__((noinline))".  
+    Remove this annotation to permit the compiler to inline this routine.
 
