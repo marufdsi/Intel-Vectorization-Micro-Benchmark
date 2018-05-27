@@ -29,50 +29,52 @@ Begin optimization report for: main()
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (main()) [1/30=3.3%] TestVector.cpp(28,11)
-  -> INLINE (MANUAL): (29,54) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
-  -> INLINE (MANUAL): (29,61) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
-  -> EXTERN: (30,11) std::chrono::_V2::system_clock::now()
-  -> INLINE: (31,3) checkVector(int) (isz = 65) (sz = 72)
-    -> EXTERN: (17,12) _vla_alloc(long)
-    -> EXTERN: (17,18) _vla_alloc(long)
-    -> EXTERN: (26,12) _vla_free(void *, long)
-    -> EXTERN: (26,12) _vla_free(void *, long)
-  -> EXTERN: (32,9) std::chrono::_V2::system_clock::now()
-  -> INLINE (MANUAL): (34,31) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<int64_t, std::milli, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<int64_t, std::milli> &) (isz = 16) (sz = 23)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,34) std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1L, 1L>>, int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 10) (sz = 17)
-      -> INLINE (MANUAL): (202,22) std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1L, 1L>>, std::ratio_divide<std::milli, std::chrono::duration<double, std::ratio<1L, 1L>>::period>, std::__success_type<double>::type, true, false>::__cast<int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 9) (sz = 16)
-        -> INLINE (MANUAL): (161,20) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<std::chrono::duration<double, std::ratio<1L, 1L>>::rep, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<double, std::ratio<1L, 1L>>::rep &) (isz = 0) (sz = 7)
-        -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::milli>::count(const std::chrono::duration<int64_t, std::milli> *) const (isz = 0) (sz = 6)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,39) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
-  -> INLINE (MANUAL): (34,31) std::chrono::duration_cast<std::chrono::milliseconds, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 9) (sz = 16)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(202,22) std::chrono::__duration_cast_impl<std::chrono::milliseconds, std::ratio_divide<std::nano, std::chrono::duration<int64_t, std::milli>::period>, std::__success_type<long>::type, true, false>::__cast<int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 8) (sz = 15)
-      -> INLINE (MANUAL): (161,20) std::chrono::duration<int64_t, std::milli>::duration<std::chrono::duration<int64_t, std::milli>::rep, void>(std::chrono::duration<int64_t, std::milli> *, const std::chrono::duration<int64_t, std::milli>::rep &) (isz = 0) (sz = 7)
-      -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
-  -> INLINE (MANUAL): (34,31) std::chrono::operator-<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration, std::chrono::_V2::system_clock::duration>(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &, const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &) (isz = 32) (sz = 41)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,16) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::operator-<int64_t, std::nano, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &, const std::chrono::duration<int64_t, std::nano> &) (isz = 19) (sz = 28)
-      -> INLINE (MANUAL): (398,14) std::chrono::duration<int64_t, std::nano>::duration<std::chrono::duration<int64_t, std::nano>::rep, void>(std::chrono::duration<int64_t, std::nano> *, const std::chrono::duration<int64_t, std::nano>::rep &) (isz = 0) (sz = 7)
-      -> INLINE (MANUAL): (398,26) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
-      -> INLINE (MANUAL): (398,48) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
-  -> INLINE (MANUAL): (35,40) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
-  -> (36,7) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
-     [[ Called routine is noinline  <1>]]
-  -> (36,26) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double) (isz = 1) (sz = 10)
-     [[ Called routine is noinline  <1>]]
-  -> (36,39) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &)) (isz = 0) (sz = 9)
-     [[ Called routine is noinline  <1>]]
+INLINE REPORT: (main()) [1/30=3.3%] TestVector.cpp(23,11)
+  -> INLINE: (24,2) checkVector(int) (isz = 190) (sz = 197)
+    -> EXTERN: (5,12) _vla_alloc(long)
+    -> EXTERN: (5,12) _vla_free(void *, long)
+    -> EXTERN: (5,18) _vla_alloc(long)
+    -> EXTERN: (5,18) _vla_free(void *, long)
+    -> INLINE (MANUAL): (10,56) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
+    -> INLINE (MANUAL): (10,63) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
+    -> EXTERN: (11,13) std::chrono::_V2::system_clock::now()
+    -> EXTERN: (17,11) std::chrono::_V2::system_clock::now()
+    -> INLINE (MANUAL): (18,110) std::chrono::operator-<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration, std::chrono::_V2::system_clock::duration>(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &, const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &) (isz = 32) (sz = 41)
+      -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,16) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
+      -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::operator-<int64_t, std::nano, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &, const std::chrono::duration<int64_t, std::nano> &) (isz = 19) (sz = 28)
+        -> INLINE (MANUAL): (398,14) std::chrono::duration<int64_t, std::nano>::duration<std::chrono::duration<int64_t, std::nano>::rep, void>(std::chrono::duration<int64_t, std::nano> *, const std::chrono::duration<int64_t, std::nano>::rep &) (isz = 0) (sz = 7)
+        -> INLINE (MANUAL): (398,26) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+        -> INLINE (MANUAL): (398,48) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+      -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
+    -> INLINE (MANUAL): (18,110) std::chrono::duration_cast<std::chrono::milliseconds, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 9) (sz = 16)
+      -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(202,22) std::chrono::__duration_cast_impl<std::chrono::milliseconds, std::ratio_divide<std::nano, std::chrono::duration<int64_t, std::milli>::period>, std::__success_type<long>::type, true, false>::__cast<int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 8) (sz = 15)
+        -> INLINE (MANUAL): (161,20) std::chrono::duration<int64_t, std::milli>::duration<std::chrono::duration<int64_t, std::milli>::rep, void>(std::chrono::duration<int64_t, std::milli> *, const std::chrono::duration<int64_t, std::milli>::rep &) (isz = 0) (sz = 7)
+        -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+    -> INLINE (MANUAL): (18,110) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<int64_t, std::milli, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<int64_t, std::milli> &) (isz = 16) (sz = 23)
+      -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,34) std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1L, 1L>>, int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 10) (sz = 17)
+        -> INLINE (MANUAL): (202,22) std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1L, 1L>>, std::ratio_divide<std::milli, std::chrono::duration<double, std::ratio<1L, 1L>>::period>, std::__success_type<double>::type, true, false>::__cast<int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 9) (sz = 16)
+          -> INLINE (MANUAL): (161,20) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<std::chrono::duration<double, std::ratio<1L, 1L>>::rep, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<double, std::ratio<1L, 1L>>::rep &) (isz = 0) (sz = 7)
+          -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::milli>::count(const std::chrono::duration<int64_t, std::milli> *) const (isz = 0) (sz = 6)
+      -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,39) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
+    -> (19,14) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
+       [[ Called routine is noinline  <1>]]
+    -> (19,32) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double) (isz = 1) (sz = 10)
+       [[ Called routine is noinline  <1>]]
+    -> INLINE (MANUAL): (19,47) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
+    -> (19,54) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &)) (isz = 0) (sz = 9)
+       [[ Called routine is noinline  <1>]]
+    -> EXTERN: (20,12) _vla_free(void *, long)
+    -> EXTERN: (20,12) _vla_free(void *, long)
 
 
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
 
-LOOP BEGIN at TestVector.cpp(18,5) inlined into TestVector.cpp(31,3)
-   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(19,9) ]
-   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(20,9) ]
-   remark #15412: vectorization support: streaming store was generated for A.13749   [ TestVector.cpp(19,9) ]
-   remark #15412: vectorization support: streaming store was generated for B.13749   [ TestVector.cpp(20,9) ]
+LOOP BEGIN at TestVector.cpp(6,5) inlined into TestVector.cpp(24,2)
+   remark #15388: vectorization support: reference A.10969 has aligned access   [ TestVector.cpp(7,9) ]
+   remark #15388: vectorization support: reference B.10969 has aligned access   [ TestVector.cpp(8,9) ]
+   remark #15412: vectorization support: streaming store was generated for A.10969   [ TestVector.cpp(7,9) ]
+   remark #15412: vectorization support: streaming store was generated for B.10969   [ TestVector.cpp(8,9) ]
    remark #15305: vectorization support: vector length 8
    remark #15300: LOOP WAS VECTORIZED
    remark #15449: unmasked aligned unit stride stores: 2 
@@ -80,15 +82,23 @@ LOOP BEGIN at TestVector.cpp(18,5) inlined into TestVector.cpp(31,3)
    remark #15475: --- begin vector loop cost summary ---
    remark #15476: scalar loop cost: 6 
    remark #15477: vector loop cost: 0.750 
-   remark #15478: estimated potential speedup: 8.000 
    remark #15488: --- end vector loop cost summary ---
-   remark #25015: Estimate of max trip count of loop=625000
+   remark #25015: Estimate of max trip count of loop=124999999
 LOOP END
 
-LOOP BEGIN at TestVector.cpp(23,5) inlined into TestVector.cpp(31,3)
-   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(24,9) ]
+LOOP BEGIN at TestVector.cpp(6,5) inlined into TestVector.cpp(24,2)
+<Remainder loop for vectorization>
+   remark #15388: vectorization support: reference A.10969 has aligned access   [ TestVector.cpp(7,9) ]
+   remark #15388: vectorization support: reference B.10969 has aligned access   [ TestVector.cpp(8,9) ]
+   remark #15305: vectorization support: vector length 8
+   remark #15427: loop was completely unrolled
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at TestVector.cpp(12,5) inlined into TestVector.cpp(24,2)
+   remark #15388: vectorization support: reference A.10969 has aligned access   [ TestVector.cpp(14,13) ]
+   remark #15388: vectorization support: reference A.10969 has aligned access   [ TestVector.cpp(14,13) ]
+   remark #15388: vectorization support: reference B.10969 has aligned access   [ TestVector.cpp(14,13) ]
    remark #15305: vectorization support: vector length 8
    remark #15300: LOOP WAS VECTORIZED
    remark #15448: unmasked aligned unit stride loads: 2 
@@ -96,174 +106,24 @@ LOOP BEGIN at TestVector.cpp(23,5) inlined into TestVector.cpp(31,3)
    remark #15475: --- begin vector loop cost summary ---
    remark #15476: scalar loop cost: 6 
    remark #15477: vector loop cost: 0.620 
-   remark #15478: estimated potential speedup: 9.600 
    remark #15488: --- end vector loop cost summary ---
-   remark #25015: Estimate of max trip count of loop=625000
-LOOP END
-===========================================================================
-
-Begin optimization report for: main() [future_cpu_22]
-
-    Report from: Interprocedural optimizations [ipo]
-
-INLINE REPORT: (main()) [1/30=3.3%] TestVector.cpp(28,11)
-  -> INLINE (MANUAL): (29,54) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
-  -> INLINE (MANUAL): (29,61) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
-  -> EXTERN: (30,11) std::chrono::_V2::system_clock::now()
-  -> INLINE: (31,3) checkVector(int) (isz = 65) (sz = 72)
-    -> EXTERN: (17,12) _vla_alloc(long)
-    -> EXTERN: (17,18) _vla_alloc(long)
-    -> EXTERN: (26,12) _vla_free(void *, long)
-    -> EXTERN: (26,12) _vla_free(void *, long)
-  -> EXTERN: (32,9) std::chrono::_V2::system_clock::now()
-  -> INLINE (MANUAL): (34,31) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<int64_t, std::milli, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<int64_t, std::milli> &) (isz = 16) (sz = 23)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,34) std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1L, 1L>>, int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 10) (sz = 17)
-      -> INLINE (MANUAL): (202,22) std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1L, 1L>>, std::ratio_divide<std::milli, std::chrono::duration<double, std::ratio<1L, 1L>>::period>, std::__success_type<double>::type, true, false>::__cast<int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 9) (sz = 16)
-        -> INLINE (MANUAL): (161,20) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<std::chrono::duration<double, std::ratio<1L, 1L>>::rep, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<double, std::ratio<1L, 1L>>::rep &) (isz = 0) (sz = 7)
-        -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::milli>::count(const std::chrono::duration<int64_t, std::milli> *) const (isz = 0) (sz = 6)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,39) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
-  -> INLINE (MANUAL): (34,31) std::chrono::duration_cast<std::chrono::milliseconds, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 9) (sz = 16)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(202,22) std::chrono::__duration_cast_impl<std::chrono::milliseconds, std::ratio_divide<std::nano, std::chrono::duration<int64_t, std::milli>::period>, std::__success_type<long>::type, true, false>::__cast<int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 8) (sz = 15)
-      -> INLINE (MANUAL): (161,20) std::chrono::duration<int64_t, std::milli>::duration<std::chrono::duration<int64_t, std::milli>::rep, void>(std::chrono::duration<int64_t, std::milli> *, const std::chrono::duration<int64_t, std::milli>::rep &) (isz = 0) (sz = 7)
-      -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
-  -> INLINE (MANUAL): (34,31) std::chrono::operator-<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration, std::chrono::_V2::system_clock::duration>(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &, const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &) (isz = 32) (sz = 41)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,16) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::operator-<int64_t, std::nano, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &, const std::chrono::duration<int64_t, std::nano> &) (isz = 19) (sz = 28)
-      -> INLINE (MANUAL): (398,14) std::chrono::duration<int64_t, std::nano>::duration<std::chrono::duration<int64_t, std::nano>::rep, void>(std::chrono::duration<int64_t, std::nano> *, const std::chrono::duration<int64_t, std::nano>::rep &) (isz = 0) (sz = 7)
-      -> INLINE (MANUAL): (398,26) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
-      -> INLINE (MANUAL): (398,48) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
-  -> INLINE (MANUAL): (35,40) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
-  -> (36,7) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
-     [[ Called routine is noinline  <1>]]
-  -> (36,26) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double) (isz = 1) (sz = 10)
-     [[ Called routine is noinline  <1>]]
-  -> (36,39) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &)) (isz = 0) (sz = 9)
-     [[ Called routine is noinline  <1>]]
-
-
-    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
-
-
-LOOP BEGIN at TestVector.cpp(18,5) inlined into TestVector.cpp(31,3)
-   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(19,9) ]
-   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(20,9) ]
-   remark #15412: vectorization support: streaming store was generated for A.13749   [ TestVector.cpp(19,9) ]
-   remark #15412: vectorization support: streaming store was generated for B.13749   [ TestVector.cpp(20,9) ]
-   remark #15305: vectorization support: vector length 8
-   remark #15300: LOOP WAS VECTORIZED
-   remark #15449: unmasked aligned unit stride stores: 2 
-   remark #15467: unmasked aligned streaming stores: 2 
-   remark #15475: --- begin vector loop cost summary ---
-   remark #15476: scalar loop cost: 6 
-   remark #15477: vector loop cost: 0.750 
-   remark #15478: estimated potential speedup: 8.000 
-   remark #15488: --- end vector loop cost summary ---
-   remark #25015: Estimate of max trip count of loop=625000
+   remark #25015: Estimate of max trip count of loop=124999999
 LOOP END
 
-LOOP BEGIN at TestVector.cpp(23,5) inlined into TestVector.cpp(31,3)
-   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(24,9) ]
+LOOP BEGIN at TestVector.cpp(12,5) inlined into TestVector.cpp(24,2)
+<Remainder loop for vectorization>
+   remark #15388: vectorization support: reference A.10969 has aligned access   [ TestVector.cpp(14,13) ]
+   remark #15388: vectorization support: reference A.10969 has aligned access   [ TestVector.cpp(14,13) ]
+   remark #15388: vectorization support: reference B.10969 has aligned access   [ TestVector.cpp(14,13) ]
    remark #15305: vectorization support: vector length 8
-   remark #15300: LOOP WAS VECTORIZED
-   remark #15448: unmasked aligned unit stride loads: 2 
-   remark #15449: unmasked aligned unit stride stores: 1 
-   remark #15475: --- begin vector loop cost summary ---
-   remark #15476: scalar loop cost: 6 
-   remark #15477: vector loop cost: 0.620 
-   remark #15478: estimated potential speedup: 9.600 
-   remark #15488: --- end vector loop cost summary ---
-   remark #25015: Estimate of max trip count of loop=625000
+   remark #15427: loop was completely unrolled
+   remark #15301: REMAINDER LOOP WAS VECTORIZED
 LOOP END
 
     Report from: Code generation optimizations [cg]
 
 /usr/include/c++/4.8.5/chrono(552,31):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (64, 0)
 /usr/include/c++/4.8.5/chrono(552,31):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (64, 0)
-===========================================================================
-
-Begin optimization report for: main() [generic]
-
-    Report from: Interprocedural optimizations [ipo]
-
-INLINE REPORT: (main()) [1/30=3.3%] TestVector.cpp(28,11)
-  -> INLINE (MANUAL): (29,54) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
-  -> INLINE (MANUAL): (29,61) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
-  -> EXTERN: (30,11) std::chrono::_V2::system_clock::now()
-  -> INLINE: (31,3) checkVector(int) (isz = 65) (sz = 72)
-    -> EXTERN: (17,12) _vla_alloc(long)
-    -> EXTERN: (17,18) _vla_alloc(long)
-    -> EXTERN: (26,12) _vla_free(void *, long)
-    -> EXTERN: (26,12) _vla_free(void *, long)
-  -> EXTERN: (32,9) std::chrono::_V2::system_clock::now()
-  -> INLINE (MANUAL): (34,31) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<int64_t, std::milli, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<int64_t, std::milli> &) (isz = 16) (sz = 23)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,34) std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1L, 1L>>, int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 10) (sz = 17)
-      -> INLINE (MANUAL): (202,22) std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1L, 1L>>, std::ratio_divide<std::milli, std::chrono::duration<double, std::ratio<1L, 1L>>::period>, std::__success_type<double>::type, true, false>::__cast<int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 9) (sz = 16)
-        -> INLINE (MANUAL): (161,20) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<std::chrono::duration<double, std::ratio<1L, 1L>>::rep, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<double, std::ratio<1L, 1L>>::rep &) (isz = 0) (sz = 7)
-        -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::milli>::count(const std::chrono::duration<int64_t, std::milli> *) const (isz = 0) (sz = 6)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,39) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
-  -> INLINE (MANUAL): (34,31) std::chrono::duration_cast<std::chrono::milliseconds, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 9) (sz = 16)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(202,22) std::chrono::__duration_cast_impl<std::chrono::milliseconds, std::ratio_divide<std::nano, std::chrono::duration<int64_t, std::milli>::period>, std::__success_type<long>::type, true, false>::__cast<int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 8) (sz = 15)
-      -> INLINE (MANUAL): (161,20) std::chrono::duration<int64_t, std::milli>::duration<std::chrono::duration<int64_t, std::milli>::rep, void>(std::chrono::duration<int64_t, std::milli> *, const std::chrono::duration<int64_t, std::milli>::rep &) (isz = 0) (sz = 7)
-      -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
-  -> INLINE (MANUAL): (34,31) std::chrono::operator-<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration, std::chrono::_V2::system_clock::duration>(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &, const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &) (isz = 32) (sz = 41)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,16) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
-    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::operator-<int64_t, std::nano, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &, const std::chrono::duration<int64_t, std::nano> &) (isz = 19) (sz = 28)
-      -> INLINE (MANUAL): (398,14) std::chrono::duration<int64_t, std::nano>::duration<std::chrono::duration<int64_t, std::nano>::rep, void>(std::chrono::duration<int64_t, std::nano> *, const std::chrono::duration<int64_t, std::nano>::rep &) (isz = 0) (sz = 7)
-      -> INLINE (MANUAL): (398,26) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
-      -> INLINE (MANUAL): (398,48) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
-  -> INLINE (MANUAL): (35,40) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
-  -> (36,7) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
-     [[ Called routine is noinline  <1>]]
-  -> (36,26) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double) (isz = 1) (sz = 10)
-     [[ Called routine is noinline  <1>]]
-  -> (36,39) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &)) (isz = 0) (sz = 9)
-     [[ Called routine is noinline  <1>]]
-
-
-    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
-
-
-LOOP BEGIN at TestVector.cpp(18,5) inlined into TestVector.cpp(31,3)
-   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(19,9) ]
-   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(20,9) ]
-   remark #15412: vectorization support: streaming store was generated for A.13749   [ TestVector.cpp(19,9) ]
-   remark #15412: vectorization support: streaming store was generated for B.13749   [ TestVector.cpp(20,9) ]
-   remark #15305: vectorization support: vector length 2
-   remark #15300: LOOP WAS VECTORIZED
-   remark #15449: unmasked aligned unit stride stores: 2 
-   remark #15467: unmasked aligned streaming stores: 2 
-   remark #15475: --- begin vector loop cost summary ---
-   remark #15476: scalar loop cost: 7 
-   remark #15477: vector loop cost: 3.000 
-   remark #15478: estimated potential speedup: 2.330 
-   remark #15488: --- end vector loop cost summary ---
-   remark #25015: Estimate of max trip count of loop=2500000
-LOOP END
-
-LOOP BEGIN at TestVector.cpp(23,5) inlined into TestVector.cpp(31,3)
-   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference A.13749 has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference B.13749 has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15305: vectorization support: vector length 2
-   remark #15300: LOOP WAS VECTORIZED
-   remark #15448: unmasked aligned unit stride loads: 2 
-   remark #15449: unmasked aligned unit stride stores: 1 
-   remark #15475: --- begin vector loop cost summary ---
-   remark #15476: scalar loop cost: 6 
-   remark #15477: vector loop cost: 2.500 
-   remark #15478: estimated potential speedup: 2.400 
-   remark #15488: --- end vector loop cost summary ---
-   remark #25015: Estimate of max trip count of loop=2500000
-LOOP END
-
-    Report from: Code generation optimizations [cg]
-
-/usr/include/c++/4.8.5/chrono(552,31):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (16, 0)
-/usr/include/c++/4.8.5/chrono(552,31):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (16, 0)
 ===========================================================================
 
 Begin optimization report for: std::char_traits<char>::length(const std::char_traits<char>::char_type *)
@@ -279,21 +139,51 @@ Begin optimization report for: checkVector(int)
 
     Report from: Interprocedural optimizations [ipo]
 
-INLINE REPORT: (checkVector(int)) [7/30=23.3%] TestVector.cpp(16,26)
-  -> EXTERN: (17,12) _vla_alloc(long)
-  -> EXTERN: (17,18) _vla_alloc(long)
-  -> EXTERN: (26,12) _vla_free(void *, long)
-  -> EXTERN: (26,12) _vla_free(void *, long)
+INLINE REPORT: (checkVector(int)) [7/30=23.3%] TestVector.cpp(4,26)
+  -> EXTERN: (5,12) _vla_free(void *, long)
+  -> EXTERN: (5,12) _vla_alloc(long)
+  -> EXTERN: (5,18) _vla_free(void *, long)
+  -> EXTERN: (5,18) _vla_alloc(long)
+  -> INLINE (MANUAL): (10,56) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
+  -> INLINE (MANUAL): (10,63) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_point(std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) (isz = 1) (sz = 6)
+  -> EXTERN: (11,13) std::chrono::_V2::system_clock::now()
+  -> EXTERN: (17,11) std::chrono::_V2::system_clock::now()
+  -> INLINE (MANUAL): (18,110) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<int64_t, std::milli, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<int64_t, std::milli> &) (isz = 16) (sz = 23)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,34) std::chrono::duration_cast<std::chrono::duration<double, std::ratio<1L, 1L>>, int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 10) (sz = 17)
+      -> INLINE (MANUAL): (202,22) std::chrono::__duration_cast_impl<std::chrono::duration<double, std::ratio<1L, 1L>>, std::ratio_divide<std::milli, std::chrono::duration<double, std::ratio<1L, 1L>>::period>, std::__success_type<double>::type, true, false>::__cast<int64_t, std::milli>(const std::chrono::duration<int64_t, std::milli> &) (isz = 9) (sz = 16)
+        -> INLINE (MANUAL): (161,20) std::chrono::duration<double, std::ratio<1L, 1L>>::duration<std::chrono::duration<double, std::ratio<1L, 1L>>::rep, void>(std::chrono::duration<double, std::ratio<1L, 1L>> *, const std::chrono::duration<double, std::ratio<1L, 1L>>::rep &) (isz = 0) (sz = 7)
+        -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::milli>::count(const std::chrono::duration<int64_t, std::milli> *) const (isz = 0) (sz = 6)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(270,39) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (18,110) std::chrono::duration_cast<std::chrono::milliseconds, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 9) (sz = 16)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(202,22) std::chrono::__duration_cast_impl<std::chrono::milliseconds, std::ratio_divide<std::nano, std::chrono::duration<int64_t, std::milli>::period>, std::__success_type<long>::type, true, false>::__cast<int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &) (isz = 8) (sz = 15)
+      -> INLINE (MANUAL): (161,20) std::chrono::duration<int64_t, std::milli>::duration<std::chrono::duration<int64_t, std::milli>::rep, void>(std::chrono::duration<int64_t, std::milli> *, const std::chrono::duration<int64_t, std::milli>::rep &) (isz = 0) (sz = 7)
+      -> INLINE (MANUAL): (162,29) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+  -> INLINE (MANUAL): (18,110) std::chrono::operator-<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration, std::chrono::_V2::system_clock::duration>(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &, const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> &) (isz = 32) (sz = 41)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,16) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration>::time_since_epoch(const std::chrono::time_point<std::chrono::_V2::system_clock, std::chrono::_V2::system_clock::duration> *) const (isz = 2) (sz = 8)
+    -> INLINE (MANUAL): /usr/include/c++/4.8.5/chrono:(651,43) std::chrono::operator-<int64_t, std::nano, int64_t, std::nano>(const std::chrono::duration<int64_t, std::nano> &, const std::chrono::duration<int64_t, std::nano> &) (isz = 19) (sz = 28)
+      -> INLINE (MANUAL): (398,14) std::chrono::duration<int64_t, std::nano>::duration<std::chrono::duration<int64_t, std::nano>::rep, void>(std::chrono::duration<int64_t, std::nano> *, const std::chrono::duration<int64_t, std::nano>::rep &) (isz = 0) (sz = 7)
+      -> INLINE (MANUAL): (398,26) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+      -> INLINE (MANUAL): (398,48) std::chrono::duration<int64_t, std::nano>::count(const std::chrono::duration<int64_t, std::nano> *) const (isz = 0) (sz = 6)
+  -> (19,14) std::operator<<<std::char_traits<char>>(std::basic_ostream<char, std::char_traits<char>> &, const char *) (isz = 15) (sz = 24)
+     [[ Called routine is noinline  <1>]]
+  -> (19,32) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, double) (isz = 1) (sz = 10)
+     [[ Called routine is noinline  <1>]]
+  -> INLINE (MANUAL): (19,47) std::chrono::duration<double, std::ratio<1L, 1L>>::count(const std::chrono::duration<double, std::ratio<1L, 1L>> *) const (isz = 0) (sz = 6)
+  -> (19,54) std::basic_ostream<char, std::char_traits<char>>::operator<<(std::basic_ostream<char, std::char_traits<char>> *, std::basic_ostream<char, std::char_traits<char>>::__ostream_type &(*)(std::basic_ostream<char, std::char_traits<char>>::__ostream_type &)) (isz = 0) (sz = 9)
+     [[ Called routine is noinline  <1>]]
+  -> EXTERN: (20,12) _vla_free(void *, long)
+  -> EXTERN: (20,12) _vla_free(void *, long)
 
 
     Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
 
 
-LOOP BEGIN at TestVector.cpp(18,5)
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
+LOOP BEGIN at TestVector.cpp(6,5)
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(7,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(8,9) ]
    remark #15305: vectorization support: vector length 8
-   remark #15399: vectorization support: unroll factor set to 2
+   remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
    remark #15449: unmasked aligned unit stride stores: 2 
    remark #15475: --- begin vector loop cost summary ---
@@ -303,21 +193,21 @@ LOOP BEGIN at TestVector.cpp(18,5)
    remark #15488: --- end vector loop cost summary ---
 LOOP END
 
-LOOP BEGIN at TestVector.cpp(18,5)
+LOOP BEGIN at TestVector.cpp(6,5)
 <Remainder loop for vectorization>
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(7,9) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(8,9) ]
    remark #15305: vectorization support: vector length 8
    remark #15309: vectorization support: normalized vectorization overhead 0.800
    remark #15301: REMAINDER LOOP WAS VECTORIZED
 LOOP END
 
-LOOP BEGIN at TestVector.cpp(23,5)
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
+LOOP BEGIN at TestVector.cpp(12,5)
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(14,13) ]
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(14,13) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(14,13) ]
    remark #15305: vectorization support: vector length 8
-   remark #15399: vectorization support: unroll factor set to 2
+   remark #15399: vectorization support: unroll factor set to 4
    remark #15300: LOOP WAS VECTORIZED
    remark #15448: unmasked aligned unit stride loads: 2 
    remark #15449: unmasked aligned unit stride stores: 1 
@@ -328,143 +218,20 @@ LOOP BEGIN at TestVector.cpp(23,5)
    remark #15488: --- end vector loop cost summary ---
 LOOP END
 
-LOOP BEGIN at TestVector.cpp(23,5)
+LOOP BEGIN at TestVector.cpp(12,5)
 <Remainder loop for vectorization>
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(14,13) ]
+   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(14,13) ]
+   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(14,13) ]
    remark #15305: vectorization support: vector length 8
-   remark #15309: vectorization support: normalized vectorization overhead 0.750
-   remark #15301: REMAINDER LOOP WAS VECTORIZED
-LOOP END
-===========================================================================
-
-Begin optimization report for: checkVector(int) [future_cpu_22]
-
-    Report from: Interprocedural optimizations [ipo]
-
-INLINE REPORT: (checkVector(int)) [7/30=23.3%] TestVector.cpp(16,26)
-  -> EXTERN: (17,12) _vla_alloc(long)
-  -> EXTERN: (17,18) _vla_alloc(long)
-  -> EXTERN: (26,12) _vla_free(void *, long)
-  -> EXTERN: (26,12) _vla_free(void *, long)
-
-
-    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
-
-
-LOOP BEGIN at TestVector.cpp(18,5)
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
-   remark #15305: vectorization support: vector length 8
-   remark #15399: vectorization support: unroll factor set to 2
-   remark #15300: LOOP WAS VECTORIZED
-   remark #15449: unmasked aligned unit stride stores: 2 
-   remark #15475: --- begin vector loop cost summary ---
-   remark #15476: scalar loop cost: 6 
-   remark #15477: vector loop cost: 0.750 
-   remark #15478: estimated potential speedup: 7.500 
-   remark #15488: --- end vector loop cost summary ---
-LOOP END
-
-LOOP BEGIN at TestVector.cpp(18,5)
-<Remainder loop for vectorization>
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
-   remark #15305: vectorization support: vector length 8
-   remark #15309: vectorization support: normalized vectorization overhead 0.800
+   remark #15309: vectorization support: normalized vectorization overhead 0.667
    remark #15301: REMAINDER LOOP WAS VECTORIZED
 LOOP END
 
-LOOP BEGIN at TestVector.cpp(23,5)
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15305: vectorization support: vector length 8
-   remark #15399: vectorization support: unroll factor set to 2
-   remark #15300: LOOP WAS VECTORIZED
-   remark #15448: unmasked aligned unit stride loads: 2 
-   remark #15449: unmasked aligned unit stride stores: 1 
-   remark #15475: --- begin vector loop cost summary ---
-   remark #15476: scalar loop cost: 6 
-   remark #15477: vector loop cost: 0.620 
-   remark #15478: estimated potential speedup: 9.000 
-   remark #15488: --- end vector loop cost summary ---
-LOOP END
+    Report from: Code generation optimizations [cg]
 
-LOOP BEGIN at TestVector.cpp(23,5)
-<Remainder loop for vectorization>
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15305: vectorization support: vector length 8
-   remark #15309: vectorization support: normalized vectorization overhead 0.750
-   remark #15301: REMAINDER LOOP WAS VECTORIZED
-LOOP END
-===========================================================================
-
-Begin optimization report for: checkVector(int) [generic]
-
-    Report from: Interprocedural optimizations [ipo]
-
-INLINE REPORT: (checkVector(int)) [7/30=23.3%] TestVector.cpp(16,26)
-  -> EXTERN: (17,12) _vla_alloc(long)
-  -> EXTERN: (17,18) _vla_alloc(long)
-  -> EXTERN: (26,12) _vla_free(void *, long)
-  -> EXTERN: (26,12) _vla_free(void *, long)
-
-
-    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
-
-
-LOOP BEGIN at TestVector.cpp(18,5)
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
-   remark #15305: vectorization support: vector length 2
-   remark #15399: vectorization support: unroll factor set to 4
-   remark #15300: LOOP WAS VECTORIZED
-   remark #15449: unmasked aligned unit stride stores: 2 
-   remark #15475: --- begin vector loop cost summary ---
-   remark #15476: scalar loop cost: 7 
-   remark #15477: vector loop cost: 3.000 
-   remark #15478: estimated potential speedup: 2.290 
-   remark #15488: --- end vector loop cost summary ---
-LOOP END
-
-LOOP BEGIN at TestVector.cpp(18,5)
-<Remainder loop for vectorization>
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(19,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(20,9) ]
-   remark #15335: remainder loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
-   remark #15305: vectorization support: vector length 2
-   remark #15309: vectorization support: normalized vectorization overhead 1.000
-LOOP END
-
-LOOP BEGIN at TestVector.cpp(23,5)
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15305: vectorization support: vector length 2
-   remark #15399: vectorization support: unroll factor set to 4
-   remark #15300: LOOP WAS VECTORIZED
-   remark #15448: unmasked aligned unit stride loads: 2 
-   remark #15449: unmasked aligned unit stride stores: 1 
-   remark #15475: --- begin vector loop cost summary ---
-   remark #15476: scalar loop cost: 6 
-   remark #15477: vector loop cost: 2.500 
-   remark #15478: estimated potential speedup: 2.350 
-   remark #15488: --- end vector loop cost summary ---
-LOOP END
-
-LOOP BEGIN at TestVector.cpp(23,5)
-<Remainder loop for vectorization>
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference A has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15388: vectorization support: reference B has aligned access   [ TestVector.cpp(24,9) ]
-   remark #15335: remainder loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
-   remark #15305: vectorization support: vector length 2
-   remark #15309: vectorization support: normalized vectorization overhead 0.909
-LOOP END
+/usr/include/c++/4.8.5/chrono(552,31):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (64, 0)
+/usr/include/c++/4.8.5/chrono(552,31):remark #34000: call to memset implemented inline with stores with proven (alignment, offset): (64, 0)
 ===========================================================================
 
 Begin optimization report for: std::ctype<char>::widen(const std::ctype<char> *, char) const

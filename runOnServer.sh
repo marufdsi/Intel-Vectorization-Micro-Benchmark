@@ -1,0 +1,2 @@
+cd Projects/TestCode
+./TestVector 

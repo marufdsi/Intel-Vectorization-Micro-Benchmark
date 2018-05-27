@@ -1,0 +1,523 @@
+	.section .text
+.LNDBG_TX:
+# mark_description "Intel(R) C++ Intel(R) 64 Compiler for applications running on Intel(R) 64, Version 16.0.0.109 Build 20150815";
+# mark_description "";
+# mark_description "-S -qopt-report=5 -std=c++11 -march=native";
+	.file "TestVector.cpp"
+	.text
+..TXTST0:
+.L_2__routine_start__Z11checkVectori_0:
+# -- Begin  _Z11checkVectori
+	.text
+# mark_begin;
+       .align    16,0x90
+	.globl _Z11checkVectori
+# --- checkVector(int)
+_Z11checkVectori:
+# parameter 1(n): %edi
+..B1.1:                         # Preds ..B1.0
+	.cfi_startproc
+	.cfi_personality 0x3,__gxx_personality_v0
+	.cfi_lsda 0xb, _Z11checkVectori$$LSDA
+..___tag_value__Z11checkVectori.1:
+..L2:
+                                                          #2.26
+..LN0:
+	.file   1 "TestVector.cpp"
+	.loc    1  2  is_stmt 1
+        pushq     %rbx                                          #2.26
+	.cfi_def_cfa_offset 16
+..LN1:
+        movq      %rsp, %rbx                                    #2.26
+	.cfi_def_cfa 3, 16
+	.cfi_offset 3, -16
+..LN2:
+        andq      $-32, %rsp                                    #2.26
+..LN3:
+        pushq     %rbp                                          #2.26
+..LN4:
+        pushq     %rbp                                          #2.26
+..LN5:
+        movq      8(%rbx), %rbp                                 #2.26
+..LN6:
+        movq      %rbp, 8(%rsp)                                 #2.26
+..LN7:
+        movq      %rsp, %rbp                                    #2.26
+	.cfi_escape 0x10, 0x06, 0x02, 0x76, 0x00
+..LN8:
+        pushq     %r14                                          #2.26
+..LN9:
+        pushq     %r15                                          #2.26
+	.cfi_escape 0x10, 0x0e, 0x02, 0x76, 0x78
+	.cfi_escape 0x10, 0x0f, 0x02, 0x76, 0x70
+..LN10:
+        movl      %edi, %r15d                                   #2.26
+[11~[11~..LN11:
+	.loc    1  3  is_stmt 1
+        movslq    %r15d, %r14                                   #3.15
+..LN12:
+        lea       (,%r14,8), %rcx                               #3.12
+..LN13:
+        movq      %rcx, %rax                                    #3.12
+..LN14:
+        addq      $31, %rax                                     #3.12
+..LN15:
+        andq      $-32, %rax                                    #3.12
+..LN16:
+        subq      %rax, %rsp                                    #3.12
+..LN17:
+        movq      %rsp, %rax                                    #3.12
+..LN18:
+                                # LOE rax rcx r12 r13 r14 r15d
+..B1.39:                        # Preds ..B1.1
+..LN19:
+        movq      %rax, %rsi                                    #3.12
+..LN20:
+                                # LOE rcx rsi r12 r13 r14 r15d
+..B1.2:                         # Preds ..B1.39
+..LN21:
+        movq      %rcx, %rax                                    #3.18
+..LN22:
+        addq      $31, %rax                                     #3.18
+..LN23:
+        andq      $-32, %rax                                    #3.18
+..LN24:
+        subq      %rax, %rsp                                    #3.18
+..LN25:
+        movq      %rsp, %rax                                    #3.18
+..LN26:
+                                # LOE rax rcx rsi r12 r13 r14 r15d
+..B1.3:                         # Preds ..B1.2
+..LN27:
+	.loc    1  4  is_stmt 1
+        testl     %r15d, %r15d                                  #4.25
+..LN28:
+        jle       ..B1.30       # Prob 50%                      #4.25
+..LN29:
+                                # LOE rax rcx rsi r12 r13 r14 r15d
+..B1.4:                         # Preds ..B1.3
+..LN30:
+        cmpl      $16, %r15d                                    #4.5
+..LN31:
+        jl        ..B1.36       # Prob 10%                      #4.5
+..LN32:
+                                # LOE rax rcx rsi r12 r13 r14 r15d
+..B1.5:                         # Preds ..B1.4
+..LN33:
+        movl      %r15d, %edi                                   #4.5
+..LN34:
+        xorl      %r9d, %r9d                                    #4.5
+..LN35:
+        andl      $-16, %edi                                    #4.5
+..LN36:
+	.loc    1  5  is_stmt 1
+        vmovupd   .L_2il0floatpacket.0(%rip), %ymm0             #5.16
+..LN37:
+	.loc    1  4  is_stmt 1
+        movslq    %edi, %r8                                     #4.5
+        .align    16,0x90
+..LN38:
+                                # LOE rax rcx rsi r8 r9 r12 r13 r14 edi r15d ymm0
+..B1.6:                         # Preds ..B1.6 ..B1.5
+..LN39:
+	.loc    1  5  is_stmt 1
+        vmovupd   %ymm0, 32(%rsi,%r9,8)                         #5.9
+..LN40:
+        lea       (%rsi,%r9,8), %r10                            #5.9
+..LN41:
+	.loc    1  6  is_stmt 1
+        vmovupd   %ymm0, 32(%rax,%r9,8)                         #6.9
+..LN42:
+	.loc    1  5  is_stmt 1
+        vmovupd   %ymm0, 64(%r10)                               #5.9
+..LN43:
+	.loc    1  6  is_stmt 1
+        vmovupd   %ymm0, 64(%rax,%r9,8)                         #6.9
+..LN44:
+	.loc    1  5  is_stmt 1
+        vmovupd   %ymm0, 96(%r10)                               #5.9
+..LN45:
+	.loc    1  6  is_stmt 1
+        vmovupd   %ymm0, 96(%rax,%r9,8)                         #6.9
+..LN46:
+	.loc    1  5  is_stmt 1
+        vmovupd   %ymm0, (%r10)                                 #5.9
+..LN47:
+	.loc    1  6  is_stmt 1
+        lea       (%rax,%r9,8), %r11                            #6.9
+..LN48:
+	.loc    1  4  is_stmt 1
+        addq      $16, %r9                                      #4.5
+..LN49:
+	.loc    1  6  is_stmt 1
+        vmovupd   %ymm0, (%r11)                                 #6.9
+..LN50:
+	.loc    1  4  is_stmt 1
+        cmpq      %r8, %r9                                      #4.5
+..LN51:
+        jb        ..B1.6        # Prob 82%                      #4.5
+..LN52:
+                                # LOE rax rcx rsi r8 r9 r12 r13 r14 edi r15d ymm0
+..B1.8:                         # Preds ..B1.6 ..B1.36
+..LN53:
+        lea       1(%rdi), %r8d                                 #4.5
+..LN54:
+        cmpl      %r8d, %r15d                                   #4.5
+..LN55:
+        jb        ..B1.17       # Prob 50%                      #4.5
+..LN56:
+                                # LOE rax rcx rsi r12 r13 r14 edi r15d
+..B1.9:                         # Preds ..B1.8
+..LN57:
+        movslq    %edi, %rdi                                    #4.5
+..LN58:
+        movq      %r14, %r8                                     #4.5
+..LN59:
+        subq      %rdi, %r8                                     #4.5
+..LN60:
+        cmpq      $4, %r8                                       #4.5
+..LN61:
+        jl        ..B1.35       # Prob 10%                      #4.5
+..LN62:
+                                # LOE rax rcx rsi rdi r8 r12 r13 r14 r15d
+..B1.10:                        # Preds ..B1.9
+..LN63:
+        movl      %r8d, %r9d                                    #4.5
+..LN64:
+        xorl      %edx, %edx                                    #4.5
+..LN65:
+        andl      $-4, %r9d                                     #4.5
+..LN66:
+	.loc    1  6  is_stmt 1
+        lea       (%rax,%rdi,8), %r11                           #6.9
+..LN67:
+	.loc    1  4  is_stmt 1
+        movslq    %r9d, %r9                                     #4.5
+..LN68:
+	.loc    1  5  is_stmt 1
+        lea       (%rsi,%rdi,8), %r10                           #5.9
+..LN69:
+        vmovupd   .L_2il0floatpacket.1(%rip), %ymm0             #5.16
+..LN70:
+                                # LOE rax rdx rcx rsi rdi r8 r9 r10 r11 r12 r13 r14 r15d ymm0
+..B1.11:                        # Preds ..B1.11 ..B1.10
+..LN71:
+        vmovupd   %ymm0, (%r10,%rdx,8)                          #5.9
+..LN72:
+	.loc    1  6  is_stmt 1
+        vmovupd   %ymm0, (%r11,%rdx,8)                          #6.9
+..LN73:
+	.loc    1  4  is_stmt 1
+        addq      $4, %rdx                                      #4.5
+..LN74:
+        cmpq      %r9, %rdx                                     #4.5
+..LN75:
+        jb        ..B1.11       # Prob 82%                      #4.5
+..LN76:
+                                # LOE rax rdx rcx rsi rdi r8 r9 r10 r11 r12 r13 r14 r15d ymm0
+..B1.13:                        # Preds ..B1.11 ..B1.35
+..LN77:
+        cmpq      %r8, %r9                                      #4.5
+..LN78:
+        jae       ..B1.17       # Prob 9%                       #4.5
+..LN79:
+                                # LOE rax rcx rsi rdi r8 r9 r12 r13 r14 r15d
+..B1.14:                        # Preds ..B1.13
+..LN80:
+	.loc    1  6  is_stmt 1
+        lea       (%rax,%rdi,8), %r11                           #6.9
+..LN81:
+	.loc    1  5  is_stmt 1
+        lea       (%rsi,%rdi,8), %r10                           #5.9
+..LN82:
+        movq      $0x3ff0000000000000, %rdi                     #5.16
+..LN83:
+                                # LOE rax rcx rsi rdi r8 r9 r10 r11 r12 r13 r14 r15d
+..B1.15:                        # Preds ..B1.15 ..B1.14
+..LN84:
+        movq      %rdi, (%r10,%r9,8)                            #5.9
+..LN85:
+	.loc    1  6  is_stmt 1
+        movq      %rdi, (%r11,%r9,8)                            #6.9
+..LN86:
+	.loc    1  4  is_stmt 1
+        incq      %r9                                           #4.5
+..LN87:
+        cmpq      %r8, %r9                                      #4.5
+..LN88:
+        jb        ..B1.15       # Prob 82%                      #4.5
+..LN89:
+                                # LOE rax rcx rsi rdi r8 r9 r10 r11 r12 r13 r14 r15d
+..B1.17:                        # Preds ..B1.15 ..B1.8 ..B1.13
+..LN90:
+	.loc    1  9  is_stmt 1
+        cmpl      $16, %r15d                                    #9.5
+..LN91:
+        jl        ..B1.34       # Prob 10%                      #9.5
+..LN92:
+                                # LOE rax rcx rsi r12 r13 r14 r15d
+..B1.18:                        # Preds ..B1.17
+..LN93:
+        movl      %r15d, %edi                                   #9.5
+..LN94:
+        xorl      %r9d, %r9d                                    #9.5
+..LN95:
+        andl      $-16, %edi                                    #9.5
+..LN96:
+        movslq    %edi, %r8                                     #9.5
+        .align    16,0x90
+..LN97:
+                                # LOE rax rcx rsi r8 r9 r12 r13 r14 edi r15d
+..B1.19:                        # Preds ..B1.19 ..B1.18
+..LN98:
+	.loc    1  11  is_stmt 1
+        vmovupd   (%rsi,%r9,8), %ymm0                           #11.13
+..LN99:
+        lea       (%rsi,%r9,8), %r10                            #11.13
+..LN100:
+        vmovupd   32(%r10), %ymm2                               #11.13
+..LN101:
+        vmovupd   64(%r10), %ymm4                               #11.13
+..LN102:
+        vmovupd   96(%r10), %ymm6                               #11.13
+..LN103:
+        vaddpd    (%rax,%r9,8), %ymm0, %ymm1                    #11.13
+..LN104:
+        vaddpd    32(%rax,%r9,8), %ymm2, %ymm3                  #11.13
+..LN105:
+        vaddpd    64(%rax,%r9,8), %ymm4, %ymm5                  #11.13
+..LN106:
+        vaddpd    96(%rax,%r9,8), %ymm6, %ymm7                  #11.13
+..LN107:
+        vmovupd   %ymm1, (%r10)                                 #11.13
+..LN108:
+        vmovupd   %ymm3, 32(%r10)                               #11.13
+..LN109:
+        vmovupd   %ymm5, 64(%r10)                               #11.13
+..LN110:
+        vmovupd   %ymm7, 96(%r10)                               #11.13
+..LN111:
+	.loc    1  9  is_stmt 1
+        addq      $16, %r9                                      #9.5
+..LN112:
+        cmpq      %r8, %r9                                      #9.5
+..LN113:
+        jb        ..B1.19       # Prob 82%                      #9.5
+..LN114:
+                                # LOE rax rcx rsi r8 r9 r12 r13 r14 edi r15d
+..B1.21:                        # Preds ..B1.19 ..B1.34
+..LN115:
+        lea       1(%rdi), %r8d                                 #9.5
+..LN116:
+        cmpl      %r8d, %r15d                                   #9.5
+..LN117:
+        jb        ..B1.30       # Prob 50%                      #9.5
+..LN118:
+                                # LOE rax rcx rsi r12 r13 r14 edi
+..B1.22:                        # Preds ..B1.21
+..LN119:
+        movslq    %edi, %rdi                                    #9.5
+..LN120:
+        subq      %rdi, %r14                                    #9.5
+..LN121:
+        cmpq      $4, %r14                                      #9.5
+..LN122:
+        jl        ..B1.33       # Prob 10%                      #9.5
+..LN123:
+                                # LOE rax rcx rsi rdi r12 r13 r14
+..B1.23:                        # Preds ..B1.22
+..LN124:
+        movl      %r14d, %r8d                                   #9.5
+..LN125:
+        xorl      %r11d, %r11d                                  #9.5
+..LN126:
+        andl      $-4, %r8d                                     #9.5
+..LN127:
+	.loc    1  11  is_stmt 1
+        lea       (%rax,%rdi,8), %r10                           #11.21
+..LN128:
+	.loc    1  9  is_stmt 1
+        movslq    %r8d, %r8                                     #9.5
+..LN129:
+	.loc    1  11  is_stmt 1
+        lea       (%rsi,%rdi,8), %r9                            #11.13
+..LN130:
+                                # LOE rax rcx rsi rdi r8 r9 r10 r11 r12 r13 r14
+..B1.24:                        # Preds ..B1.24 ..B1.23
+..LN131:
+        vmovupd   (%r9,%r11,8), %ymm0                           #11.13
+..LN132:
+        vaddpd    (%r10,%r11,8), %ymm0, %ymm1                   #11.13
+..LN133:
+        vmovupd   %ymm1, (%r9,%r11,8)                           #11.13
+..LN134:
+	.loc    1  9  is_stmt 1
+        addq      $4, %r11                                      #9.5
+..LN135:
+        cmpq      %r8, %r11                                     #9.5
+..LN136:
+        jb        ..B1.24       # Prob 82%                      #9.5
+..LN137:
+                                # LOE rax rcx rsi rdi r8 r9 r10 r11 r12 r13 r14
+..B1.26:                        # Preds ..B1.24 ..B1.33
+..LN138:
+        cmpq      %r14, %r8                                     #9.5
+..LN139:
+        jae       ..B1.30       # Prob 9%                       #9.5
+..LN140:
+                                # LOE rax rcx rsi rdi r8 r12 r13 r14
+..B1.27:                        # Preds ..B1.26
+..LN141:
+	.loc    1  11  is_stmt 1
+        lea       (%rax,%rdi,8), %r9                            #11.21
+..LN142:
+        lea       (%rsi,%rdi,8), %rdi                           #11.13
+..LN143:
+                                # LOE rax rcx rsi rdi r8 r9 r12 r13 r14
+..B1.28:                        # Preds ..B1.28 ..B1.27
+..LN144:
+        vmovsd    (%rdi,%r8,8), %xmm0                           #11.13
+..LN145:
+        vaddsd    (%r9,%r8,8), %xmm0, %xmm1                     #11.13
+..LN146:
+        vmovsd    %xmm1, (%rdi,%r8,8)                           #11.13
+..LN147:
+	.loc    1  9  is_stmt 1
+        incq      %r8                                           #9.5
+..LN148:
+        cmpq      %r14, %r8                                     #9.5
+..LN149:
+        jb        ..B1.28       # Prob 82%                      #9.5
+..LN150:
+                                # LOE rax rcx rsi rdi r8 r9 r12 r13 r14
+..B1.30:                        # Preds ..B1.28 ..B1.3 ..B1.21 ..B1.26
+..LN151:
+	.loc    1  14  is_stmt 1
+        movq      %rax, %rdx                                    #14.12
+..LN152:
+        movq      %rcx, %rax                                    #14.12
+..LN153:
+        vmovsd    (%rsi), %xmm0                                 #14.12
+..LN154:
+        vzeroupper                                              #14.12
+..LN155:
+        addq      $31, %rax                                     #14.12
+..LN156:
+        andq      $-32, %rax                                    #14.12
+..LN157:
+        addq      %rax, %rsp                                    #14.12
+..LN158:
+                                # LOE rcx rsi r12 r13 xmm0
+..B1.31:                        # Preds ..B1.30
+..LN159:
+        movq      %rsi, %rdx                                    #14.12
+..LN160:
+        movq      %rcx, %rax                                    #14.12
+..LN161:
+        addq      $31, %rax                                     #14.12
+..LN162:
+        andq      $-32, %rax                                    #14.12
+..LN163:
+        addq      %rax, %rsp                                    #14.12
+..LN164:
+                                # LOE r12 r13 xmm0
+..B1.32:                        # Preds ..B1.31
+..LN165:
+        lea       -16(%rbp), %rsp                               #14.5
+	.cfi_restore 15
+..LN166:
+        popq      %r15                                          #14.5
+	.cfi_restore 14
+..LN167:
+        popq      %r14                                          #14.5
+..LN168:
+        popq      %rbp                                          #14.5
+	.cfi_restore 6
+..LN169:
+        movq      %rbx, %rsp                                    #14.5
+..LN170:
+        popq      %rbx                                          #14.5
+	.cfi_def_cfa 7, 8
+	.cfi_restore 3
+..LN171:
+        ret                                                     #14.5
+	.cfi_def_cfa 3, 16
+	.cfi_offset 3, -16
+	.cfi_escape 0x10, 0x06, 0x02, 0x76, 0x00
+	.cfi_escape 0x10, 0x0e, 0x02, 0x76, 0x78
+	.cfi_escape 0x10, 0x0f, 0x02, 0x76, 0x70
+..LN172:
+                                # LOE
+..B1.33:                        # Preds ..B1.22                 # Infreq
+..LN173:
+	.loc    1  9  is_stmt 1
+        xorl      %r8d, %r8d                                    #9.5
+..LN174:
+        jmp       ..B1.26       # Prob 100%                     #9.5
+..LN175:
+                                # LOE rax rcx rsi rdi r8 r12 r13 r14
+..B1.34:                        # Preds ..B1.17                 # Infreq
+..LN176:
+        xorl      %edi, %edi                                    #9.5
+..LN177:
+        jmp       ..B1.21       # Prob 100%                     #9.5
+..LN178:
+                                # LOE rax rcx rsi r12 r13 r14 edi r15d
+..B1.35:                        # Preds ..B1.9                  # Infreq
+..LN179:
+	.loc    1  4  is_stmt 1
+        xorl      %r9d, %r9d                                    #4.5
+..LN180:
+        jmp       ..B1.13       # Prob 100%                     #4.5
+..LN181:
+                                # LOE rax rcx rsi rdi r8 r9 r12 r13 r14 r15d
+..B1.36:                        # Preds ..B1.4                  # Infreq
+..LN182:
+        xorl      %edi, %edi                                    #4.5
+..LN183:
+        jmp       ..B1.8        # Prob 100%                     #4.5
+        .align    16,0x90
+	.cfi_endproc
+..LN184:
+                                # LOE rax rcx rsi r12 r13 r14 edi r15d
+..LN185:
+# mark_end;
+	.type	_Z11checkVectori,@function
+	.size	_Z11checkVectori,.-_Z11checkVectori
+..LN_Z11checkVectori.186:
+.LN_Z11checkVectori:
+	.section .gcc_except_table, "a"
+	.align 4
+_Z11checkVectori$$LSDA:
+	.byte	255
+	.byte	0
+	.uleb128	..___tag_value__Z11checkVectori.23 - ..___tag_value__Z11checkVectori.22
+..___tag_value__Z11checkVectori.22:
+	.byte	1
+	.uleb128	..___tag_value__Z11checkVectori.21 - ..___tag_value__Z11checkVectori.20
+..___tag_value__Z11checkVectori.20:
+..___tag_value__Z11checkVectori.21:
+	.long	0x00000000,0x00000000
+..___tag_value__Z11checkVectori.23:
+	.data
+# -- End  _Z11checkVectori
+	.section .rodata, "a"
+	.align 32
+	.align 32
+.L_2il0floatpacket.0:
+	.long	0x00000000,0x3ff00000,0x00000000,0x3ff00000,0x00000000,0x3ff00000,0x00000000,0x3ff00000
+	.type	.L_2il0floatpacket.0,@object
+	.size	.L_2il0floatpacket.0,32
+	.align 32
+.L_2il0floatpacket.1:
+	.long	0x00000000,0x3ff00000,0x00000000,0x3ff00000,0x00000000,0x3ff00000,0x00000000,0x3ff00000
+	.type	.L_2il0floatpacket.1,@object
+	.size	.L_2il0floatpacket.1,32
+	.align 8
+.L_2il0floatpacket.2:
+	.long	0x00000000,0x3ff00000
+	.type	.L_2il0floatpacket.2,@object
+	.size	.L_2il0floatpacket.2,8
+	.data
+	.section .note.GNU-stack, ""
+# End
