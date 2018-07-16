@@ -51,6 +51,16 @@ int main(){
   for(index edge=0; edge<_deg; ++edge){
     pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
   }
+  cout<<"Edges: ";
+  for(index edge=0; edge<_deg; ++edge){
+    cout<<pnt_outEdges[edge]<<" ";
+  }
+  cout<<endl<<"Community: ";
+  for(index edge=0; edge<_deg; ++edge){
+    cout<<zeta[pnt_outEdges[edge]]<<" ";
+  }
+  cout<<endl;
+
   pnt_affinity[zeta[u]] = 0;
   index neighbor_processed = (_deg/16)*16;
   index index_of_remaining_vertex = neighbor_processed;
@@ -108,6 +118,15 @@ int main(){
         // Scatter affinity value to the affinity pointer.
         _mm512_i32scatter_ps(pnt_affinity, C_vec, affinity_vec, 1);
       }
+
+      cout<<"Ignore Vertices: ";
+      for(index edge=0; edge<vertex_count; ++edge){
+        cout<<ignorance_vertex[edge]<<" ";
+      }
+      cout<<endl<<"Neighbor Collected: ";
+      for(index edge=0; edge<neigh_counter; ++edge){
+        cout<<pnt_neigh_comm[edge]<<" ";
+      }
       if (vertex_count == 0 || vertex_count < 16) {
         for (index i = 0; i < vertex_count; ++i) {
           node v = ignorance_vertex[i];
@@ -141,6 +160,12 @@ int main(){
         pnt_affinity[C] += defaultEdgeWeight;
       }
     }
+
+  cout<<endl<<"Distinct Neighbor Community: ";
+  for(index edge=0; edge<neigh_counter; ++edge){
+    cout<<pnt_neigh_comm[edge]<<" ";
+  }
+  cout<<endl;
 
   /******/
 
