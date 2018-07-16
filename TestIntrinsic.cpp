@@ -11,7 +11,7 @@ using namespace std;
 
 
 int main(){
-  typedef int32_t index, node, count;
+  typedef int32_t index, sint, node, count;
   typedef float edgeweight;
 
   int z = 40;
@@ -31,7 +31,7 @@ int main(){
   index _deg = 40, u=0;
   count neigh_counter = 0;
   count vertex_count = 0;
-  const node *pnt_outEdges, *outEdges, *zeta;
+  node *pnt_outEdges, *outEdges, *zeta;
   index *pnt_neigh_comm;
   node *ignorance_vertex;
   edgeweight *pnt_affinity;
@@ -145,7 +145,7 @@ int main(){
   /******/
 
 
-
+/*
   cout<<"f_a:";
   for(int i=0; i<100; i++){
     cout<<f_a[i]<<" ";
@@ -192,7 +192,7 @@ int main(){
   cout<<endl<<"zero count array: "<<endl;
   for(int i=0; i<16; i++){
     cout << val_lz[i]<<" ";
-  }
+  }*/
   /*cout<<endl<<"pop count: "<<endl;                                                                                                                                                                         
         for(int i=0; i<10; i++){                                                                                                                                                                                   
 	cout<<val_pop[i]<<" ";                                                                                                                                                                                   
