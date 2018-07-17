@@ -122,6 +122,12 @@ int main(){
         affinity_vec = _mm512_mask_mov_ps(affinity_vec, new_comm_mask, fl_set0);
         // Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
+        float *val_aff = (float *) &affinity_vec;
+        cout<<"affinity: ";
+        for (int j = 0; j < 16; ++j) {
+          cout<<val_aff[j]<<" "
+        }
+        cout<<endl;
         // Scatter affinity value to the affinity pointer.
         _mm512_i32scatter_ps(pnt_affinity, C_vec, affinity_vec, 4);
       }
