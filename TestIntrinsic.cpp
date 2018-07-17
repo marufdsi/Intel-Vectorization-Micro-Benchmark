@@ -125,7 +125,7 @@ int main(){
         float *val_aff = (float *) &affinity_vec;
         cout<<"affinity: ";
         for (int j = 0; j < 16; ++j) {
-          cout<<val_aff[j]<<" "
+          cout<<val_aff[j]<<" ";
         }
         cout<<endl;
         // Scatter affinity value to the affinity pointer.
