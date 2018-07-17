@@ -17,6 +17,21 @@ int main(){
   int z = 40;
   int node_sort_by_deg[z];
   int outDegree[z];
+
+  float float_val[16];
+  double double_val[16];
+  for (int i = 0; i < 16; ++i) {
+    float_val[i] = i;
+  }
+
+  __m512 weight_vec1 = _mm512_loadu_ps((__m512 *)&float_val[0]);
+  _mm512_storeu_ps(&double_val[0], weight_vec1);
+  cout<<"Check Double value:"<<endl;
+  for (int i = 0; i < 16; ++i) {
+    cout<<double_val[i]<<" ";
+  }
+  cout<<endl;
+
   /******/
   index _deg = 1000, u=0;
   count neigh_counter = 0;
@@ -123,7 +138,9 @@ int main(){
         // Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
         // Scatter affinity value to the affinity pointer.
-        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
+//        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
+        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(affinity_vec, __MM_FROUND_NO_EXC), 8);
+        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(affinity_vec, __MM_FROUND_NO_EXC), 8);
       }
 
       if (vertex_count == 0 || vertex_count < 16) {
