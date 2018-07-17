@@ -12,7 +12,7 @@ using namespace std;
 
 int main(){
   typedef int32_t index, sint, node, count;
-  typedef double edgeweight;
+  typedef float edgeweight;
 
   int z = 40;
   int node_sort_by_deg[z];
@@ -88,7 +88,7 @@ int main(){
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
         // Gather affinity of the corresponding community.
-        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 8);
+        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
         float * val_aff = (float*) &affinity_vec;
         int * val_comm = (int*) &C_vec;
         cout<<"Community Loaded: ";
@@ -129,11 +129,11 @@ int main(){
         vertex_count += vertex_cnt;
 
         // Assign 0.0 in the affinity that contains -1.0 right now.
-        _mm512_mask_i32scatter_ps(pnt_affinity, new_comm_mask, C_vec, fl_set0, 8);
+        _mm512_mask_i32scatter_ps(pnt_affinity, new_comm_mask, C_vec, fl_set0, 4);
         // Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
         // Scatter affinity value to the affinity pointer.
-        _mm512_i32scatter_ps(pnt_affinity, C_vec, affinity_vec, 8);
+        _mm512_i32scatter_ps(pnt_affinity, C_vec, affinity_vec, 4);
       }
 
       cout<<"Ignore Vertices: ";
