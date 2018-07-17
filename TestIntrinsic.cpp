@@ -98,7 +98,7 @@ int main(){
         cout<<endl;
         cout<<"Affinity Loaded: ";
         for (int j = 0; j < 16; ++j) {
-          cout<< pnt_affinity[val_comm[j]] <<val_aff[j]<<" ";
+          cout<<"O: "<< pnt_affinity[val_comm[j]] <<" L: "<<val_aff[j]<<"    ";
         }
         // Mask to find out the new community that contains -1.0 value
         const __mmask16 new_comm_mask = _mm512_cmpeq_ps_mask(fl_set1, affinity_vec);
