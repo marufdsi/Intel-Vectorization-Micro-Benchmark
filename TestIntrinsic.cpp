@@ -78,16 +78,22 @@ int main(){
     while (1) {
       vertex_count = 0;
       for (index i = 0; i < neighbor_processed; i += 16) {
+        cout<<"start"<<endl;
         // Load at most 16 neighbor vertices.
         __m512i v_vec = _mm512_loadu_si512((__m512i *) &pnt_outEdges[i]);
+        cout<<"load out edge"<<endl;
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 1);
+        cout<<"gather community"<<endl;
         // Gather affinity of the corresponding community.
         __m512 affinity_vec = _mm512_i32gather_ps(C_vec, pnt_affinity, 1);
+        cout<<"gather affinity"<<endl;
         // Mask to find out the new community that contains -1.0 value
         const __mmask16 new_comm_mask = _mm512_cmpeq_ps_mask(fl_set1, affinity_vec);
+        cout<<"calculate new community mask"<<endl;
         // Detect conflict of the community
         __m512i C_conflict = _mm512_conflict_epi32(C_vec);
+        cout<<"detect conflict"<<endl;
         // Calculate mask using NAND of C_conflict and set1
         const __mmask16 mask = _mm512_testn_epi32_mask(C_conflict, set1);
 
