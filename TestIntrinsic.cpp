@@ -95,7 +95,7 @@ int main(){
         }
         cout<<endl;
         // Mask to find u != v
-        const __mmask16 self_loop_mask = _mm512_cmpneq_epi16_mask(check_self_loop, v_vec);
+        const __mmask16 self_loop_mask = _mm512_cmpneq_epi32_mask(check_self_loop, v_vec);
         cout<<"self loop mask: "<<(unsigned)self_loop_mask<<endl;
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
