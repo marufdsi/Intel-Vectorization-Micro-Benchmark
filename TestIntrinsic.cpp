@@ -86,7 +86,7 @@ int main(){
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 1);
         cout<<"gather community"<<endl;
         // Gather affinity of the corresponding community.
-        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, pnt_affinity, 1);
+        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 1);
         cout<<"gather affinity"<<endl;
         // Mask to find out the new community that contains -1.0 value
         const __mmask16 new_comm_mask = _mm512_cmpeq_ps_mask(fl_set1, affinity_vec);
