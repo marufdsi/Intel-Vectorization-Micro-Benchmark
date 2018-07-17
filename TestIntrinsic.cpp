@@ -124,10 +124,6 @@ int main(){
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
         // Scatter affinity value to the affinity pointer.
         _mm512_i32scatter_ps(pnt_affinity, C_vec, affinity_vec, 4);
-        int * val_C = (int*) &C_vec;
-        for (int j = 0; j < 16; ++j) {
-          cout<<"comm: "<<val_C[j]<<" aff: "<<pnt_affinity[val_C[j]]<<endl;
-        }
       }
 
       cout<<"Ignore Vertices: ";
@@ -192,7 +188,7 @@ int main(){
 
   cout<<endl<<"Distinct Neighbor Community: ";
   for(index edge=0; edge<neigh_counter; ++edge){
-    cout<<pnt_neigh_comm[edge]<<" ";
+    cout<<"Comm: "<<pnt_neigh_comm[edge]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[edge]];
   }
   cout<<endl;
 
