@@ -25,8 +25,8 @@
       <file leaf-file-name="TestIntrinsic.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="409">
-              <caret line="46" column="3" lean-forward="true" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
+            <state relative-caret-position="627">
+              <caret line="125" column="33" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -40,6 +40,9 @@
       <find>35</find>
       <find>pd</find>
       <find>__m512d</find>
+      <find>floa</find>
+      <find>float</find>
+      <find>w_not_processed</find>
     </findStrings>
     <replaceStrings>
       <replace>frameSize</replace>
@@ -121,12 +124,12 @@
       <updated>1513889393915</updated>
       <workItem from="1513889395104" duration="2932000" />
       <workItem from="1517277699332" duration="6437000" />
-      <workItem from="1531773610542" duration="15398000" />
+      <workItem from="1531773610542" duration="17960000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26082000" />
+    <option name="totallyTimeSpent" value="28644000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="0" width="1922" height="1201" extended-state="6" />
@@ -243,8 +246,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="46" column="3" lean-forward="true" selection-start-line="46" selection-start-column="3" selection-end-line="46" selection-end-column="3" />
+        <state relative-caret-position="627">
+          <caret line="125" column="33" selection-start-line="125" selection-start-column="8" selection-end-line="125" selection-end-column="33" />
         </state>
       </provider>
     </entry>
