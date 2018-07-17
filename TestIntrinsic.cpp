@@ -59,6 +59,10 @@ int main(){
   for(index edge=0; edge<_deg; ++edge){
     cout<<zeta[pnt_outEdges[edge]]<<" ";
   }
+  cout<<endl<<"affinity: ";
+  for(index edge=0; edge<_deg; ++edge){
+    cout<<zeta[pnt_outEdges[edge]]<<" = "<<pnt_affinity[zeta[pnt_outEdges[edge]]]<<" ";
+  }
   cout<<endl;
 
   pnt_affinity[zeta[u]] = 0;
@@ -85,6 +89,11 @@ int main(){
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 1);
         cout<<"gather community"<<endl;
+        int * val_comm = (int*) &C_vec;
+        for (int j = 0; j < 16; ++j) {
+          cout<<val_comm[j]<<" ";
+        }
+        cout<<endl;
         // Gather affinity of the corresponding community.
         __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 1);
         cout<<"gather affinity"<<endl;
