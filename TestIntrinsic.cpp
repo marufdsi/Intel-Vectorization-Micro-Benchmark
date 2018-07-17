@@ -175,10 +175,6 @@ int main(){
       }
     }
     pnt_outEdges = &outEdges[0];
-  for(index com=0; com<neigh_counter; ++com){
-    cout<<" Comm: "<<com<<" Affinity: "<<pnt_affinity[com];
-  }
-  cout<<endl;
     for (index i= index_of_remaining_vertex; i < _deg; ++i) {
       node v = pnt_outEdges[i];
       if (u != v) {
@@ -192,9 +188,9 @@ int main(){
       }
     }
 
-  cout<<endl<<"Distinct Neighbor Community: ";
-  for(index edge=0; edge<neigh_counter; ++edge){
-    cout<<" Comm: "<<pnt_neigh_comm[edge]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[edge]];
+  cout<<endl<<"Community vs Affinity: ";
+  for(index com=0; com<neigh_counter; ++com){
+    cout<<" Comm: "<<com<<" Affinity: "<<pnt_affinity[com];
   }
   cout<<endl;
 
