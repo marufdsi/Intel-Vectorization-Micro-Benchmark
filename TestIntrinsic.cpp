@@ -12,7 +12,7 @@ using namespace std;
 
 int main(){
   typedef int32_t index, sint, node, count;
-  typedef float edgeweight;
+  typedef double edgeweight;
 
   int z = 40;
   int node_sort_by_deg[z];
@@ -42,7 +42,7 @@ int main(){
   zeta = (node*)malloc(sizeof(node)*_deg);
 #pragma omp simd
   for(index edge=0; edge<_deg; ++edge){
-    outEdges[edge] = edge%10;
+    outEdges[edge] = edge;
     zeta[edge] = edge%5;
   }
   pnt_outEdges = &outEdges[0];
@@ -65,7 +65,7 @@ int main(){
   }
   cout<<endl;
 
-  pnt_affinity[zeta[u]] = 0;
+  pnt_affinity[zeta[u]] = 0.0;
   index neighbor_processed = (_deg/16)*16;
   index index_of_remaining_vertex = neighbor_processed;
   // Calculate affinity. 512 register, so it can load 16, 32 bit integer or floating point.
