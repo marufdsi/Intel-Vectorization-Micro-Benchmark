@@ -28,7 +28,7 @@ int main(){
   }
 
   /******/
-  index _deg = 40, u=0;
+  index _deg = 20, u=0;
   count neigh_counter = 0;
   count vertex_count = 0;
   node *pnt_outEdges, *outEdges, *zeta;
@@ -96,6 +96,7 @@ int main(){
         // Calculate mask using NAND of C_conflict and set1
         const __mmask16 mask = _mm512_testn_epi32_mask(C_conflict, set1);
 
+        cout<<"New Comm Mask: "<<(unsigned)new_comm_mask<<" mask: "<<(unsigned)mask<<endl;
         // Now we need to collect the distinct neighbor community and vertices that didn't process yet.
         __m512i distinct_comm, v_not_processed;
         __m512 w_not_processed;
