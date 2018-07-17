@@ -59,13 +59,14 @@ int main(){
   for(index edge=0; edge<_deg; ++edge){
     cout<<zeta[pnt_outEdges[edge]]<<" ";
   }
+  pnt_affinity[zeta[u]] = 0.0;
   cout<<endl<<"affinity: ";
   for(index edge=0; edge<_deg; ++edge){
     cout<<zeta[pnt_outEdges[edge]]<<" = "<<pnt_affinity[zeta[pnt_outEdges[edge]]]<<" ";
   }
   cout<<endl;
 
-  pnt_affinity[zeta[u]] = 0.0;
+
   index neighbor_processed = (_deg/16)*16;
   index index_of_remaining_vertex = neighbor_processed;
   // Calculate affinity. 512 register, so it can load 16, 32 bit integer or floating point.
@@ -96,7 +97,7 @@ int main(){
         // Calculate mask using NAND of C_conflict and set1
         const __mmask16 mask = _mm512_testn_epi32_mask(C_conflict, set1);
 
-        cout<<"New Comm Mask: "<<(unsigned)new_comm_mask<<" mask: "<<(unsigned)mask<<endl;
+        cout<<"New Comm Mask: "<<(unsigned)new_comm_mask<<" mask: "<<(unsigned)mask<< " and of Mask: "<< (unsigned)_mm512_kand(mask, new_comm_mask) <<endl;
         // Now we need to collect the distinct neighbor community and vertices that didn't process yet.
         __m512i distinct_comm, v_not_processed;
         __m512 w_not_processed;
@@ -133,6 +134,7 @@ int main(){
       for(index edge=0; edge<neigh_counter; ++edge){
         cout<<pnt_neigh_comm[edge]<<" ";
       }
+      cout<<endl;
       if (vertex_count == 0 || vertex_count < 16) {
         for (index i = 0; i < vertex_count; ++i) {
           node v = ignorance_vertex[i];
