@@ -87,6 +87,13 @@ int main(){
       for (index i = 0; i < neighbor_processed; i += 16) {
         // Load at most 16 neighbor vertices.
         __m512i v_vec = _mm512_loadu_si512((__m512i *) &pnt_outEdges[i]);
+        int * val_V = (it *) &v_vec;
+        int * val_S = (it *) &check_self_loop;
+        cout<<"check mask:";
+        for (int j = 0; j < 16; ++j) {
+          cout<<"v: "<<val_V[j]<<" self: "<<val_S[j]<<", ";
+        }
+        cout<<endl;
         // Mask to find u != v
         const __mmask16 self_loop_mask = _mm512_cmpneq_epi16_mask(check_self_loop, v_vec);
         cout<<"self loop mask: "<<(unsigned)self_loop_mask<<endl;
