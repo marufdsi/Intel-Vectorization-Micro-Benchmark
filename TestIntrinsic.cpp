@@ -80,22 +80,25 @@ int main(){
   const   __m512i set1 = _mm512_set1_epi32(0xFFFFFFFF);
 
     const   __m512 default_edge_weight = _mm512_set1_ps(defaultEdgeWeight);
+    const   __m512i check_self_loop = _mm512_set1_epi32(u);
     index terminate = 0;
     while (1) {
       vertex_count = 0;
       for (index i = 0; i < neighbor_processed; i += 16) {
         // Load at most 16 neighbor vertices.
         __m512i v_vec = _mm512_loadu_si512((__m512i *) &pnt_outEdges[i]);
+        // Mask to find u != v
+        const __mmask16 self_loop_mask = _mm512_cmpneq_epi16_mask(check_self_loop, v_vec);
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
         // Gather affinity of the corresponding community.
         __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
         // Mask to find out the new community that contains -1.0 value
-        const __mmask16 new_comm_mask = _mm512_cmpeq_ps_mask(fl_set1, affinity_vec);
+        const __mmask16 new_comm_mask = _mm512_kand(_mm512_cmpeq_ps_mask(fl_set1, affinity_vec), self_loop_mask);
         // Detect conflict of the community
         __m512i C_conflict = _mm512_conflict_epi32(C_vec);
         // Calculate mask using NAND of C_conflict and set1
-        const __mmask16 mask = _mm512_testn_epi32_mask(C_conflict, set1);
+        const __mmask16 mask = _mm512_kand(_mm512_testn_epi32_mask(C_conflict, set1), self_loop_mask);
 
         // Now we need to collect the distinct neighbor community and vertices that didn't process yet.
         __m512i distinct_comm, v_not_processed;
@@ -103,11 +106,11 @@ int main(){
         // It will find out the distinct community but we don't know the length.
         distinct_comm = _mm512_mask_compress_epi32(set0, _mm512_kand(mask, new_comm_mask), C_vec);
         // It will calculate the ignorance vertices in the previous calculation, but we don't know the length.
-        v_not_processed = _mm512_mask_compress_epi32(set0, ~mask, v_vec);
+        v_not_processed = _mm512_mask_compress_epi32(set0, _mm512_kand(_mm512_knot(mask), self_loop_mask), v_vec);
         // Count the set bit from the mask for neighbor community
         sint neigh_cnt = _mm_popcnt_u32((unsigned) _mm512_kand(mask, new_comm_mask));
         // Count the set bit from the mask for ignore vertices
-        sint vertex_cnt = _mm_popcnt_u32((unsigned)_mm512_knot(mask));
+        sint vertex_cnt = _mm_popcnt_u32((unsigned)_mm512_kand(_mm512_knot(mask), self_loop_mask));
         // Store distinct neighbor community
         _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
         // Store ignore vertices
