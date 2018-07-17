@@ -91,6 +91,7 @@ int main(){
         // Calculate mask using NAND of C_conflict and set1
         const __mmask16 mask = _mm512_testn_epi32_mask(C_conflict, set1);
 
+        cout<<"Loading and Conflict detection done"<<endl;
         // Now we need to collect the distinct neighbor community and vertices that didn't process yet.
         __m512i distinct_comm, v_not_processed;
         __m512 w_not_processed;
