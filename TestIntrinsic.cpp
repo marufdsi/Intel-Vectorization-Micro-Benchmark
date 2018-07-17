@@ -108,9 +108,9 @@ int main(){
         // Count the set bit from the mask for neighbor community
         sint neigh_cnt = _mm_popcnt_u32((unsigned) _mm512_kand(mask, new_comm_mask));
         // Count the set bit from the mask for ignore vertices
-        sint vertex_cnt = _mm_popcnt_u32((unsigned) (~mask));
+        sint vertex_cnt = _mm_popcnt_u32((unsigned) (!mask));
         cout<<"Ignore Vertex Count: "<<vertex_cnt<<endl;
-        cout<<"Ignore Vertex Mask: "<<(unsigned) (~mask)<<endl;
+        cout<<"Ignore Vertex Mask: "<<(unsigned) (!mask)<<endl;
         // Store distinct neighbor community
         _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
         // Store ignore vertices
