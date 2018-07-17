@@ -134,7 +134,7 @@ int main(){
       for(index edge=0; edge<neigh_counter; ++edge){
         cout<<pnt_neigh_comm[edge]<<" ";
       }
-      cout<<endl;
+      cout<<endl<<"Vertex Count: "<<vertex_count<<endl;
       if (vertex_count == 0 || vertex_count < 16) {
         for (index i = 0; i < vertex_count; ++i) {
           node v = ignorance_vertex[i];
