@@ -89,13 +89,24 @@ int main(){
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
         // Gather affinity of the corresponding community.
         __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
+        float * val_aff = (float*) &affinity_vec;
+        cout<<"affinity Loadded: ";
+        for (int j = 0; j < 16; ++j) {
+          cout<<val_aff[j]<<" ";
+        }
+        cout<<endl;
         // Mask to find out the new community that contains -1.0 value
         const __mmask16 new_comm_mask = _mm512_cmpeq_ps_mask(fl_set1, affinity_vec);
         // Detect conflict of the community
         __m512i C_conflict = _mm512_conflict_epi32(C_vec);
         // Calculate mask using NAND of C_conflict and set1
         const __mmask16 mask = _mm512_testn_epi32_mask(C_conflict, set1);
-
+        int * val_comm = (int*) &C_vec;
+        cout<<"Loaded Community: ";
+        for (int j = 0; j < 16; ++j) {
+          cout<<val_comm[j]<<" ";
+        }
+        cout<<endl<<"New Community Mask: "<<(unsigned)new_comm_mask<<" Conflict Mask: "<<(unsigned)mask<<endl;
         // Now we need to collect the distinct neighbor community and vertices that didn't process yet.
         __m512i distinct_comm, v_not_processed;
         __m512 w_not_processed;
