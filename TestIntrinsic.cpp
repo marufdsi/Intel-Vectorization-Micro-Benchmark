@@ -132,7 +132,7 @@ int main(){
         _mm512_i32scatter_ps(&pnt_affinity[0], C_vec, affinity_vec, 4);
         cout<<"pnt_affinity: ";
         for (int j = 0; j < 16; ++j) {
-          cout<<pnt_affinity[C_vec[j]]<<" ";
+          cout<<"i: "<<C_vec[j]<<" value: "<<pnt_affinity[C_vec[j]]<<" ";
         }
         cout<<endl;
       }

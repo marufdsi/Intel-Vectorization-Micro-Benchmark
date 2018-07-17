@@ -26,7 +26,7 @@
         <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="643">
-              <caret line="134" column="44" lean-forward="true" selection-start-line="134" selection-start-column="44" selection-end-line="134" selection-end-column="44" />
+              <caret line="134" column="42" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -121,12 +121,12 @@
       <updated>1513889393915</updated>
       <workItem from="1513889395104" duration="2932000" />
       <workItem from="1517277699332" duration="6437000" />
-      <workItem from="1531773610542" duration="12955000" />
+      <workItem from="1531773610542" duration="13168000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23639000" />
+    <option name="totallyTimeSpent" value="23852000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="0" width="1922" height="1201" extended-state="6" />
@@ -244,7 +244,7 @@
     <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="643">
-          <caret line="134" column="44" lean-forward="true" selection-start-line="134" selection-start-column="44" selection-end-line="134" selection-end-column="44" />
+          <caret line="134" column="42" selection-start-line="134" selection-start-column="42" selection-end-line="134" selection-end-column="42" />
         </state>
       </provider>
     </entry>
