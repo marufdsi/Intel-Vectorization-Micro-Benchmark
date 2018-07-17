@@ -97,7 +97,6 @@ int main(){
         // Calculate mask using NAND of C_conflict and set1
         const __mmask16 mask = _mm512_testn_epi32_mask(C_conflict, set1);
 
-        cout<<"New Comm Mask: "<<(unsigned)new_comm_mask<<" mask: "<<(unsigned)mask<< " and of Mask: "<< (unsigned)_mm512_kand(mask, new_comm_mask) <<endl;
         // Now we need to collect the distinct neighbor community and vertices that didn't process yet.
         __m512i distinct_comm, v_not_processed;
         __m512 w_not_processed;
@@ -108,9 +107,7 @@ int main(){
         // Count the set bit from the mask for neighbor community
         sint neigh_cnt = _mm_popcnt_u32((unsigned) _mm512_kand(mask, new_comm_mask));
         // Count the set bit from the mask for ignore vertices
-        sint vertex_cnt = _mm_popcnt_u32((unsigned) (_mm512_knot(mask)));
-        cout<<"Ignore Vertex Count: "<<vertex_cnt<<endl;
-        cout<<"Ignore Vertex Mask: "<<(unsigned) (_mm512_knot(mask))<<endl;
+        sint vertex_cnt = _mm_popcnt_u32((unsigned)_mm512_knot(mask));
         // Store distinct neighbor community
         _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
         // Store ignore vertices
@@ -121,7 +118,11 @@ int main(){
         vertex_count += vertex_cnt;
 
         // Assign 0.0 in the affinity that contains -1.0 right now.
-        _mm512_mask_i32scatter_ps(pnt_affinity, new_comm_mask, C_vec, fl_set0, 4);
+        _mm512_mask_i32scatter_ps(&pnt_affinity[0], new_comm_mask, C_vec, fl_set0, 4);
+        int * val_C = (int *) C_vec;
+        for (int j = 0; j < 16; ++j) {
+          cout<<"comm: "<<val_C[j]<<" aff: "<<pnt_affinity[val_C[j]]<<endl;
+        }
         // Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
         // Scatter affinity value to the affinity pointer.
