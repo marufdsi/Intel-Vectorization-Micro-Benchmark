@@ -122,35 +122,11 @@ int main(){
         affinity_vec = _mm512_mask_mov_ps(affinity_vec, new_comm_mask, fl_set0);
         // Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
-        float *val_aff = (float *) &affinity_vec;
-        cout<<"affinity: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_aff[j]<<" ";
-        }
-        cout<<endl;
         // Scatter affinity value to the affinity pointer.
         _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
-        cout<<"pnt_affinity: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<"i: "<<C_vec[j]<<" value: "<<pnt_affinity[C_vec[j]]<<" ";
-        }
-        cout<<endl;
       }
 
-      cout<<"Ignore Vertices: ";
-      for(index edge=0; edge<vertex_count; ++edge){
-        cout<<ignorance_vertex[edge]<<" ";
-      }
-      cout<<endl<<"Neighbor Collected: ";
-      for(index edge=0; edge<neigh_counter; ++edge){
-        cout<<pnt_neigh_comm[edge]<<" ";
-      }
-      cout<<endl<<"Vertex Count: "<<vertex_count<<endl;
       if (vertex_count == 0 || vertex_count < 16) {
-        for(index edge=0; edge<neigh_counter; ++edge){
-          cout<<" in Comm: "<<pnt_neigh_comm[edge]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[edge]];
-        }
-        cout<<endl;
         for (index i = 0; i < vertex_count; ++i) {
           node v = ignorance_vertex[i];
           if (u != v) {
