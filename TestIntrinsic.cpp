@@ -86,6 +86,11 @@ int main(){
         // Load at most 16 neighbor vertices.
         __m512i v_vec = _mm512_loadu_si512((__m512i *) &pnt_outEdges[i]);
         cout<<"load out edge"<<endl;
+        int * val_v = (int*) &v_vec;
+        for (int j = 0; j < 16; ++j) {
+          cout<<val_v[j]<<" ";
+        }
+        cout<<endl;
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 1);
         cout<<"gather community"<<endl;
