@@ -25,11 +25,16 @@ int main(){
   }
 
   __m512 weight_vec1 = _mm512_loadu_ps((__m512 *)&float_val[0]);
-  _mm512_storeu_ps(&double_val[0], weight_vec1);
+  _mm512_storeu_pd(&double_val[0], weight_vec1);
   cout<<"Check Double value:"<<endl;
   for (int i = 0; i < 16; ++i) {
     cout<<double_val[i]<<" ";
   }
+  cout<<endl;
+  cout<<endl;
+  cout<<endl;
+  cout<<endl;
+  cout<<endl;
   cout<<endl;
 
   /******/
