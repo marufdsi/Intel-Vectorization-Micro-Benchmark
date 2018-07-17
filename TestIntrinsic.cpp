@@ -118,15 +118,16 @@ int main(){
         vertex_count += vertex_cnt;
 
         // Assign 0.0 in the affinity that contains -1.0 right now.
-        _mm512_mask_i32scatter_ps(&pnt_affinity[0], new_comm_mask, C_vec, fl_set0, 4);
-        int * val_C = (int*) &C_vec;
-        for (int j = 0; j < 16; ++j) {
-          cout<<"comm: "<<val_C[j]<<" aff: "<<pnt_affinity[val_C[j]]<<endl;
-        }
+//        _mm512_mask_i32scatter_ps(&pnt_affinity[0], new_comm_mask, C_vec, fl_set0, 4);
+        affinity_vec = _mm512_mask_mov_ps(affinity_vec, new_comm_mask, fl_set0);
         // Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
         // Scatter affinity value to the affinity pointer.
         _mm512_i32scatter_ps(pnt_affinity, C_vec, affinity_vec, 4);
+        int * val_C = (int*) &C_vec;
+        for (int j = 0; j < 16; ++j) {
+          cout<<"comm: "<<val_C[j]<<" aff: "<<pnt_affinity[val_C[j]]<<endl;
+        }
       }
 
       cout<<"Ignore Vertices: ";
