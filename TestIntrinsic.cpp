@@ -136,6 +136,10 @@ int main(){
       }
       cout<<endl<<"Vertex Count: "<<vertex_count<<endl;
       if (vertex_count == 0 || vertex_count < 16) {
+        for(index edge=0; edge<neigh_counter; ++edge){
+          cout<<" in Comm: "<<pnt_neigh_comm[edge]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[edge]];
+        }
+        cout<<endl;
         for (index i = 0; i < vertex_count; ++i) {
           node v = ignorance_vertex[i];
           if (u != v) {
@@ -173,6 +177,10 @@ int main(){
       }
     }
     pnt_outEdges = &outEdges[0];
+  for(index edge=0; edge<neigh_counter; ++edge){
+    cout<<" Comm: "<<pnt_neigh_comm[edge]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[edge]];
+  }
+  cout<<endl;
     for (index i= index_of_remaining_vertex; i < _deg; ++i) {
       node v = pnt_outEdges[i];
       if (u != v) {
@@ -188,7 +196,7 @@ int main(){
 
   cout<<endl<<"Distinct Neighbor Community: ";
   for(index edge=0; edge<neigh_counter; ++edge){
-    cout<<"Comm: "<<pnt_neigh_comm[edge]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[edge]];
+    cout<<" Comm: "<<pnt_neigh_comm[edge]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[edge]];
   }
   cout<<endl;
 
