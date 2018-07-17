@@ -119,7 +119,7 @@ int main(){
 
         // Assign 0.0 in the affinity that contains -1.0 right now.
         _mm512_mask_i32scatter_ps(&pnt_affinity[0], new_comm_mask, C_vec, fl_set0, 4);
-        int * val_C = (int *) C_vec;
+        int * val_C = (int*) C_vec;
         for (int j = 0; j < 16; ++j) {
           cout<<"comm: "<<val_C[j]<<" aff: "<<pnt_affinity[val_C[j]]<<endl;
         }
