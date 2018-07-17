@@ -79,39 +79,23 @@ int main(){
   const   __m512i set1 = _mm512_set1_epi32(0xFFFFFFFF);
 
     const   __m512 default_edge_weight = _mm512_set1_ps(defaultEdgeWeight);
+    index terminate = 0;
     while (1) {
       vertex_count = 0;
       for (index i = 0; i < neighbor_processed; i += 16) {
-        cout<<"start"<<endl;
         // Load at most 16 neighbor vertices.
         __m512i v_vec = _mm512_loadu_si512((__m512i *) &pnt_outEdges[i]);
-        cout<<"load out edge"<<endl;
-        int * val_v = (int*) &v_vec;
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_v[j]<<" ";
-        }
-        cout<<endl;
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
-        cout<<"gather community"<<endl;
-        int * val_comm = (int*) &C_vec;
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_comm[j]<<" ";
-        }
-        cout<<endl;
         // Gather affinity of the corresponding community.
         __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
-        cout<<"gather affinity"<<endl;
         // Mask to find out the new community that contains -1.0 value
         const __mmask16 new_comm_mask = _mm512_cmpeq_ps_mask(fl_set1, affinity_vec);
-        cout<<"calculate new community mask"<<endl;
         // Detect conflict of the community
         __m512i C_conflict = _mm512_conflict_epi32(C_vec);
-        cout<<"detect conflict"<<endl;
         // Calculate mask using NAND of C_conflict and set1
         const __mmask16 mask = _mm512_testn_epi32_mask(C_conflict, set1);
 
-        cout<<"Loading and Conflict detection done"<<endl;
         // Now we need to collect the distinct neighbor community and vertices that didn't process yet.
         __m512i distinct_comm, v_not_processed;
         __m512 w_not_processed;
@@ -133,11 +117,11 @@ int main(){
         vertex_count += vertex_cnt;
 
         // Assign 0.0 in the affinity that contains -1.0 right now.
-        _mm512_mask_i32scatter_ps(pnt_affinity, new_comm_mask, C_vec, fl_set0, 1);
+        _mm512_mask_i32scatter_ps(pnt_affinity, new_comm_mask, C_vec, fl_set0, 4);
         // Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
         // Scatter affinity value to the affinity pointer.
-        _mm512_i32scatter_ps(pnt_affinity, C_vec, affinity_vec, 1);
+        _mm512_i32scatter_ps(pnt_affinity, C_vec, affinity_vec, 4);
       }
 
       cout<<"Ignore Vertices: ";
@@ -163,9 +147,26 @@ int main(){
         }
         break;
       } else {
-        neighbor_processed = vertex_count;
+        for (index i = ((vertex_count/16)*16); i < vertex_count; ++i) {
+          node v = ignorance_vertex[i];
+          if (u != v) {
+            index C = zeta[v];
+            if (pnt_affinity[C] == -1) {
+              // found the neighbor for the first time, initialize to 0 and add to list of neighboring communities
+              pnt_affinity[C] = 0;
+              pnt_neigh_comm[neigh_counter++] = C;
+            }
+            pnt_affinity[C] += defaultEdgeWeight;
+          }
+        }
+        neighbor_processed = ((vertex_count/16)*16);
         pnt_outEdges = &ignorance_vertex[0];
         vertex_count = 0;
+      }
+      terminate++;
+      if(terminate>=_deg){
+        cout<<"Infinite Loop Occurred"<<endl;
+        break;
       }
     }
     pnt_outEdges = &outEdges[0];
