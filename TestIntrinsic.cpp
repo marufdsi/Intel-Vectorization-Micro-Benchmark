@@ -144,8 +144,8 @@ int main(){
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
         // Scatter affinity value to the affinity pointer.
 //        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
-        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(affinity_vec, _MM_FROUND_NO_EXC), 8);
-        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask/2, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(affinity_vec, _MM_FROUND_NO_EXC), 8);
+        _mm512_mask_i32scatter_pd(&pnt_affinity[0], (__mmask8)mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(affinity_vec, _MM_FROUND_NO_EXC), 8);
+        _mm512_mask_i32scatter_pd(&pnt_affinity[0], (__mmask8)mask/2, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(affinity_vec, _MM_FROUND_NO_EXC), 8);
       }
 
       if (vertex_count == 0 || vertex_count < 16) {
