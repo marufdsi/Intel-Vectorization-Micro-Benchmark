@@ -12,7 +12,7 @@ using namespace std;
 
 int main(){
   typedef int32_t index, sint, node, count;
-  typedef double edgeweight;
+  typedef float edgeweight;
 
   int z = 40;
   int node_sort_by_deg[z];
@@ -102,13 +102,10 @@ int main(){
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
         // Gather affinity of the corresponding community.
-//        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
-        __m512d affinity_vec1 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 0), &pnt_affinity[0], 8);
-        __m512d affinity_vec2 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 1), &pnt_affinity[0], 8);
-        __m512 affinity_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(affinity_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(affinity_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
-//        __m512d weight_vec1 = _mm512_loadu_ps((__m512d *)&pnt_outEdgeWeight[i]);
-//        __m512d weight_vec2 = _mm512_loadu_ps((__m512d *)&pnt_outEdgeWeight[i+8]);
-//        weight_vec = _mm512_cvt_roundpd_ps(weight_vec1, _MM_FROUND_TO_NEAREST_INT);
+        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
+//        __m512d affinity_vec1 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 0), &pnt_affinity[0], 8);
+//        __m512d affinity_vec2 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 1), &pnt_affinity[0], 8);
+//        __m512 affinity_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(affinity_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(affinity_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
 
         // Mask to find out the new community that contains -1.0 value
         const __mmask16 new_comm_mask = _mm512_kand(_mm512_cmpeq_ps_mask(fl_set1, affinity_vec), self_loop_mask);
@@ -143,11 +140,9 @@ int main(){
         // Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
         // Scatter affinity value to the affinity pointer.
-//        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
-        __m256i index = _mm512_extracti32x8_epi32(C_vec, 0);
-        __m512d val_a = _mm512_cvt_roundps_pd(affinity_vec, _MM_FROUND_NO_EXC);
-        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(affinity_vec, _MM_FROUND_NO_EXC), 8);
-        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask/2, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(affinity_vec, _MM_FROUND_NO_EXC), 8);
+        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
+//        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(affinity_vec, _MM_FROUND_NO_EXC), 8);
+//        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask/2, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(affinity_vec, _MM_FROUND_NO_EXC), 8);
       }
 
       if (vertex_count == 0 || vertex_count < 16) {
