@@ -28,10 +28,12 @@ int main(){
   node *ignorance_vertex;
   edgeweight *pnt_affinity;
   edgeweight *pnt_outEdgeWeight;
+  edgeweight *ignorance_edge_weight;
   ignorance_vertex = (node*)malloc(sizeof(node)*_deg);
   pnt_neigh_comm = (index*)malloc(sizeof(index)*_deg);
   pnt_affinity = (edgeweight *)malloc(sizeof(edgeweight)*_deg);
   pnt_outEdgeWeight = (edgeweight *)malloc(sizeof(edgeweight)*_deg);
+  ignorance_edge_weight = (edgeweight *) malloc(sizeof(edgeweight) * _deg);
   outEdges = (node*)malloc(sizeof(node)*_deg);
   zeta = (node*)malloc(sizeof(node)*_deg);
 #pragma omp simd
@@ -125,6 +127,8 @@ int main(){
         _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
         /// Store ignore vertices
         _mm512_storeu_si512(&ignorance_vertex[vertex_count], v_not_processed);
+        /// Store ignore vertex edge weight
+        _mm512_storeu_ps(&ignorance_edge_weight[vertex_count], w_not_processed);
         /// Increment neighbor community count
         neigh_counter += neigh_cnt;
         /// Increment ignore vertices count
@@ -132,15 +136,38 @@ int main(){
 
         /// Assign 0.0 in the affinity that contains -1.0 right now.
 ///        _mm512_mask_i32scatter_ps(&pnt_affinity[0], new_comm_mask, C_vec, fl_set0, 4);
+        float * val_af_bz = (float *)&affinity_vec;
+        cout<<"affinity before zero: ";
+        for (int j = 0; j < 16; ++j) {
+          cout<<val_af_bz[j]<<" ";
+        }
+        cout<<endl;
         affinity_vec = _mm512_mask_mov_ps(affinity_vec, new_comm_mask, fl_set0);
+        float * val_af_az = (float *)&affinity_vec;
+        cout<<"affinity after zero: ";
+        for (int j = 0; j < 16; ++j) {
+          cout<<val_af_az[j]<<" ";
+        }
+        cout<<endl;
         /// Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, w_vec);
+        float * val_af_aw = (float *)&affinity_vec;
+        cout<<"affinity after weight addition: ";
+        for (int j = 0; j < 16; ++j) {
+          cout<<val_af_aw[j]<<" ";
+        }
+        cout<<endl;
         /// Scatter affinity value to the affinity pointer.
 ///        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask>>8, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 1), _MM_FROUND_NO_EXC), 8);
       }
 
+      cout<<"ignorance edge weight: ";
+      for (int j = 0; j < vertex_count; ++j) {
+        cout<<ignorance_edge_weight[j]<<" ";
+      }
+      cout<<endl;
       if (vertex_count == 0 || vertex_count < 16) {
         for (index i = 0; i < vertex_count; ++i) {
           node v = ignorance_vertex[i];
@@ -151,7 +178,7 @@ int main(){
               pnt_affinity[C] = 0;
               pnt_neigh_comm[neigh_counter++] = C;
             }
-            pnt_affinity[C] += defaultEdgeWeight;
+            pnt_affinity[C] += ignorance_edge_weight[i];
           }
         }
         break;
@@ -165,11 +192,12 @@ int main(){
               pnt_affinity[C] = 0;
               pnt_neigh_comm[neigh_counter++] = C;
             }
-            pnt_affinity[C] += defaultEdgeWeight;
+            pnt_affinity[C] += ignorance_edge_weight[i];
           }
         }
         neighbor_processed = ((vertex_count/16)*16);
         pnt_outEdges = &ignorance_vertex[0];
+        pnt_outEdgeWeight = &ignorance_edge_weight[0];
         vertex_count = 0;
       }
       terminate++;
@@ -188,7 +216,7 @@ int main(){
           pnt_affinity[C] = 0;
           pnt_neigh_comm[neigh_counter++] = C;
         }
-        pnt_affinity[C] += defaultEdgeWeight;
+        pnt_affinity[C] += pnt_outEdgeWeight[i];
       }
     }
 
