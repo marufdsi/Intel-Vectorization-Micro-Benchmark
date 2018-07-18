@@ -9,9 +9,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="320d392f-536e-4d05-ac3d-ce6ba253dd8b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/TestIntrinsic.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/TestIntrinsic.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="320d392f-536e-4d05-ac3d-ce6ba253dd8b" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,8 +23,8 @@
       <file leaf-file-name="TestIntrinsic.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="537">
-              <caret line="165" column="34" selection-start-line="165" selection-start-column="34" selection-end-line="165" selection-end-column="34" />
+            <state relative-caret-position="249">
+              <caret line="122" column="49" selection-start-line="122" selection-start-column="26" selection-end-line="122" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -128,12 +126,12 @@
       <updated>1513889393915</updated>
       <workItem from="1513889395104" duration="2932000" />
       <workItem from="1517277699332" duration="6437000" />
-      <workItem from="1531773610542" duration="32694000" />
+      <workItem from="1531773610542" duration="32965000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43378000" />
+    <option name="totallyTimeSpent" value="43649000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="0" width="1922" height="1201" extended-state="6" />
@@ -250,8 +248,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="165" column="34" selection-start-line="165" selection-start-column="34" selection-end-line="165" selection-end-column="34" />
+        <state relative-caret-position="249">
+          <caret line="122" column="49" selection-start-line="122" selection-start-column="26" selection-end-line="122" selection-end-column="49" />
         </state>
       </provider>
     </entry>
