@@ -27,7 +27,7 @@ int main(){
   index *pnt_neigh_comm;
   node *ignorance_vertex;
   edgeweight *pnt_affinity;
-  const edgeweight *pnt_outEdgeWeight;
+  edgeweight *pnt_outEdgeWeight;
   ignorance_vertex = (node*)malloc(sizeof(node)*_deg);
   pnt_neigh_comm = (index*)malloc(sizeof(index)*_deg);
   pnt_affinity = (edgeweight *)malloc(sizeof(edgeweight)*_deg);
