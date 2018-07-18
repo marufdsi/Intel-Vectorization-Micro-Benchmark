@@ -165,6 +165,11 @@ int main(){
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask>>8, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 1), _MM_FROUND_NO_EXC), 8);
       }
 
+      cout<<"ignorance vertices: ";
+      for (int j = 0; j < vertex_count; ++j) {
+        cout<<ignorance_vertex[j]<<" ";
+      }
+      cout<<endl;
       cout<<"ignorance edge weight: ";
       for (int j = 0; j < vertex_count; ++j) {
         cout<<ignorance_edge_weight[j]<<" ";
