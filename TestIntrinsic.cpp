@@ -83,6 +83,25 @@ int main(){
         const __mmask16 self_loop_mask = _mm512_cmpneq_epi32_mask(check_self_loop, v_vec);
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
+        int * val_V = (int *)&C_vec;
+        int * val_h1 = (int *)&_mm512_extracti32x8_epi32(C_vec, 0);
+        int * val_h2 = (int *)&_mm512_extracti32x8_epi32(C_vec, 1);
+        cout<<"Community Loaded: ";
+        for (int j = 0; j < 8; ++j) {
+          cout<<val_V[j]<<" ";
+        }
+        cout<<endl;
+        cout<<"First Half Community: ";
+        for (int j = 0; j < 16; ++j) {
+          cout<<val_V[j]<<" ";
+        }
+        cout<<endl;
+        cout<<"Second Half Community: ";
+        for (int j = 0; j < 8; ++j) {
+          cout<<val_V[j]<<" ";
+        }
+        cout<<endl;
+
         // Gather affinity of the corresponding community.
 //        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
         __m512d affinity_vec1 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 0), &pnt_affinity[0], 8);
