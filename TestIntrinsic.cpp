@@ -37,7 +37,7 @@ int main(){
   for(index edge=0; edge<_deg; ++edge){
     outEdges[edge] = edge;
     zeta[edge] = edge%20;
-    pnt_outEdgeWeight[i] = 1.0;
+    pnt_outEdgeWeight[edge] = 1.0;
   }
   pnt_outEdges = &outEdges[0];
   edgeweight defaultEdgeWeight = 1.0;
@@ -86,7 +86,7 @@ int main(){
         __m512d w_vec1 = _mm512_loadu_pd((__m512d *) &pnt_outEdgeWeight[i]);
         __m512d w_vec2 = _mm512_loadu_pd((__m512d *) &pnt_outEdgeWeight[i+8]);
         __m512 w_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(w_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(w_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
-        float * val_W = (float *)w_vec;
+        float * val_W = (float *)&w_vec;
         cout<<"Weight loaded: ";
         for (int j = 0; j < 16; ++j) {
           cout<<val_W[j]<<" ";
