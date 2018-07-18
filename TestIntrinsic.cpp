@@ -89,12 +89,6 @@ int main(){
         __m512d w_vec1 = _mm512_loadu_pd((__m512d *) &pnt_outEdgeWeight[i]);
         __m512d w_vec2 = _mm512_loadu_pd((__m512d *) &pnt_outEdgeWeight[i+8]);
         __m512 w_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(w_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(w_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
-        float * val_W = (float *)&w_vec;
-        cout<<"Weight loaded: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_W[j]<<" ";
-        }
-        cout<<endl;
         /// Mask to find u != v
         const __mmask16 self_loop_mask = _mm512_cmpneq_epi32_mask(check_self_loop, v_vec);
         /// Gather community of the neighbor vertices.
@@ -121,12 +115,6 @@ int main(){
         v_not_processed = _mm512_mask_compress_epi32(set0, _mm512_kand(_mm512_knot(mask), self_loop_mask), v_vec);
         /// It will calculate the ignorance vertex edge weight in the previous calculation.
         w_not_processed = _mm512_mask_compress_ps(fl_set0, _mm512_kand(_mm512_knot(mask), self_loop_mask), w_vec);
-        float * val_wnp = (float *)&w_not_processed;
-        cout<<"weight not processed: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_wnp[j]<<" ";
-        }
-        cout<<endl;
         /// Count the set bit from the mask for neighbor community
         sint neigh_cnt = _mm_popcnt_u32((unsigned) _mm512_kand(mask, new_comm_mask));
         /// Count the set bit from the mask for ignore vertices
@@ -147,27 +135,9 @@ int main(){
 
         /// Assign 0.0 in the affinity that contains -1.0 right now.
 ///        _mm512_mask_i32scatter_ps(&pnt_affinity[0], new_comm_mask, C_vec, fl_set0, 4);
-        float * val_af_bz = (float *)&affinity_vec;
-        cout<<"affinity before zero: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_af_bz[j]<<" ";
-        }
-        cout<<endl;
         affinity_vec = _mm512_mask_mov_ps(affinity_vec, new_comm_mask, fl_set0);
-        float * val_af_az = (float *)&affinity_vec;
-        cout<<"affinity after zero: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_af_az[j]<<" ";
-        }
-        cout<<endl;
         /// Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, w_vec);
-        float * val_af_aw = (float *)&affinity_vec;
-        cout<<"affinity after weight addition: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_af_aw[j]<<" ";
-        }
-        cout<<endl;
         /// Scatter affinity value to the affinity pointer.
 ///        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
@@ -235,6 +205,12 @@ int main(){
         pnt_affinity[C] += pnt_outEdgeWeight[i];
       }
     }
+
+  cout<<endl<<"Community vs Affinity: ";
+  for(index com=0; com<neigh_counter; ++com){
+    cout<<" Comm: "<<pnt_neigh_comm[com]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[com]];
+  }
+  cout<<endl;
 
   cout<<endl<<"Community vs Affinity: ";
   for(index com=0; com<neigh_counter; ++com){
