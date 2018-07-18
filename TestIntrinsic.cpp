@@ -59,6 +59,7 @@ int main(){
   cout<<endl;
 
 
+
   index neighbor_processed = (_deg/16)*16;
   index index_of_remaining_vertex = neighbor_processed;
   // Calculate affinity. 512 register, so it can load 16, 32 bit integer or floating point.
@@ -154,7 +155,7 @@ int main(){
 //        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
         cout<<"First Mask: "<<(unsigned)mask<< " Second Mask: "<<(unsigned)(mask/2);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
-        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask/2, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
+        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask>>8, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
       }
 
       if (vertex_count == 0 || vertex_count < 16) {
