@@ -84,40 +84,11 @@ int main(){
         const __mmask16 self_loop_mask = _mm512_cmpneq_epi32_mask(check_self_loop, v_vec);
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
-        int * val_V = (int *)&C_vec;
-        __m256i C_vec1 = _mm512_extracti32x8_epi32(C_vec, 0);
-        __m256i C_vec2 = _mm512_extracti32x8_epi32(C_vec, 1);
-        int * val_h1 = (int *)&C_vec1;
-        int * val_h2 = (int *)&C_vec2;
-        cout<<"Community Loaded: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_V[j]<<" ";
-        }
-        cout<<endl;
-        cout<<"First Half Community: ";
-        for (int j = 0; j < 8; ++j) {
-          cout<<val_V[j]<<" ";
-        }
-        cout<<endl;
-        cout<<"Second Half Community: ";
-        for (int j = 0; j < 8; ++j) {
-          cout<<val_V[j]<<" ";
-        }
-        cout<<endl;
-
         // Gather affinity of the corresponding community.
 //        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
         __m512d affinity_vec1 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 0), &pnt_affinity[0], 8);
         __m512d affinity_vec2 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 1), &pnt_affinity[0], 8);
         __m512 affinity_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(affinity_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(affinity_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
-
-        float * float_val = (float *)&affinity_vec;
-
-        cout<<"Affinity Loaded: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<float_val[j]<<" ";
-        }
-        cout<<endl;
 
         // Mask to find out the new community that contains -1.0 value
         const __mmask16 new_comm_mask = _mm512_kand(_mm512_cmpeq_ps_mask(fl_set1, affinity_vec), self_loop_mask);
@@ -153,9 +124,8 @@ int main(){
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, default_edge_weight);
         // Scatter affinity value to the affinity pointer.
 //        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
-        cout<<"First Mask: "<<(unsigned)mask<< " Second Mask: "<<(unsigned)(mask/2);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
-        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask>>8, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
+        _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask>>8, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 1), _MM_FROUND_NO_EXC), 8);
       }
 
       if (vertex_count == 0 || vertex_count < 16) {
