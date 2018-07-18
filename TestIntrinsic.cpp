@@ -35,7 +35,7 @@ int main(){
 #pragma omp simd
   for(index edge=0; edge<_deg; ++edge){
     outEdges[edge] = edge;
-    zeta[edge] = edge%20;
+    zeta[edge] = edge%5;
   }
   pnt_outEdges = &outEdges[0];
   edgeweight defaultEdgeWeight = 1.0;
@@ -89,12 +89,12 @@ int main(){
         int * val_h1 = (int *)&C_vec1;
         int * val_h2 = (int *)&C_vec2;
         cout<<"Community Loaded: ";
-        for (int j = 0; j < 8; ++j) {
+        for (int j = 0; j < 16; ++j) {
           cout<<val_V[j]<<" ";
         }
         cout<<endl;
         cout<<"First Half Community: ";
-        for (int j = 0; j < 16; ++j) {
+        for (int j = 0; j < 8; ++j) {
           cout<<val_V[j]<<" ";
         }
         cout<<endl;
