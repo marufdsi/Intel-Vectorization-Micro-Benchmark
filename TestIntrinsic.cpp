@@ -20,7 +20,7 @@ int main(){
 
 
   /******/
-  index _deg = 10000, u=0;
+  index _deg = 20, u=0;
   count neigh_counter = 0;
   count vertex_count = 0;
   node *pnt_outEdges, *outEdges, *zeta;
@@ -37,8 +37,8 @@ int main(){
 #pragma omp simd
   for(index edge=0; edge<_deg; ++edge){
     outEdges[edge] = edge;
-    zeta[edge] = edge%20;
-    pnt_outEdgeWeight[edge] = 1.0;
+    zeta[edge] = edge%5;
+    pnt_outEdgeWeight[edge] = 1.0*(edge+1);
   }
   pnt_outEdges = &outEdges[0];
   edgeweight defaultEdgeWeight = 1.0;
