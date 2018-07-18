@@ -38,7 +38,7 @@ int main(){
   cout<<endl;
 
   /******/
-  index _deg = 1000, u=0;
+  index _deg = 20, u=0;
   count neigh_counter = 0;
   count vertex_count = 0;
   node *pnt_outEdges, *outEdges, *zeta;
