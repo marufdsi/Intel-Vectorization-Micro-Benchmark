@@ -136,7 +136,10 @@ int main(){
         /// Store ignore vertices
         _mm512_storeu_si512(&ignorance_vertex[vertex_count], v_not_processed);
         /// Store ignore vertex edge weight
-        _mm512_storeu_ps(&ignorance_edge_weight[vertex_count], w_not_processed);
+//        _mm512_storeu_ps(&ignorance_edge_weight[vertex_count], w_not_processed);
+        _mm512_storeu_pd(&ignorance_edge_weight[vertex_count], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 0), _MM_FROUND_NO_EXC));
+        _mm512_storeu_pd(&ignorance_edge_weight[vertex_count+8], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 1), _MM_FROUND_NO_EXC));
+
         /// Increment neighbor community count
         neigh_counter += neigh_cnt;
         /// Increment ignore vertices count
