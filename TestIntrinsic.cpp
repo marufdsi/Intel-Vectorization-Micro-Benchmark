@@ -27,12 +27,13 @@ int main(){
   index *pnt_neigh_comm;
   node *ignorance_vertex;
   edgeweight *pnt_affinity;
+  const edgeweight *pnt_outEdgeWeight;
   ignorance_vertex = (node*)malloc(sizeof(node)*_deg);
   pnt_neigh_comm = (index*)malloc(sizeof(index)*_deg);
   pnt_affinity = (edgeweight *)malloc(sizeof(edgeweight)*_deg);
+  pnt_outEdgeWeight = (edgeweight *)malloc(sizeof(edgeweight)*_deg);
   outEdges = (node*)malloc(sizeof(node)*_deg);
   zeta = (node*)malloc(sizeof(node)*_deg);
-  const edgeweight *pnt_outEdgeWeight;
 #pragma omp simd
   for(index edge=0; edge<_deg; ++edge){
     outEdges[edge] = edge;
