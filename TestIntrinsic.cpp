@@ -119,6 +119,8 @@ int main(){
         distinct_comm = _mm512_mask_compress_epi32(set0, _mm512_kand(mask, new_comm_mask), C_vec);
         /// It will calculate the ignorance vertices in the previous calculation, but we don't know the length.
         v_not_processed = _mm512_mask_compress_epi32(set0, _mm512_kand(_mm512_knot(mask), self_loop_mask), v_vec);
+        /// It will calculate the ignorance vertex edge weight in the previous calculation.
+        w_not_processed = _mm512_mask_compress_ps(fl_set0, _mm512_kand(_mm512_knot(mask), self_loop_mask), w_vec);
         /// Count the set bit from the mask for neighbor community
         sint neigh_cnt = _mm_popcnt_u32((unsigned) _mm512_kand(mask, new_comm_mask));
         /// Count the set bit from the mask for ignore vertices
