@@ -84,8 +84,10 @@ int main(){
         // Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
         int * val_V = (int *)&C_vec;
-        int * val_h1 = (int *)&_mm512_extracti32x8_epi32(C_vec, 0);
-        int * val_h2 = (int *)&_mm512_extracti32x8_epi32(C_vec, 1);
+        __m256i C_vec1 = _mm512_extracti32x8_epi32(C_vec, 0);
+        __m256i C_vec2 = _mm512_extracti32x8_epi32(C_vec, 1);
+        int * val_h1 = (int *)&C_vec1;
+        int * val_h2 = (int *)&C_vec2;
         cout<<"Community Loaded: ";
         for (int j = 0; j < 8; ++j) {
           cout<<val_V[j]<<" ";
