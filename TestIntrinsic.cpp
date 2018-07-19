@@ -157,10 +157,10 @@ int main(){
       if(vertex_count<=0){
         break;
       }
-      vertex_count = 0;
       neighbor_processed = vertex_count;
       pnt_outEdges = &ignorance_vertex[0];
       pnt_outEdgeWeight = &ignorance_edge_weight[0];
+      vertex_count = 0;
     }
 
 
