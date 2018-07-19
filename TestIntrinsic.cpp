@@ -119,11 +119,12 @@ int main(){
         /// Now we need to collect the distinct neighbor community and vertices that didn't process yet.
         __m512i distinct_comm, v_not_processed;
         __m512 w_not_processed;
-        /// It will find out the distinct community but we don't know the length.
         __mmask16 distinct_C_mask = _mm512_kand(mask, new_comm_mask);
+        __mmask16 distinct_V_mask = _mm512_kandn(mask, new_comm_mask);
+        cout<<"distinct_C_mask: "<<(unsigned)distinct_C_mask<<" distinct_V_mask: "<<(unsigned)distinct_V_mask<<" new_comm_mask: "<<(unsigned)new_comm_mask<<" mask: "<<(unsigned)mask<<endl;
+        /// It will find out the distinct community but we don't know the length.
         distinct_comm = _mm512_mask_compress_epi32(set0, distinct_C_mask, C_vec);
         /// It will calculate the ignorance vertices in the previous calculation, but we don't know the length.
-        __mmask16 distinct_V_mask = _mm512_kandn(mask, new_comm_mask);
         v_not_processed = _mm512_mask_compress_epi32(set0, distinct_V_mask, v_vec);
         /// It will calculate the ignorance vertex edge weight in the previous calculation.
         w_not_processed = _mm512_mask_compress_ps(fl_set0, distinct_V_mask, w_vec);
