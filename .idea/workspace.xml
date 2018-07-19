@@ -9,7 +9,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="320d392f-536e-4d05-ac3d-ce6ba253dd8b" name="Default" comment="" />
+    <list default="true" id="320d392f-536e-4d05-ac3d-ce6ba253dd8b" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/TestIntrinsic.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/TestIntrinsic.cpp" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,8 +25,8 @@
       <file leaf-file-name="TestIntrinsic.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="117">
-              <caret line="86" column="58" lean-forward="true" selection-start-line="86" selection-start-column="58" selection-end-line="86" selection-end-column="58" />
+            <state relative-caret-position="297">
+              <caret line="96" column="163" selection-start-line="96" selection-start-column="163" selection-end-line="96" selection-end-column="163" />
             </state>
           </provider>
         </entry>
@@ -127,12 +129,12 @@
       <updated>1513889393915</updated>
       <workItem from="1513889395104" duration="2932000" />
       <workItem from="1517277699332" duration="6437000" />
-      <workItem from="1531773610542" duration="36329000" />
+      <workItem from="1531773610542" duration="36636000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47013000" />
+    <option name="totallyTimeSpent" value="47320000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="0" width="1922" height="1201" extended-state="6" />
@@ -249,8 +251,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="86" column="58" lean-forward="true" selection-start-line="86" selection-start-column="58" selection-end-line="86" selection-end-column="58" />
+        <state relative-caret-position="297">
+          <caret line="96" column="163" selection-start-line="96" selection-start-column="163" selection-end-line="96" selection-end-column="163" />
         </state>
       </provider>
     </entry>
