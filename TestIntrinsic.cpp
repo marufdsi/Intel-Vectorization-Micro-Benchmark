@@ -120,7 +120,7 @@ int main(){
         __m512i distinct_comm, v_not_processed;
         __m512 w_not_processed;
         __mmask16 distinct_C_mask = _mm512_kand(mask, new_comm_mask);
-        __mmask16 distinct_V_mask = _mm512_kandn(mask, new_comm_mask);
+        __mmask16 distinct_V_mask = _mm512_kandn(mask, self_loop_mask);
         cout<<"distinct_C_mask: "<<(unsigned)distinct_C_mask<<" distinct_V_mask: "<<(unsigned)distinct_V_mask<<" new_comm_mask: "<<(unsigned)new_comm_mask<<" mask: "<<(unsigned)mask<<endl;
         /// It will find out the distinct community but we don't know the length.
         distinct_comm = _mm512_mask_compress_epi32(set0, distinct_C_mask, C_vec);
