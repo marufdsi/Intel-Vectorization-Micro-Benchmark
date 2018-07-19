@@ -9,9 +9,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="320d392f-536e-4d05-ac3d-ce6ba253dd8b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/TestIntrinsic.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/TestIntrinsic.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="320d392f-536e-4d05-ac3d-ce6ba253dd8b" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -25,8 +23,8 @@
       <file leaf-file-name="TestIntrinsic.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="587">
-              <caret line="100" column="47" selection-start-line="100" selection-start-column="47" selection-end-line="100" selection-end-column="47" />
+            <state relative-caret-position="1371">
+              <caret line="157" column="14" lean-forward="true" selection-start-line="157" selection-start-column="14" selection-end-line="157" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -133,18 +131,18 @@
       <updated>1513889393915</updated>
       <workItem from="1513889395104" duration="2932000" />
       <workItem from="1517277699332" duration="6437000" />
-      <workItem from="1531773610542" duration="45995000" />
+      <workItem from="1531773610542" duration="46246000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="56679000" />
+    <option name="totallyTimeSpent" value="56930000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="0" width="1922" height="1201" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.24960423" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24960423" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="CMake" order="7" weight="0.33628318" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -274,8 +272,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="587">
-          <caret line="100" column="47" selection-start-line="100" selection-start-column="47" selection-end-line="100" selection-end-column="47" />
+        <state relative-caret-position="1371">
+          <caret line="157" column="14" lean-forward="true" selection-start-line="157" selection-start-column="14" selection-end-line="157" selection-end-column="14" />
         </state>
       </provider>
     </entry>
