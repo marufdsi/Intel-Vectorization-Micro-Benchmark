@@ -79,6 +79,7 @@ int main(){
 
     const   __m512 default_edge_weight = _mm512_set1_ps(defaultEdgeWeight);
     const   __m512i check_self_loop = _mm512_set1_epi32(u);
+    const __mmask16 all_set_mask = (unsigned)65535;
     index terminate = 0;
     while (1) {
       vertex_count = 0;
@@ -90,7 +91,11 @@ int main(){
         __m512d w_vec2 = _mm512_loadu_pd((__m512d *) &pnt_outEdgeWeight[i+8]);
         __m512 w_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(w_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(w_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
         /// Mask to find u != v
-        const __mmask16 self_loop_mask = _mm512_cmpneq_epi32_mask(check_self_loop, v_vec);
+        __mmask16 self_loop_mask = _mm512_cmpneq_epi32_mask(check_self_loop, v_vec);
+        if((i+16)<neighbor_processed){
+          cout<<"never execute"<<endl;
+          self_loop_mask = _mm512_kand(self_loop_mask, (all_set_mask>>(neighbor_processed-i)));
+        }
         /// Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
         /// Gather affinity of the corresponding community.
