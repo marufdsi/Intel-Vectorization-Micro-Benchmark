@@ -146,10 +146,10 @@ int main(){
 //        _mm512_mask_storeu_epi32(&ignorance_vertex[vertex_count], distinct_V_mask, v_not_processed);
         /// Store ignore vertex edge weight
 //        _mm512_storeu_ps(&ignorance_edge_weight[vertex_count], w_not_processed);
-//        _mm512_storeu_pd(&ignorance_edge_weight[vertex_count], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 0), _MM_FROUND_NO_EXC));
-//        _mm512_storeu_pd(&ignorance_edge_weight[vertex_count+8], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 1), _MM_FROUND_NO_EXC));
-        _mm512_mask_storeu_pd(&ignorance_edge_weight[vertex_count], distinct_V_mask, _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 0), _MM_FROUND_NO_EXC));
-        _mm512_mask_storeu_pd(&ignorance_edge_weight[vertex_count+8], (distinct_V_mask>>8), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 1), _MM_FROUND_NO_EXC));
+        _mm512_storeu_pd(&ignorance_edge_weight[vertex_count], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 0), _MM_FROUND_NO_EXC));
+        _mm512_storeu_pd(&ignorance_edge_weight[vertex_count+8], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 1), _MM_FROUND_NO_EXC));
+//        _mm512_mask_storeu_pd(&ignorance_edge_weight[vertex_count], distinct_V_mask, _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 0), _MM_FROUND_NO_EXC));
+//        _mm512_mask_storeu_pd(&ignorance_edge_weight[vertex_count+8], (distinct_V_mask>>8), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 1), _MM_FROUND_NO_EXC));
 
         /// Increment neighbor community count
         neigh_counter += neigh_cnt;
