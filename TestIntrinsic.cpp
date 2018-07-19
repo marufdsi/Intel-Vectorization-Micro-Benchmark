@@ -126,12 +126,6 @@ int main(){
         distinct_comm = _mm512_mask_compress_epi32(set0, distinct_C_mask, C_vec);
         /// It will calculate the ignorance vertices in the previous calculation, but we don't know the length.
         v_not_processed = _mm512_mask_compress_epi32(set0, distinct_V_mask, v_vec);
-        int * val_v = (int *)&v_not_processed;
-        cout<<"vertex set: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_v[j]<<" ";
-        }
-        cout<<endl;
         /// It will calculate the ignorance vertex edge weight in the previous calculation.
         w_not_processed = _mm512_mask_compress_ps(fl_set0, distinct_V_mask, w_vec);
         /// Count the set bit from the mask for neighbor community
@@ -139,8 +133,14 @@ int main(){
         /// Count the set bit from the mask for ignore vertices
         sint vertex_cnt = _mm_popcnt_u32((unsigned)distinct_V_mask);
         /// Store distinct neighbor community
-//        _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
-        _mm512_mask_storeu_epi32(&pnt_neigh_comm[neigh_counter], distinct_C_mask, distinct_comm);
+        int * val_v = (int *)&distinct_comm;
+        cout<<"Community set: ";
+        for (int j = 0; j < 16; ++j) {
+          cout<<val_v[j]<<" ";
+        }
+        cout<<endl<<" neigh_counter: "<<neigh_counter<<endl;
+        _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
+//        _mm512_mask_storeu_epi32(&pnt_neigh_comm[neigh_counter], distinct_C_mask, distinct_comm);
         /// Store ignore vertices
         _mm512_storeu_si512(&ignorance_vertex[vertex_count], v_not_processed);
         /// Store ignore vertex edge weight
@@ -163,7 +163,7 @@ int main(){
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask>>8, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 1), _MM_FROUND_NO_EXC), 8);
 
-        cout<<"ignorance vertices: ";
+        /*cout<<"ignorance vertices: ";
         for (int j = 0; j < vertex_count; ++j) {
           cout<<ignorance_vertex[j]<<" ";
         }
@@ -171,12 +171,13 @@ int main(){
         cout<<"ignorance edge weight: ";
         for (int j = 0; j < vertex_count; ++j) {
           cout<<ignorance_edge_weight[j]<<" ";
-        }
+        }*/
         cout<<endl;
         cout<<endl<<"Updated Community vs Affinity: ";
         for(index com=0; com<neigh_counter; ++com){
           cout<<" Comm: "<<pnt_neigh_comm[com]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[com]];
         }
+        cout<<endl;
         cout<<endl;
       }
 
