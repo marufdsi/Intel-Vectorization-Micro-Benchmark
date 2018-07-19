@@ -25,8 +25,8 @@
       <file leaf-file-name="TestIntrinsic.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="140" column="59" selection-start-line="140" selection-start-column="59" selection-end-line="140" selection-end-column="59" />
+            <state relative-caret-position="429">
+              <caret line="32" column="49" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="49" />
             </state>
           </provider>
         </entry>
@@ -46,9 +46,9 @@
       <find>float_val</find>
       <find>terminate</find>
       <find>ignorance_edge_weight</find>
-      <find>pnt_neigh_comm</find>
       <find>vertex_count</find>
       <find>neigh_counter</find>
+      <find>pnt_neigh_comm</find>
     </findStrings>
     <replaceStrings>
       <replace>frameSize</replace>
@@ -131,12 +131,12 @@
       <updated>1513889393915</updated>
       <workItem from="1513889395104" duration="2932000" />
       <workItem from="1517277699332" duration="6437000" />
-      <workItem from="1531773610542" duration="41751000" />
+      <workItem from="1531773610542" duration="42102000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52435000" />
+    <option name="totallyTimeSpent" value="52786000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1919" y="0" width="1922" height="1201" extended-state="6" />
@@ -272,8 +272,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TestIntrinsic.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="140" column="59" selection-start-line="140" selection-start-column="59" selection-end-line="140" selection-end-column="59" />
+        <state relative-caret-position="429">
+          <caret line="32" column="49" selection-start-line="32" selection-start-column="49" selection-end-line="32" selection-end-column="49" />
         </state>
       </provider>
     </entry>

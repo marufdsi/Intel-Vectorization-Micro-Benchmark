@@ -30,7 +30,7 @@ int main(){
   edgeweight *pnt_outEdgeWeight;
   edgeweight *ignorance_edge_weight;
   ignorance_vertex = (node*)malloc(sizeof(node)*_deg);
-  pnt_neigh_comm = (index*)malloc(sizeof(index)*_deg);
+  pnt_neigh_comm = (index*)malloc(sizeof(index)*(_deg+16);
   pnt_affinity = (edgeweight *)malloc(sizeof(edgeweight)*_deg);
   pnt_outEdgeWeight = (edgeweight *)malloc(sizeof(edgeweight)*_deg);
   ignorance_edge_weight = (edgeweight *) malloc(sizeof(edgeweight) * _deg);
@@ -133,16 +133,10 @@ int main(){
         /// Count the set bit from the mask for ignore vertices
         sint vertex_cnt = _mm_popcnt_u32((unsigned)distinct_V_mask);
         /// Store distinct neighbor community
-        int * val_v = (int *)&distinct_comm;
-        cout<<"Community set: ";
-        for (int j = 0; j < 16; ++j) {
-          cout<<val_v[j]<<" ";
-        }
-        cout<<endl<<" neigh_counter: "<<neigh_counter<<endl;
         cout<<endl;
         cout<<endl<<"Before Updated Community vs Affinity: ";
         for(index com=0; com<neigh_counter; ++com){
-          cout<<" Comm: "<<pnt_neigh_comm[com]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[com]];
+          cout<<" Comm: "<<pnt_neigh_comm[com];
         }
         cout<<endl;
         cout<<endl;
