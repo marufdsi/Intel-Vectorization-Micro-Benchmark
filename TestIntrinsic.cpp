@@ -74,6 +74,10 @@ int main(){
   const   __m512 fl_set0 = _mm512_set1_ps(0.0);
   // 512 bit floating register initialize by all -1.0
   const   __m512 fl_set1 = _mm512_set1_ps(-1.0);
+  // 512 bit double register initialize by all 0.0
+  const   __m512d d_set0 = _mm512_set1_pd(0.0);
+  // 512 bit double register initialize by all -1.0
+  const   __m512d d_set1 = _mm512_set1_pd(-1.0);
   // 512 bit integer register initialize by all 0
   const   __m512i set0 = _mm512_set1_epi32(0x00000000);
   // 512 bit integer register initialize by all -1
@@ -102,8 +106,12 @@ int main(){
         __m512i C_vec = _mm512_mask_i32gather_epi32(set0, self_loop_mask, v_vec, &zeta[0], 4);
         /// Gather affinity of the corresponding community.
 ///        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
-        __m512d affinity_vec1 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 0), &pnt_affinity[0], 8);
-        __m512d affinity_vec2 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 1), &pnt_affinity[0], 8);
+//        __m512d affinity_vec1 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 0), &pnt_affinity[0], 8);
+//        __m512d affinity_vec2 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 1), &pnt_affinity[0], 8);
+
+        __m512d affinity_vec1 = _mm512_mask_i32gather_pd(d_set0, self_loop_mask, _mm512_extracti32x8_epi32(C_vec, 0), &pnt_affinity[0], 8);
+        __m512d affinity_vec2 = _mm512_mask_i32gather_pd(d_set0, (self_loop_mask>>8), _mm512_extracti32x8_epi32(C_vec, 1), &pnt_affinity[0], 8);
+
         __m512 affinity_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(affinity_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(affinity_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
 
         /// Mask to find out the new community that contains -1.0 value
