@@ -133,14 +133,17 @@ int main(){
         /// Count the set bit from the mask for ignore vertices
         sint vertex_cnt = _mm_popcnt_u32((unsigned)distinct_V_mask);
         /// Store distinct neighbor community
-        cout<<endl;
         cout<<endl<<"Before Updated Community vs Affinity: ";
         for(index com=0; com<neigh_counter; ++com){
           cout<<" Comm: "<<pnt_neigh_comm[com];
         }
         cout<<endl;
-        cout<<endl;
         _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
+        cout<<endl<<"After Updated Community vs Affinity: ";
+        for(index com=0; com<neigh_counter; ++com){
+          cout<<" Comm: "<<pnt_neigh_comm[com];
+        }
+        cout<<endl;
 //        _mm512_mask_storeu_epi32(&pnt_neigh_comm[neigh_counter], distinct_C_mask, distinct_comm);
         /// Store ignore vertices
         _mm512_storeu_si512(&ignorance_vertex[vertex_count], v_not_processed);
