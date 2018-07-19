@@ -98,7 +98,8 @@ int main(){
           self_loop_mask = _mm512_kand(self_loop_mask, (all_set_mask>>(16-neighbor_processed-i)));
         }
         /// Gather community of the neighbor vertices.
-        __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
+//        __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
+        __m512i C_vec = _mm512_mask_i32gather_epi32(set0, self_loop_mask, v_vec, &zeta[0], 4);
         /// Gather affinity of the corresponding community.
 ///        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
         __m512d affinity_vec1 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 0), &pnt_affinity[0], 8);
