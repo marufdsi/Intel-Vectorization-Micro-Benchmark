@@ -94,7 +94,7 @@ int main(){
         /// Mask to find u != v
         __mmask16 self_loop_mask = _mm512_cmpneq_epi32_mask(check_self_loop, v_vec);
         if((i+16)<neighbor_processed){
-          cout<<"before mask: "<<(unsigned)self_loop_mask<<" remaining vertices:"<< neighbor_processed-i<<endl;
+          cout<<"before mask: "<<(unsigned)self_loop_mask<< " all set mask:"<<(unsigned)all_set_mask<<" remaining vertices:"<< neighbor_processed-i<<endl;
           self_loop_mask = _mm512_kand(self_loop_mask, (all_set_mask>>(neighbor_processed-i)));
           cout<<"after mask: "<<(unsigned)self_loop_mask<<endl;
         }
