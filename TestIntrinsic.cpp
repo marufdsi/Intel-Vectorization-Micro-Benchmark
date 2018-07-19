@@ -139,6 +139,13 @@ int main(){
           cout<<val_v[j]<<" ";
         }
         cout<<endl<<" neigh_counter: "<<neigh_counter<<endl;
+        cout<<endl;
+        cout<<endl<<"Before Updated Community vs Affinity: ";
+        for(index com=0; com<neigh_counter; ++com){
+          cout<<" Comm: "<<pnt_neigh_comm[com]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[com]];
+        }
+        cout<<endl;
+        cout<<endl;
         _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
 //        _mm512_mask_storeu_epi32(&pnt_neigh_comm[neigh_counter], distinct_C_mask, distinct_comm);
         /// Store ignore vertices
