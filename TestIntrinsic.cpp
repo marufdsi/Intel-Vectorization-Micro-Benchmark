@@ -40,7 +40,7 @@ int main(){
   for(index edge=0; edge<_deg; ++edge){
     outEdges[edge] = edge;
     zeta[edge] = edge%5;
-    neigh_comm[edge] = 1.0*(edge+1);
+    pnt_outEdgeWeight[edge] = 1.0*(edge+1);
   }
   pnt_neigh_comm = &neigh_comm[0];
   pnt_outEdges = &outEdges[0];
