@@ -139,7 +139,8 @@ int main(){
         /// Count the set bit from the mask for ignore vertices
         sint vertex_cnt = _mm_popcnt_u32((unsigned)distinct_V_mask);
         /// Store distinct neighbor community
-        _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
+//        _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
+        _mm512_mask_storeu_epi32(&pnt_neigh_comm[neigh_counter], distinct_C_mask, distinct_comm);
         /// Store ignore vertices
         _mm512_storeu_si512(&ignorance_vertex[vertex_count], v_not_processed);
         /// Store ignore vertex edge weight
