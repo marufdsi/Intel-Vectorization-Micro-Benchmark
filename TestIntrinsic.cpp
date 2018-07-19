@@ -171,7 +171,7 @@ int main(){
 
   cout<<endl<<"Updated Community vs Affinity: ";
   for(index com=0; com<neigh_counter; ++com){
-    cout<<" Comm: "<<neigh_comm[com];
+    cout<<" Comm: "<<neigh_comm[com]<<" Affinity: "<<pnt_affinity[com];;
   }
   cout<<endl;
 
