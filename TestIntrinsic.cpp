@@ -93,7 +93,7 @@ int main(){
         __m512 w_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(w_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(w_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
         /// Mask to find u != v
         __mmask16 self_loop_mask = _mm512_cmpneq_epi32_mask(check_self_loop, v_vec);
-        if((i+16)<neighbor_processed){
+        if((i+16)>neighbor_processed){
           cout<<"before mask: "<<(unsigned)self_loop_mask<< " all set mask:"<<(unsigned)all_set_mask<<" neighbor processed:"<< neighbor_processed<<" Iteration: "<<i<<endl;
           self_loop_mask = _mm512_kand(self_loop_mask, (all_set_mask>>(neighbor_processed-i)));
           cout<<"after mask: "<<(unsigned)self_loop_mask<<endl;
