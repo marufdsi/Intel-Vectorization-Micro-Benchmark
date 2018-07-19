@@ -20,7 +20,7 @@ int main(){
 
 
   /******/
-  index _deg = 1000, u=0;
+  index _deg = 20, u=0;
   count neigh_counter = 0;
   count vertex_count = 0;
   node *pnt_outEdges, *outEdges, *zeta;
@@ -39,7 +39,7 @@ int main(){
 #pragma omp simd
   for(index edge=0; edge<_deg; ++edge){
     outEdges[edge] = edge;
-    zeta[edge] = edge%20;
+    zeta[edge] = edge%5;
     pnt_outEdgeWeight[edge] = 1.0*(edge+1);
   }
   pnt_neigh_comm = &neigh_comm[0];
@@ -160,12 +160,6 @@ int main(){
       neighbor_processed = vertex_count;
       pnt_outEdges = &ignorance_vertex[0];
       pnt_outEdgeWeight = &ignorance_edge_weight[0];
-      vertex_count = 0;
-      terminate++;
-      if(terminate>=_deg){
-        cout<<"Infinite Loop Occurred"<<endl;
-        break;
-      }
     }
 
 
