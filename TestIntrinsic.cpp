@@ -107,33 +107,42 @@ int main(){
         __m512 affinity_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(affinity_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(affinity_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
 
         /// Mask to find out the new community that contains -1.0 value
-        const __mmask16 new_comm_mask = _mm512_kand(_mm512_cmpeq_ps_mask(fl_set1, affinity_vec), self_loop_mask);
+//        const __mmask16 new_comm_mask = _mm512_kand(_mm512_cmpeq_ps_mask(fl_set1, affinity_vec), self_loop_mask);
+        const __mmask16 new_comm_mask = _mm512_mask_cmpeq_ps_mask(self_loop_mask, fl_set1, affinity_vec);
         /// Detect conflict of the community
-        __m512i C_conflict = _mm512_conflict_epi32(C_vec);
+//        __m512i C_conflict = _mm512_conflict_epi32(C_vec);
+        __m512i C_conflict = _mm512_mask_conflict_epi32(set0, self_loop_mask, C_vec);
         /// Calculate mask using NAND of C_conflict and set1
-        const __mmask16 mask = _mm512_kand(_mm512_testn_epi32_mask(C_conflict, set1), self_loop_mask);
+//        const __mmask16 mask = _mm512_kand(_mm512_testn_epi32_mask(C_conflict, set1), self_loop_mask);
+        const __mmask16 mask = _mm512_mask_testn_epi32_mask(self_loop_mask, C_conflict, set1);
 
         /// Now we need to collect the distinct neighbor community and vertices that didn't process yet.
         __m512i distinct_comm, v_not_processed;
         __m512 w_not_processed;
         /// It will find out the distinct community but we don't know the length.
-        distinct_comm = _mm512_mask_compress_epi32(set0, _mm512_kand(mask, new_comm_mask), C_vec);
+        __mmask16 distinct_C_mask = _mm512_kand(mask, new_comm_mask);
+        distinct_comm = _mm512_mask_compress_epi32(set0, distinct_C_mask, C_vec);
         /// It will calculate the ignorance vertices in the previous calculation, but we don't know the length.
-        v_not_processed = _mm512_mask_compress_epi32(set0, _mm512_kand(_mm512_knot(mask), self_loop_mask), v_vec);
+        __mmask16 distinct_V_mask = _mm512_kandn(mask, new_comm_mask);
+        v_not_processed = _mm512_mask_compress_epi32(set0, distinct_V_mask, v_vec);
         /// It will calculate the ignorance vertex edge weight in the previous calculation.
-        w_not_processed = _mm512_mask_compress_ps(fl_set0, _mm512_kand(_mm512_knot(mask), self_loop_mask), w_vec);
+        w_not_processed = _mm512_mask_compress_ps(fl_set0, distinct_V_mask, w_vec);
         /// Count the set bit from the mask for neighbor community
-        sint neigh_cnt = _mm_popcnt_u32((unsigned) _mm512_kand(mask, new_comm_mask));
+        sint neigh_cnt = _mm_popcnt_u32((unsigned) distinct_C_mask);
         /// Count the set bit from the mask for ignore vertices
-        sint vertex_cnt = _mm_popcnt_u32((unsigned)_mm512_kand(_mm512_knot(mask), self_loop_mask));
+        sint vertex_cnt = _mm_popcnt_u32((unsigned)distinct_V_mask);
         /// Store distinct neighbor community
-        _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
+//        _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
+        _mm512_mask_storeu_epi32(&pnt_neigh_comm[neigh_counter], distinct_C_mask, distinct_comm);
         /// Store ignore vertices
-        _mm512_storeu_si512(&ignorance_vertex[vertex_count], v_not_processed);
+//        _mm512_storeu_si512(&ignorance_vertex[vertex_count], v_not_processed);
+        _mm512_mask_storeu_epi32(&ignorance_vertex[vertex_count], distinct_V_mask, v_not_processed);
         /// Store ignore vertex edge weight
 //        _mm512_storeu_ps(&ignorance_edge_weight[vertex_count], w_not_processed);
-        _mm512_storeu_pd(&ignorance_edge_weight[vertex_count], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 0), _MM_FROUND_NO_EXC));
-        _mm512_storeu_pd(&ignorance_edge_weight[vertex_count+8], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 1), _MM_FROUND_NO_EXC));
+//        _mm512_storeu_pd(&ignorance_edge_weight[vertex_count], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 0), _MM_FROUND_NO_EXC));
+//        _mm512_storeu_pd(&ignorance_edge_weight[vertex_count+8], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 1), _MM_FROUND_NO_EXC));
+        _mm512_mask_storeu_pd(&ignorance_edge_weight[vertex_count], distinct_V_mask, _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 0), _MM_FROUND_NO_EXC));
+        _mm512_mask_storeu_pd(&ignorance_edge_weight[vertex_count+8], (distinct_V_mask>>8), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 1), _MM_FROUND_NO_EXC));
 
         /// Increment neighbor community count
         neigh_counter += neigh_cnt;
