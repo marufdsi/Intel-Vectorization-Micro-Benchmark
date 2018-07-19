@@ -65,7 +65,8 @@ int main(){
 
 
 
-  index neighbor_processed = (_deg/16)*16;
+//  index neighbor_processed = (_deg/16)*16;
+  index neighbor_processed = _deg;
   index index_of_remaining_vertex = neighbor_processed;
   // Calculate affinity. 512 register, so it can load 16, 32 bit integer or floating point.
   // 512 bit floating register initialize by all 0.0
@@ -159,7 +160,11 @@ int main(){
         cout<<ignorance_edge_weight[j]<<" ";
       }
       cout<<endl;
-      if (vertex_count == 0 || vertex_count < 16) {
+      neighbor_processed = vertex_count;
+      pnt_outEdges = &ignorance_vertex[0];
+      pnt_outEdgeWeight = &ignorance_edge_weight[0];
+      vertex_count = 0;
+      /*if (vertex_count == 0 || vertex_count < 16) {
         for (index i = 0; i < vertex_count; ++i) {
           node v = ignorance_vertex[i];
           if (u != v) {
@@ -190,7 +195,7 @@ int main(){
         pnt_outEdges = &ignorance_vertex[0];
         pnt_outEdgeWeight = &ignorance_edge_weight[0];
         vertex_count = 0;
-      }
+      }*/
       terminate++;
       if(terminate>=_deg){
         cout<<"Infinite Loop Occurred"<<endl;
