@@ -84,6 +84,7 @@ int main(){
     const __mmask16 all_set_mask = (unsigned)65535;
     index terminate = 0;
     while (1) {
+      vertex_count = 0;
       for (index i = 0; i < neighbor_processed; i += 16) {
         /// Load at most 16 neighbor vertices.
         __m512i v_vec = _mm512_loadu_si512((__m512i *) &pnt_outEdges[i]);
@@ -156,7 +157,6 @@ int main(){
       if(vertex_count<=0){
         break;
       }
-      vertex_count = 0;
       neighbor_processed = vertex_count;
       pnt_outEdges = &ignorance_vertex[0];
       pnt_outEdgeWeight = &ignorance_edge_weight[0];
