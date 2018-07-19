@@ -158,54 +158,26 @@ int main(){
 ///        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask>>8, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 1), _MM_FROUND_NO_EXC), 8);
+
+        cout<<"ignorance vertices: ";
+        for (int j = 0; j < vertex_count; ++j) {
+          cout<<ignorance_vertex[j]<<" ";
+        }
+        cout<<endl;
+        cout<<"ignorance edge weight: ";
+        for (int j = 0; j < vertex_count; ++j) {
+          cout<<ignorance_edge_weight[j]<<" ";
+        }
+        cout<<endl;
       }
 
-      cout<<"ignorance vertices: ";
-      for (int j = 0; j < vertex_count; ++j) {
-        cout<<ignorance_vertex[j]<<" ";
+      if(vertex_count<=0){
+        break;
       }
-      cout<<endl;
-      cout<<"ignorance edge weight: ";
-      for (int j = 0; j < vertex_count; ++j) {
-        cout<<ignorance_edge_weight[j]<<" ";
-      }
-      cout<<endl;
       neighbor_processed = vertex_count;
       pnt_outEdges = &ignorance_vertex[0];
       pnt_outEdgeWeight = &ignorance_edge_weight[0];
       vertex_count = 0;
-      /*if (vertex_count == 0 || vertex_count < 16) {
-        for (index i = 0; i < vertex_count; ++i) {
-          node v = ignorance_vertex[i];
-          if (u != v) {
-            index C = zeta[v];
-            if (pnt_affinity[C] == -1) {
-              /// found the neighbor for the first time, initialize to 0 and add to list of neighboring communities
-              pnt_affinity[C] = 0;
-              pnt_neigh_comm[neigh_counter++] = C;
-            }
-            pnt_affinity[C] += ignorance_edge_weight[i];
-          }
-        }
-        break;
-      } else {
-        for (index i = ((vertex_count/16)*16); i < vertex_count; ++i) {
-          node v = ignorance_vertex[i];
-          if (u != v) {
-            index C = zeta[v];
-            if (pnt_affinity[C] == -1) {
-              /// found the neighbor for the first time, initialize to 0 and add to list of neighboring communities
-              pnt_affinity[C] = 0;
-              pnt_neigh_comm[neigh_counter++] = C;
-            }
-            pnt_affinity[C] += ignorance_edge_weight[i];
-          }
-        }
-        neighbor_processed = ((vertex_count/16)*16);
-        pnt_outEdges = &ignorance_vertex[0];
-        pnt_outEdgeWeight = &ignorance_edge_weight[0];
-        vertex_count = 0;
-      }*/
       terminate++;
       if(terminate>=_deg){
         cout<<"Infinite Loop Occurred"<<endl;
