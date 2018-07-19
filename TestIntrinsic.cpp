@@ -120,7 +120,6 @@ int main(){
         __m512 w_not_processed;
         __mmask16 distinct_C_mask = _mm512_kand(mask, new_comm_mask);
         __mmask16 distinct_V_mask = _mm512_kandn(mask, self_loop_mask);
-        cout<<"distinct_C_mask: "<<(unsigned)distinct_C_mask<<" distinct_V_mask: "<<(unsigned)distinct_V_mask<<" new_comm_mask: "<<(unsigned)new_comm_mask<<" mask: "<<(unsigned)mask<<endl;
         /// It will find out the distinct community but we don't know the length.
         distinct_comm = _mm512_mask_compress_epi32(set0, distinct_C_mask, C_vec);
         /// It will calculate the ignorance vertices in the previous calculation, but we don't know the length.
@@ -154,8 +153,6 @@ int main(){
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask>>8, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 1), _MM_FROUND_NO_EXC), 8);
       }
-
-      cout<<endl<<endl<<"Done First Round"<<endl<<endl;
 
       if(vertex_count<=0){
         break;
