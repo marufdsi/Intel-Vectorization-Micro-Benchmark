@@ -172,6 +172,11 @@ int main(){
           cout<<ignorance_edge_weight[j]<<" ";
         }
         cout<<endl;
+        cout<<endl<<"Updated Community vs Affinity: ";
+        for(index com=0; com<neigh_counter; ++com){
+          cout<<" Comm: "<<pnt_neigh_comm[com]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[com]];
+        }
+        cout<<endl;
       }
 
       cout<<endl<<endl<<"Done First Round"<<endl<<endl;
@@ -189,7 +194,7 @@ int main(){
         break;
       }
     }
-    pnt_outEdges = &outEdges[0];
+    /*pnt_outEdges = &outEdges[0];
     for (index i= index_of_remaining_vertex; i < _deg; ++i) {
       node v = pnt_outEdges[i];
       if (u != v) {
@@ -201,13 +206,7 @@ int main(){
         }
         pnt_affinity[C] += pnt_outEdgeWeight[i];
       }
-    }
-
-  cout<<endl<<"Community vs Affinity: ";
-  for(index com=0; com<neigh_counter; ++com){
-    cout<<" Comm: "<<pnt_neigh_comm[com]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[com]];
-  }
-  cout<<endl;
+    }*/
 
   cout<<endl<<"Community vs Affinity: ";
   for(index com=0; com<neigh_counter; ++com){
