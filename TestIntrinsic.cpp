@@ -24,13 +24,13 @@ int main(){
   count neigh_counter = 0;
   count vertex_count = 0;
   node *pnt_outEdges, *outEdges, *zeta;
+  vector<index> neigh_comm(_deg);
   index *pnt_neigh_comm;
   node *ignorance_vertex;
   edgeweight *pnt_affinity;
   edgeweight *pnt_outEdgeWeight;
   edgeweight *ignorance_edge_weight;
   ignorance_vertex = (node*)malloc(sizeof(node)*_deg);
-  pnt_neigh_comm = (index*)malloc(sizeof(index)*(_deg+16));
   pnt_affinity = (edgeweight *)malloc(sizeof(edgeweight)*_deg);
   pnt_outEdgeWeight = (edgeweight *)malloc(sizeof(edgeweight)*_deg);
   ignorance_edge_weight = (edgeweight *) malloc(sizeof(edgeweight) * _deg);
@@ -40,8 +40,9 @@ int main(){
   for(index edge=0; edge<_deg; ++edge){
     outEdges[edge] = edge;
     zeta[edge] = edge%5;
-    pnt_outEdgeWeight[edge] = 1.0*(edge+1);
+    neigh_comm[edge] = 1.0*(edge+1);
   }
+  pnt_neigh_comm = &neigh_comm[0];
   pnt_outEdges = &outEdges[0];
   edgeweight defaultEdgeWeight = 1.0;
 #pragma omp simd
@@ -94,9 +95,7 @@ int main(){
         /// Mask to find u != v
         __mmask16 self_loop_mask = _mm512_cmpneq_epi32_mask(check_self_loop, v_vec);
         if((i+16)>neighbor_processed){
-          cout<<"before mask: "<<(unsigned)self_loop_mask<< " all set mask:"<<(unsigned)(all_set_mask>>(16-neighbor_processed-i))<<" neighbors:"<< neighbor_processed-i<<endl;
           self_loop_mask = _mm512_kand(self_loop_mask, (all_set_mask>>(16-neighbor_processed-i)));
-          cout<<"after mask: "<<(unsigned)self_loop_mask<<endl;
         }
         /// Gather community of the neighbor vertices.
         __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
@@ -133,22 +132,10 @@ int main(){
         /// Count the set bit from the mask for ignore vertices
         sint vertex_cnt = _mm_popcnt_u32((unsigned)distinct_V_mask);
         /// Store distinct neighbor community
-        cout<<endl<<"Before Updated Community vs Affinity: ";
-        for(index com=0; com<neigh_counter; ++com){
-          cout<<" Comm: "<<pnt_neigh_comm[com];
-        }
-        cout<<endl;
         _mm512_storeu_si512(&pnt_neigh_comm[neigh_counter], distinct_comm);
-        cout<<endl<<"After Updated Community vs Affinity: ";
-        for(index com=0; com<neigh_counter; ++com){
-          cout<<" Comm: "<<pnt_neigh_comm[com];
-        }
-        cout<<endl;
-//        _mm512_mask_storeu_epi32(&pnt_neigh_comm[neigh_counter], distinct_C_mask, distinct_comm);
         /// Store ignore vertices
         _mm512_storeu_si512(&ignorance_vertex[vertex_count], v_not_processed);
         /// Store ignore vertex edge weight
-//        _mm512_storeu_ps(&ignorance_edge_weight[vertex_count], w_not_processed);
         _mm512_storeu_pd(&ignorance_edge_weight[vertex_count], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 0), _MM_FROUND_NO_EXC));
         _mm512_storeu_pd(&ignorance_edge_weight[vertex_count+8], _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(w_not_processed, 1), _MM_FROUND_NO_EXC));
 
@@ -166,23 +153,6 @@ int main(){
 ///        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask>>8, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 1), _MM_FROUND_NO_EXC), 8);
-
-        /*cout<<"ignorance vertices: ";
-        for (int j = 0; j < vertex_count; ++j) {
-          cout<<ignorance_vertex[j]<<" ";
-        }
-        cout<<endl;
-        cout<<"ignorance edge weight: ";
-        for (int j = 0; j < vertex_count; ++j) {
-          cout<<ignorance_edge_weight[j]<<" ";
-        }*/
-        cout<<endl;
-        cout<<endl<<"Updated Community vs Affinity: ";
-        for(index com=0; com<neigh_counter; ++com){
-          cout<<" Comm: "<<pnt_neigh_comm[com]<<" Affinity: "<<pnt_affinity[pnt_neigh_comm[com]];
-        }
-        cout<<endl;
-        cout<<endl;
       }
 
       cout<<endl<<endl<<"Done First Round"<<endl<<endl;
@@ -200,19 +170,13 @@ int main(){
         break;
       }
     }
-    /*pnt_outEdges = &outEdges[0];
-    for (index i= index_of_remaining_vertex; i < _deg; ++i) {
-      node v = pnt_outEdges[i];
-      if (u != v) {
-        index C = zeta[v];
-        if (pnt_affinity[C] == -1) {
-          /// found the neighbor for the first time, initialize to 0 and add to list of neighboring communities
-          pnt_affinity[C] = 0;
-          pnt_neigh_comm[neigh_counter++] = C;
-        }
-        pnt_affinity[C] += pnt_outEdgeWeight[i];
-      }
-    }*/
+
+
+  cout<<endl<<"Updated Community vs Affinity: ";
+  for(index com=0; com<neigh_counter; ++com){
+    cout<<" Comm: "<<neigh_comm[com];
+  }
+  cout<<endl;
 
   cout<<endl<<"Community vs Affinity: ";
   for(index com=0; com<neigh_counter; ++com){
