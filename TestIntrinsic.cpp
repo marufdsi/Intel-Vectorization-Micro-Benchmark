@@ -98,16 +98,12 @@ int main(){
         __m512 w_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(w_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(w_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
         /// Mask to find u != v
         __mmask16 self_loop_mask = _mm512_cmpneq_epi32_mask(check_self_loop, v_vec);
-        if((i+16)>neighbor_processed){
-          self_loop_mask = _mm512_kand(self_loop_mask, (all_set_mask>>(16-neighbor_processed-i)));
+        if((i+16)>neighbor_processing){
+          self_loop_mask = _mm512_kand(self_loop_mask, (all_set_mask>>(16-neighbor_processing-i)));
         }
         /// Gather community of the neighbor vertices.
-//        __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
         __m512i C_vec = _mm512_mask_i32gather_epi32(set0, self_loop_mask, v_vec, &zeta[0], 4);
         /// Gather affinity of the corresponding community.
-///        __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[0], 4);
-//        __m512d affinity_vec1 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 0), &pnt_affinity[0], 8);
-//        __m512d affinity_vec2 = _mm512_i32gather_pd(_mm512_extracti32x8_epi32(C_vec, 1), &pnt_affinity[0], 8);
 
         __m512d affinity_vec1 = _mm512_mask_i32gather_pd(d_set0, self_loop_mask, _mm512_extracti32x8_epi32(C_vec, 0), &pnt_affinity[0], 8);
         __m512d affinity_vec2 = _mm512_mask_i32gather_pd(d_set0, (self_loop_mask>>8), _mm512_extracti32x8_epi32(C_vec, 1), &pnt_affinity[0], 8);
@@ -115,13 +111,10 @@ int main(){
         __m512 affinity_vec = _mm512_insertf32x8(_mm512_castps256_ps512(_mm512_cvt_roundpd_ps(affinity_vec1, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC)), _mm512_cvt_roundpd_ps(affinity_vec2, _MM_FROUND_TO_NEAREST_INT |_MM_FROUND_NO_EXC), 1);
 
         /// Mask to find out the new community that contains -1.0 value
-//        const __mmask16 new_comm_mask = _mm512_kand(_mm512_cmpeq_ps_mask(fl_set1, affinity_vec), self_loop_mask);
         const __mmask16 new_comm_mask = _mm512_mask_cmpeq_ps_mask(self_loop_mask, fl_set1, affinity_vec);
         /// Detect conflict of the community
-//        __m512i C_conflict = _mm512_conflict_epi32(C_vec);
         __m512i C_conflict = _mm512_mask_conflict_epi32(set0, self_loop_mask, C_vec);
         /// Calculate mask using NAND of C_conflict and set1
-//        const __mmask16 mask = _mm512_kand(_mm512_testn_epi32_mask(C_conflict, set1), self_loop_mask);
         const __mmask16 mask = _mm512_mask_testn_epi32_mask(self_loop_mask, C_conflict, set1);
 
         /// Now we need to collect the distinct neighbor community and vertices that didn't process yet.
@@ -129,9 +122,9 @@ int main(){
         __m512 w_not_processed;
         __mmask16 distinct_C_mask = _mm512_kand(mask, new_comm_mask);
         __mmask16 distinct_V_mask = _mm512_kandn(mask, self_loop_mask);
-        /// It will find out the distinct community but we don't know the length.
+        /// It will find out the distinct community.
         distinct_comm = _mm512_mask_compress_epi32(set0, distinct_C_mask, C_vec);
-        /// It will calculate the ignorance vertices in the previous calculation, but we don't know the length.
+        /// It will calculate the ignorance vertices in the previous calculation.
         v_not_processed = _mm512_mask_compress_epi32(set0, distinct_V_mask, v_vec);
         /// It will calculate the ignorance vertex edge weight in the previous calculation.
         w_not_processed = _mm512_mask_compress_ps(fl_set0, distinct_V_mask, w_vec);
@@ -153,12 +146,11 @@ int main(){
         vertex_count += vertex_cnt;
 
         /// Assign 0.0 in the affinity that contains -1.0 right now.
-///        _mm512_mask_i32scatter_ps(&pnt_affinity[0], new_comm_mask, C_vec, fl_set0, 4);
         affinity_vec = _mm512_mask_mov_ps(affinity_vec, new_comm_mask, fl_set0);
         /// Add edge weight to the affinity and if mask doesn't set load from affinity
         affinity_vec = _mm512_mask_add_ps(affinity_vec, mask, affinity_vec, w_vec);
         /// Scatter affinity value to the affinity pointer.
-///        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
+///                        _mm512_mask_i32scatter_ps(&pnt_affinity[0], mask, C_vec, affinity_vec, 4);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask, _mm512_extracti32x8_epi32(C_vec, 0), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 0), _MM_FROUND_NO_EXC), 8);
         _mm512_mask_i32scatter_pd(&pnt_affinity[0], mask>>8, _mm512_extracti32x8_epi32(C_vec, 1), _mm512_cvt_roundps_pd(_mm512_extractf32x8_ps(affinity_vec, 1), _MM_FROUND_NO_EXC), 8);
       }
