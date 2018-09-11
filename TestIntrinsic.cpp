@@ -12,12 +12,7 @@
 #include <fstream>
 using namespace std;
 
-int main(){
-    for(int i=0; i<50; ++i){
-        testVector((i+2)*20, (i+1)*10000);
-    }
-    return 0;
-}
+
 void testVector(int _deg, int iteration) {
     typedef int32_t index, sint, node, count;
     typedef float edgeweight;
@@ -42,7 +37,7 @@ void testVector(int _deg, int iteration) {
     }
    cout<<endl<<"pop count: "<<count_m<< "  comm_mask: "<< comm_mask << " mask_c: "<<mask_c<<endl;
 
-    String init_log_file = "init_log_file.csv";
+    string init_log_file = "init_log_file.csv";
     std::ofstream f_init_log;
     std::ifstream infile(init_log_file);
     bool existing_file = infile.good();
@@ -297,4 +292,10 @@ void testVector(int _deg, int iteration) {
 	//	cout<< pnt_neigh_comm[i]<< " ";
 	}
 	cout<<endl;
+}
+int main(){
+    for(int i=0; i<50; ++i){
+        testVector((i+2)*20, (i+1)*10000);
+    }
+    return 0;
 }
