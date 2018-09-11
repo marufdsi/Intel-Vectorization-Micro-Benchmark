@@ -8,10 +8,17 @@
 #include <emmintrin.h>
 #include <immintrin.h>
 #include <math.h> 
+#include <sstream>
+#include <fstream>
 using namespace std;
 
-
-int main() {
+int main(){
+    for(int i=0; i<50; ++i){
+        testVector((i+2)*20, (i+1)*10000);
+    }
+    return 0;
+}
+void testVector(int _deg, int iteration) {
     typedef int32_t index, sint, node, count;
     typedef float edgeweight;
 
@@ -35,8 +42,16 @@ int main() {
     }
    cout<<endl<<"pop count: "<<count_m<< "  comm_mask: "<< comm_mask << " mask_c: "<<mask_c<<endl;
 
+    String init_log_file = "init_log_file.csv";
+    std::ofstream f_init_log;
+    std::ifstream infile(init_log_file);
+    bool existing_file = infile.good();
+    f_init_log.open(init_log_file, std::ios_base::out | std::ios_base::app | std::ios_base::ate);
+    if (!existing_file) {
+        f_init_log << "Degree" << "," << "Iteration" << "," << "Implicit TIme" << "," << "Intrinsic Time" << std::endl;
+    }
     /******/
-    index _deg = 3000, u = 0;
+    index u = 0;
     count neigh_counter = 0;
     count vertex_count = 0;
     node *pnt_outEdges, *outEdges, *zeta;
@@ -70,7 +85,7 @@ int main() {
     index neighbor_processed = (_deg/16)*16;
     struct timespec start_ini, end_ini;
     clock_gettime(CLOCK_MONOTONIC, &start_ini);
-	for(int k=0; k<1000000; ++k){
+	for(int k=0; k<iteration; ++k){
 	    #pragma omp simd
             for(index edge=0; edge<_deg; ++edge){
                 pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
@@ -82,7 +97,7 @@ int main() {
 
     struct timespec start_init, end_init;    
     clock_gettime(CLOCK_MONOTONIC, &start_init);	
-	for(int	k=0; k<1000000;	++k){
+	for(int	k=0; k<iteration;	++k){
 		#pragma unroll
             for(index i=0; i<neighbor_processed; i+=16){
                 __m512i v_vec = _mm512_loadu_si512((__m512i *) &pnt_outEdges[i]);
@@ -99,7 +114,7 @@ int main() {
     clock_gettime(CLOCK_MONOTONIC, &end_init);
     double elapsed_init_time = ((end_init.tv_sec * 1000 + (end_init.tv_nsec / 1.0e6)) - (start_init.tv_sec * 1000 + (start_init.tv_nsec / 1.0e6)));
     cout<<"Vectorized Init Time: "<<elapsed_init_time<<endl;
-
+    f_init_log<<_deg<<","<<iteration<<","<< elapsed_ini_time<<","<<elapsed_init_time<<endl;
 
 
 
@@ -282,6 +297,4 @@ int main() {
 	//	cout<< pnt_neigh_comm[i]<< " ";
 	}
 	cout<<endl;
-    return 0;
-
 }
