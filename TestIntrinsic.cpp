@@ -295,7 +295,7 @@ void testVector(int _deg, int iteration) {
 }
 int main(){
     for(int i=0; i<50; ++i){
-        testVector((i+2)*20, (i+1)*10000);
+        testVector((i*30) + 20, 1000000);
     }
     return 0;
 }
