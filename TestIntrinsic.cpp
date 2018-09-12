@@ -294,7 +294,7 @@ void testVector(int _deg, int iteration) {
 	cout<<endl;
 }
 int main(){
-    int iteration = 10000;
+    int iteration = 100;
     for(int k=0; k<5; ++k){
         for(int i=0; i<50; ++i){
             testVector((i*30) + 20, iteration);
