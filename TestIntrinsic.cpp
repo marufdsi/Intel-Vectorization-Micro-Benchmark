@@ -13,6 +13,74 @@
 using namespace std;
 
 
+void testClockSpeed(int _deg, int iteration){
+    string init_log_file = "init_log_file.csv";
+    std::ofstream f_init_log;
+    std::ifstream infile(init_log_file);
+    bool existing_file = infile.good();
+    f_init_log.open(init_log_file, std::ios_base::out | std::ios_base::app | std::ios_base::ate);
+    if (!existing_file) {
+        f_init_log << "Degree" << "," << "Iteration" << "," << "Implicit Time" << "," << "No Vector Time" << "," << "Intrinsic Time" << std::endl;
+    }
+
+    node *pnt_outEdges, *outEdges, *zeta;
+     // 512 bit floating register initialize by all -1.0
+    const __m512 fl_set1 = _mm512_set1_ps(-1.0); 
+    for (index edge = 0; edge < _deg; ++edge) {
+        outEdges[edge] = edge;
+        zeta[edge] = edge % 10;
+//        zeta[edge] = 1;
+        pnt_outEdgeWeight[edge] = 1.0 * (edge + 1);
+    }
+    pnt_outEdges = &outEdges[0];
+
+    struct timespec start_implicit, end_implicit, start_no_vec, end_no_vec;
+    clock_gettime(CLOCK_MONOTONIC, &start_implicit);
+	for(int k=0; k<iteration; ++k){
+	    #pragma omp simd
+        for(index edge=0; edge<_deg; ++edge){
+            pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
+        }
+	}
+    clock_gettime(CLOCK_MONOTONIC, &end_implicit);
+    double elapsed_implicit_time = ((end_implicit.tv_sec * 1000 + (end_implicit.tv_nsec / 1.0e6)) - (start_implicit.tv_sec * 1000 + (start_implicit.tv_nsec / 1.0e6)));
+    cout<<"Implicit Vectorization Init Time: "<<elapsed_implicit_time<<endl;
+
+    clock_gettime(CLOCK_MONOTONIC, &start_no_vec);
+	for(int k=0; k<iteration; ++k){
+	    #pragma novector
+        for(index edge=0; edge<_deg; ++edge){
+            pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
+        }
+	}
+    clock_gettime(CLOCK_MONOTONIC, &end_no_vec);
+    double elapsed_no_vector_time = ((end_no_vec.tv_sec * 1000 + (end_no_vec.tv_nsec / 1.0e6)) - (start_no_vec.tv_sec * 1000 + (start_no_vec.tv_nsec / 1.0e6)));
+    cout<<"Init Time Without Vectorization: "<<elapsed_no_vector_time<<endl;
+
+    struct timespec start_init, end_init;    
+    clock_gettime(CLOCK_MONOTONIC, &start_init);	
+	for(int	k=0; k<iteration;	++k){
+		#pragma unroll
+        for(index i=0; i<neighbor_processed; i+=16){
+            __m512i v_vec = _mm512_loadu_si512((__m512i *) &pnt_outEdges[i]);
+            /// Gather community of the neighbor vertices.
+            __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
+            /// Scatter affinity value to the affinity pointer.
+            _mm512_i32scatter_ps(&pnt_affinity[0], C_vec, fl_set1, 4);
+        }
+//	    #pragma omp simd
+            for(index edge=neighbor_processed; edge<_deg; ++edge){
+                pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
+            }
+	}
+    clock_gettime(CLOCK_MONOTONIC, &end_init);
+    double elapsed_init_time = ((end_init.tv_sec * 1000 + (end_init.tv_nsec / 1.0e6)) - (start_init.tv_sec * 1000 + (start_init.tv_nsec / 1.0e6)));
+    cout<<"Vectorized Init Time: "<<elapsed_init_time<<endl;
+    f_init_log << _deg << "," << iteration << "," << elapsed_implicit_time << "," << elapsed_no_vector_time << "," << elapsed_init_time << endl;
+
+
+}
+
 void testVector(int _deg, int iteration) {
     typedef int32_t index, sint, node, count;
     typedef float edgeweight;
@@ -78,40 +146,7 @@ void testVector(int _deg, int iteration) {
    // 512 bit floating register initialize by all -1.0
     const __m512 fl_set1 = _mm512_set1_ps(-1.0);  
     index neighbor_processed = (_deg/16)*16;
-    struct timespec start_ini, end_ini;
-    clock_gettime(CLOCK_MONOTONIC, &start_ini);
-	for(int k=0; k<iteration; ++k){
-	    #pragma omp simd
-            for(index edge=0; edge<_deg; ++edge){
-                pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
-            }
-	}
-    clock_gettime(CLOCK_MONOTONIC, &end_ini);
-    double elapsed_ini_time = ((end_ini.tv_sec * 1000 + (end_ini.tv_nsec / 1.0e6)) - (start_ini.tv_sec * 1000 + (start_ini.tv_nsec / 1.0e6)));
-    cout<<"Existing Init Time: "<<elapsed_ini_time<<endl;
-
-    struct timespec start_init, end_init;    
-    clock_gettime(CLOCK_MONOTONIC, &start_init);	
-	for(int	k=0; k<iteration;	++k){
-		#pragma unroll
-            for(index i=0; i<neighbor_processed; i+=16){
-                __m512i v_vec = _mm512_loadu_si512((__m512i *) &pnt_outEdges[i]);
-                /// Gather community of the neighbor vertices.
-                __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
-                /// Scatter affinity value to the affinity pointer.
-                _mm512_i32scatter_ps(&pnt_affinity[0], C_vec, fl_set1, 4);
-            }
-//	    #pragma omp simd
-            for(index edge=neighbor_processed; edge<_deg; ++edge){
-                pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
-            }
-	}
-    clock_gettime(CLOCK_MONOTONIC, &end_init);
-    double elapsed_init_time = ((end_init.tv_sec * 1000 + (end_init.tv_nsec / 1.0e6)) - (start_init.tv_sec * 1000 + (start_init.tv_nsec / 1.0e6)));
-    cout<<"Vectorized Init Time: "<<elapsed_init_time<<endl;
-    f_init_log<<_deg<<","<<iteration<<","<< elapsed_ini_time<<","<<elapsed_init_time<<endl;
-
-
+    
 
 
 #pragma omp simd
@@ -297,7 +332,7 @@ int main(){
     int iteration = 100;
     for(int k=0; k<5; ++k){
         for(int i=0; i<50; ++i){
-            testVector((i*30) + 20, iteration);
+            testClockSpeed((i*i*30) + 20, iteration);
         }
         iteration *=10;
     }
