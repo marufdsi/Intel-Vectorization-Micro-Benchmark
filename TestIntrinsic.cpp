@@ -12,6 +12,8 @@
 #include <fstream>
 using namespace std;
 
+typedef int32_t index, sint, node, count;
+typedef float edgeweight;
 
 void testClockSpeed(int _deg, int iteration){
     string init_log_file = "init_log_file.csv";
@@ -24,6 +26,8 @@ void testClockSpeed(int _deg, int iteration){
     }
 
     node *pnt_outEdges, *outEdges, *zeta;
+    edgeweight *pnt_affinity;
+    pnt_affinity = (edgeweight *) malloc(sizeof(edgeweight) * _deg);
      // 512 bit floating register initialize by all -1.0
     const __m512 fl_set1 = _mm512_set1_ps(-1.0); 
     for (index edge = 0; edge < _deg; ++edge) {
@@ -82,8 +86,6 @@ void testClockSpeed(int _deg, int iteration){
 }
 
 void testVector(int _deg, int iteration) {
-    typedef int32_t index, sint, node, count;
-    typedef float edgeweight;
 
     int z = 40;
     int node_sort_by_deg[z];
