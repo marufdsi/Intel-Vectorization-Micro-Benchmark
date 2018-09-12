@@ -29,6 +29,8 @@ void testClockSpeed(int _deg, int iteration){
     node *pnt_outEdges, *outEdges, *zeta;
     edgeweight *pnt_affinity;
     pnt_affinity = (edgeweight *) malloc(sizeof(edgeweight) * _deg);
+    outEdges = (node *) malloc(sizeof(node) * _deg);
+    zeta = (node *) malloc(sizeof(node) * _deg);
     index neighbor_processed = (_deg/16)*16;
      // 512 bit floating register initialize by all -1.0
     const __m512 fl_set1 = _mm512_set1_ps(-1.0); 
