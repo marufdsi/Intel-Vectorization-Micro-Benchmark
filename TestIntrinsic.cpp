@@ -294,8 +294,12 @@ void testVector(int _deg, int iteration) {
 	cout<<endl;
 }
 int main(){
-    for(int i=0; i<50; ++i){
-        testVector((i*30) + 20, 1000000);
+    int iteration = 10000;
+    for(int k=0; k<5; ++k){
+        for(int i=0; i<50; ++i){
+            testVector((i*30) + 20, iteration);
+        }
+        iteration *=10;
     }
     return 0;
 }
