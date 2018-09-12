@@ -36,7 +36,6 @@ void testClockSpeed(int _deg, int iteration){
         outEdges[edge] = edge;
         zeta[edge] = edge % 10;
 //        zeta[edge] = 1;
-        pnt_outEdgeWeight[edge] = 1.0 * (edge + 1);
     }
     pnt_outEdges = &outEdges[0];
 
