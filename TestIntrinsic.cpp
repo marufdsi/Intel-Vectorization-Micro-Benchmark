@@ -66,7 +66,7 @@ void testClockSpeed(int _deg, int iteration){
     bool existing_file = infile.good();
     f_init_log.open(init_log_file, std::ios_base::out | std::ios_base::app | std::ios_base::ate);
     if (!existing_file) {
-        f_init_log << "Degree" << "," << "Iteration" << "," << "Implicit Time" << "," << "No Vector Time" << "," << "Intrinsic Time" << std::endl;
+        f_init_log << "Degree" << "," << "Iteration" << "," << "Implicit Time" << "," << "No Vector Time" << "," << "Intrinsic Time" << "," << "Implicit Frequency" << "," << "No Vector Frequency" << "," << "Vector Frequency" << std::endl;
     }
 
     node *pnt_outEdges, *outEdges, *zeta;
@@ -83,7 +83,8 @@ void testClockSpeed(int _deg, int iteration){
 //        zeta[edge] = 1;
     }
     pnt_outEdges = &outEdges[0];
-
+    float fr_implicit = 0.0, fr_no_vector = 0.0, fr_vector = 0.0;
+    fr_implicit = ProcSpeedCalc();
     struct timespec start_implicit, end_implicit, start_no_vec, end_no_vec;
     clock_gettime(CLOCK_MONOTONIC, &start_implicit);
     #pragma omp parallel for schedule(guided)
@@ -97,6 +98,7 @@ void testClockSpeed(int _deg, int iteration){
     double elapsed_implicit_time = ((end_implicit.tv_sec * 1000 + (end_implicit.tv_nsec / 1.0e6)) - (start_implicit.tv_sec * 1000 + (start_implicit.tv_nsec / 1.0e6)));
     cout<<"Implicit Vectorization Init Time: "<<elapsed_implicit_time<<endl;
 
+    fr_no_vector = ProcSpeedCalc();
     clock_gettime(CLOCK_MONOTONIC, &start_no_vec);
     #pragma omp parallel for schedule(guided)
 	for(int k=0; k<iteration; ++k){
@@ -109,6 +111,7 @@ void testClockSpeed(int _deg, int iteration){
     double elapsed_no_vector_time = ((end_no_vec.tv_sec * 1000 + (end_no_vec.tv_nsec / 1.0e6)) - (start_no_vec.tv_sec * 1000 + (start_no_vec.tv_nsec / 1.0e6)));
     cout<<"Init Time Without Vectorization: "<<elapsed_no_vector_time<<endl;
 
+    fr_vector = ProcSpeedCalc();
     struct timespec start_init, end_init;    
     clock_gettime(CLOCK_MONOTONIC, &start_init);
     #pragma omp parallel for schedule(guided)	
@@ -129,7 +132,7 @@ void testClockSpeed(int _deg, int iteration){
     clock_gettime(CLOCK_MONOTONIC, &end_init);
     double elapsed_init_time = ((end_init.tv_sec * 1000 + (end_init.tv_nsec / 1.0e6)) - (start_init.tv_sec * 1000 + (start_init.tv_nsec / 1.0e6)));
     cout<<"Vectorized Init Time: "<<elapsed_init_time<<endl;
-    f_init_log << _deg << "," << iteration << "," << elapsed_implicit_time << "," << elapsed_no_vector_time << "," << elapsed_init_time << endl;
+    f_init_log << _deg << "," << iteration << "," << elapsed_implicit_time << "," << elapsed_no_vector_time << "," << elapsed_init_time << "," << fr_implicit << "," << fr_no_vector << "," << fr_vector << endl;
 
 
 }
