@@ -37,7 +37,7 @@ using namespace std;
 
 float ProcSpeedCalc()
 {
-    uint64_t nCtr = 0, nCtrStop = 0;
+    uint64_t nCtr = 0;
     uint64_t nCtrStop = rdtsc();  // tick before
     nCtrStop += CLOCKS_PER_SEC;
     uint64_t tick = rdtsc();
