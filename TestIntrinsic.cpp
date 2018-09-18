@@ -10,69 +10,42 @@
 #include <math.h> 
 #include <sstream>
 #include <fstream>
+#include <cstdlib>
+#include <stdint.h>
 // #include <likwid.h>
-using namespace std;
 
-
-
-
-long long get_cycles(){
-    unsigned int a=0, d=0;
-    int ecx=(1<<30)+1; //What counter it selects?
-    __asm __volatile("rdpmc" : "=a"(a), "=d"(d) : "c"(ecx));
-    return ((long long)a) | (((long long)d) << 32);
+//  Windows
+#ifdef _WIN32
+ 
+#include <intrin.h>
+uint64_t rdtsc(){
+    return __rdtsc();
 }
+ 
+//  Linux/GCC
+#else
+ 
+uint64_t rdtsc(){
+    unsigned int lo,hi;
+    __asm__ __volatile__ ("rdtsc" : "=a" (lo), "=d" (hi));
+    return ((uint64_t)hi << 32) | lo;
+}
+ 
+#endif
+
+using namespace std;
 
 float ProcSpeedCalc()
 {
-
-/*
-RdTSC:
-It's the Pentium instruction "ReaD Time Stamp Counter". It measures the
-number of clock cycles that have passed since the processor was reset, as a
-64-bit number. That's what the <CODE>_emit</CODE> lines do.*/
-#define RdTSC __asm _emit 0x0f __asm _emit 0x31
-
-// variables for the clock-cycles:
-__int64 cyclesStart = 0, cyclesStop = 0;
-// variables for the High-Res Preformance Counter:
-unsigned long nCtr = 0, nFreq = 0, nCtrStop = 0;
-
-
-    // retrieve performance-counter frequency per second:
-    // if(!QueryPerformanceFrequency((LARGE_INTEGER *) &nFreq)) return 0;
-
-    // retrieve the current value of the performance counter:
-    // QueryPerformanceCounter((LARGE_INTEGER *) &nCtrStop);
-   nCtrStop = get_cycles();
-
-    // add the frequency to the counter-value:
+    uint64_t nCtr = 0, nCtrStop = 0;
+    uint64_t nCtrStop = rdtsc();  // tick before
     nCtrStop += CLOCKS_PER_SEC;
-
-
-    __asm __
-        {// retrieve the clock-cycles for the start value:
-            RdTSC
-            mov DWORD PTR cyclesStart, eax
-            mov DWORD PTR [cyclesStart + 4], edx
-        }
-
-        do{
-        // retrieve the value of the performance counter
-        // until 1 sec has gone by:
-            //  QueryPerformanceCounter((LARGE_INTEGER *) &nCtr);
-            nCtr = get_cycles();
-          }while (nCtr < nCtrStop);
-
-    __asm __
-        {// retrieve again the clock-cycles after 1 sec. has gone by:
-            RdTSC
-            mov DWORD PTR cyclesStop, eax
-            mov DWORD PTR [cyclesStop + 4], edx
-        }
-
-// stop-start is speed in Hz divided by 1,000,000 is speed in MHz
-return   ((float)cyclesStop-(float)cyclesStart) / 1000000;
+    uint64_t tick = rdtsc();
+    do{
+        nCtr = rdtsc();
+    }while (nCtr < nCtrStop);
+    // stop-start is speed in Hz divided by 1,000,000 is speed in MHz
+    return   ((float)rdtsc()-(float)tick) / 1000000;
 }
 
 void testClockSpeed(int _deg, int iteration){
