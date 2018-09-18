@@ -393,7 +393,7 @@ int main(){
     // return 0;
     int iteration = 100;
     for(int k=0; k<5; ++k){
-        for(int i=0; i<50; i+=2){
+        for(int i=0; i<50; i+=1){
             testClockSpeed((i*i*30) + 20, iteration);
         }
         iteration *=10;
