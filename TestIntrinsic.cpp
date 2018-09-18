@@ -35,17 +35,20 @@ uint64_t rdtsc(){
 
 using namespace std;
 
-float ProcSpeedCalc()
+double ProcSpeedCalc()
 {
     uint64_t nCtr = 0;
     uint64_t nCtrStop = rdtsc();  // tick before
     nCtrStop += CLOCKS_PER_SEC;
+    struct timespec start, end;    
+    clock_gettime(CLOCK_MONOTONIC, &start);
     uint64_t tick = rdtsc();
     do{
         nCtr = rdtsc();
     }while (nCtr < nCtrStop);
     // stop-start is speed in Hz divided by 1,000,000 is speed in MHz
-    return   ((float)rdtsc()-(float)tick) / 1000000;
+    clock_gettime(CLOCK_MONOTONIC, &end);
+    return   CLOCKS_PER_SEC/((end_implicit.tv_sec * 1000 + (end_implicit.tv_nsec / 1.0e6)) - (start_implicit.tv_sec * 1000 + (start_implicit.tv_nsec / 1.0e6)))*1000;
 }
 
 void testClockSpeed(int _deg, int iteration){
@@ -384,6 +387,8 @@ void testVector(int _deg, int iteration) {
 	cout<<endl;
 }
 int main(){
+    cout<<"CLOCKS_PER_SEC: "<<CLOCKS_PER_SEC<<endl;
+    return 0;
     int iteration = 100;
     for(int k=0; k<5; ++k){
         for(int i=0; i<50; ++i){
