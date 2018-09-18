@@ -94,8 +94,8 @@ void testClockSpeed(int _deg, int iteration){
 	for(int k=0; k<iteration; ++k){
 	    #pragma omp simd
         for(index edge=0; edge<_deg; ++edge){
-            index C = zeta[pnt_outEdges[edge]];
-            // pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
+            // index C = zeta[pnt_outEdges[edge]];
+            pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
         }
 	}
     clock_gettime(CLOCK_MONOTONIC, &end_implicit);
@@ -108,8 +108,8 @@ void testClockSpeed(int _deg, int iteration){
 	for(int k=0; k<iteration; ++k){
 	    #pragma novector
         for(index edge=0; edge<_deg; ++edge){
-            index C = zeta[pnt_outEdges[edge]];
-            // pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
+            // index C = zeta[pnt_outEdges[edge]];
+            pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
         }
 	}
     clock_gettime(CLOCK_MONOTONIC, &end_no_vec);
@@ -127,7 +127,7 @@ void testClockSpeed(int _deg, int iteration){
             /// Gather community of the neighbor vertices.
             __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
             /// Scatter affinity value to the affinity pointer.
-            // _mm512_i32scatter_ps(&pnt_affinity[0], C_vec, fl_set1, 4);
+            _mm512_i32scatter_ps(&pnt_affinity[0], C_vec, fl_set1, 4);
         }
 //	    #pragma omp simd
         for(index edge=neighbor_processed; edge<_deg; ++edge){
