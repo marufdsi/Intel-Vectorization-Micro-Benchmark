@@ -48,7 +48,7 @@ double ProcSpeedCalc()
     }while (nCtr < nCtrStop);
     // stop-start is speed in Hz divided by 1,000,000 is speed in MHz
     clock_gettime(CLOCK_MONOTONIC, &end);
-    return   CLOCKS_PER_SEC/((end_implicit.tv_sec * 1000 + (end_implicit.tv_nsec / 1.0e6)) - (start_implicit.tv_sec * 1000 + (start_implicit.tv_nsec / 1.0e6)))*1000;
+    return   CLOCKS_PER_SEC/((end.tv_sec * 1000 + (end.tv_nsec / 1.0e6)) - (start.tv_sec * 1000 + (start.tv_nsec / 1.0e6)))*1000;
 }
 
 void testClockSpeed(int _deg, int iteration){
