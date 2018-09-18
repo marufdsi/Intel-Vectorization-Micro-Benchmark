@@ -10,11 +10,81 @@
 #include <math.h> 
 #include <sstream>
 #include <fstream>
+// #include <likwid.h>
 using namespace std;
 
 
 
+
+long long get_cycles(){
+    unsigned int a=0, d=0;
+    int ecx=(1<<30)+1; //What counter it selects?
+    __asm __volatile("rdpmc" : "=a"(a), "=d"(d) : "c"(ecx));
+    return ((long long)a) | (((long long)d) << 32);
+}
+
+float ProcSpeedCalc()
+{
+
+/*
+RdTSC:
+It's the Pentium instruction "ReaD Time Stamp Counter". It measures the
+number of clock cycles that have passed since the processor was reset, as a
+64-bit number. That's what the <CODE>_emit</CODE> lines do.*/
+#define RdTSC __asm _emit 0x0f __asm _emit 0x31
+
+// variables for the clock-cycles:
+__int64 cyclesStart = 0, cyclesStop = 0;
+// variables for the High-Res Preformance Counter:
+unsigned long nCtr = 0, nFreq = 0, nCtrStop = 0;
+
+
+    // retrieve performance-counter frequency per second:
+    // if(!QueryPerformanceFrequency((LARGE_INTEGER *) &nFreq)) return 0;
+
+    // retrieve the current value of the performance counter:
+    // QueryPerformanceCounter((LARGE_INTEGER *) &nCtrStop);
+   nCtrStop = get_cycles();
+
+    // add the frequency to the counter-value:
+    nCtrStop += CLOCKS_PER_SEC;
+
+
+    _asm
+        {// retrieve the clock-cycles for the start value:
+            RdTSC
+            mov DWORD PTR cyclesStart, eax
+            mov DWORD PTR [cyclesStart + 4], edx
+        }
+
+        do{
+        // retrieve the value of the performance counter
+        // until 1 sec has gone by:
+            //  QueryPerformanceCounter((LARGE_INTEGER *) &nCtr);
+            nCtr = get_cycles();
+          }while (nCtr < nCtrStop);
+
+    _asm
+        {// retrieve again the clock-cycles after 1 sec. has gone by:
+            RdTSC
+            mov DWORD PTR cyclesStop, eax
+            mov DWORD PTR [cyclesStop + 4], edx
+        }
+
+// stop-start is speed in Hz divided by 1,000,000 is speed in MHz
+return   ((float)cyclesStop-(float)cyclesStart) / 1000000;
+}
+
 void testClockSpeed(int _deg, int iteration){
+    // int err;
+    // int* cpus;
+    // int gid;
+    // err = topology_init();
+    // if (err < 0)
+    // {
+    //     cout<<"Failed to initialize LIKWID's topology module"<<endl;
+    //     return;
+    // }
     typedef int32_t index, sint, node, count;
     typedef float edgeweight;
     string init_log_file = "init_log_file.csv";
@@ -43,6 +113,7 @@ void testClockSpeed(int _deg, int iteration){
 
     struct timespec start_implicit, end_implicit, start_no_vec, end_no_vec;
     clock_gettime(CLOCK_MONOTONIC, &start_implicit);
+    #pragma omp parallel for schedule(guided)
 	for(int k=0; k<iteration; ++k){
 	    #pragma omp simd
         for(index edge=0; edge<_deg; ++edge){
@@ -54,6 +125,7 @@ void testClockSpeed(int _deg, int iteration){
     cout<<"Implicit Vectorization Init Time: "<<elapsed_implicit_time<<endl;
 
     clock_gettime(CLOCK_MONOTONIC, &start_no_vec);
+    #pragma omp parallel for schedule(guided)
 	for(int k=0; k<iteration; ++k){
 	    #pragma novector
         for(index edge=0; edge<_deg; ++edge){
@@ -65,7 +137,8 @@ void testClockSpeed(int _deg, int iteration){
     cout<<"Init Time Without Vectorization: "<<elapsed_no_vector_time<<endl;
 
     struct timespec start_init, end_init;    
-    clock_gettime(CLOCK_MONOTONIC, &start_init);	
+    clock_gettime(CLOCK_MONOTONIC, &start_init);
+    #pragma omp parallel for schedule(guided)	
 	for(int	k=0; k<iteration;	++k){
 		#pragma unroll
         for(index i=0; i<neighbor_processed; i+=16){
@@ -76,9 +149,9 @@ void testClockSpeed(int _deg, int iteration){
             _mm512_i32scatter_ps(&pnt_affinity[0], C_vec, fl_set1, 4);
         }
 //	    #pragma omp simd
-            for(index edge=neighbor_processed; edge<_deg; ++edge){
-                pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
-            }
+        for(index edge=neighbor_processed; edge<_deg; ++edge){
+            pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
+        }
 	}
     clock_gettime(CLOCK_MONOTONIC, &end_init);
     double elapsed_init_time = ((end_init.tv_sec * 1000 + (end_init.tv_nsec / 1.0e6)) - (start_init.tv_sec * 1000 + (start_init.tv_nsec / 1.0e6)));

@@ -30,6 +30,10 @@ double checkVector(int n){
 int main(){
 typedef int index;
 
+int *_group;
+_group = (int*)malloc(sizeof(int)*65608366);
+cout<<"Okay"<<endl;
+
 int node_sort_by_deg[10];
 int outDegree[10];
 
