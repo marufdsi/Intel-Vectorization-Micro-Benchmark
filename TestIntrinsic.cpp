@@ -387,8 +387,8 @@ void testVector(int _deg, int iteration) {
 	cout<<endl;
 }
 int main(){
-    cout<<"CLOCKS_PER_SEC: "<<CLOCKS_PER_SEC<<endl;
-    return 0;
+    // cout<<"CLOCKS_PER_SEC: "<<CLOCKS_PER_SEC<<endl;
+    // return 0;
     int iteration = 100;
     for(int k=0; k<5; ++k){
         for(int i=0; i<50; ++i){
