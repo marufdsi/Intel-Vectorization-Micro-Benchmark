@@ -50,7 +50,7 @@ unsigned long nCtr = 0, nFreq = 0, nCtrStop = 0;
     nCtrStop += CLOCKS_PER_SEC;
 
 
-    _asm
+    __asm __
         {// retrieve the clock-cycles for the start value:
             RdTSC
             mov DWORD PTR cyclesStart, eax
@@ -64,7 +64,7 @@ unsigned long nCtr = 0, nFreq = 0, nCtrStop = 0;
             nCtr = get_cycles();
           }while (nCtr < nCtrStop);
 
-    _asm
+    __asm __
         {// retrieve again the clock-cycles after 1 sec. has gone by:
             RdTSC
             mov DWORD PTR cyclesStop, eax
