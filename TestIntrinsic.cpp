@@ -35,6 +35,19 @@ uint64_t rdtsc(){
 
 using namespace std;
 
+string thread_num = "";
+typedef int32_t index, sint, node, count;
+typedef float edgeweight;
+
+void explicitely_vectorized(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+void no_vector(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+void implicitely_vector(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+void explicitely_vectorizedload(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+
+
+
+ 
+
 double ProcSpeedCalc()
 {
     uint64_t nCtr = 0;
@@ -52,6 +65,9 @@ double ProcSpeedCalc()
 }
 
 void testClockSpeed(int _deg, int iteration){
+
+  std::cout<<"deg: "<<_deg<<" iteration: "<<iteration<<std::endl;
+
     // int err;
     // int* cpus;
     // int gid;
@@ -61,20 +77,19 @@ void testClockSpeed(int _deg, int iteration){
     //     cout<<"Failed to initialize LIKWID's topology module"<<endl;
     //     return;
     // }
-    typedef int32_t index, sint, node, count;
-    typedef float edgeweight;
-    string init_log_file = "init_log_file.csv";
+    string init_log_file = "init_log_file_thread_" + thread_num + ".csv";
     std::ofstream f_init_log;
     std::ifstream infile(init_log_file);
     bool existing_file = infile.good();
     f_init_log.open(init_log_file, std::ios_base::out | std::ios_base::app | std::ios_base::ate);
     if (!existing_file) {
-        f_init_log << "Degree" << "," << "Iteration" << "," << "Implicit Time" << "," << "No Vector Time" << "," << "Intrinsic Time" << "," << "Implicit Frequency" << "," << "No Vector Frequency" << "," << "Vector Frequency" << std::endl;
+        f_init_log << "Degree" << "," << "Iteration" << "," << "Implicit Time" << "," << "No Vector Time" << "," << "Intrinsic Time" << "," << "Imntrinsic load time" << std::endl;
     }
 
     node *pnt_outEdges, *outEdges, *zeta;
     edgeweight *pnt_affinity;
-    pnt_affinity = (edgeweight *) malloc(sizeof(edgeweight) * _deg);
+    int NBTHREAD=36; //who wrote this abomination?
+    pnt_affinity = (edgeweight *) malloc(sizeof(edgeweight) * _deg * NBTHREAD);
     outEdges = (node *) malloc(sizeof(node) * _deg);
     zeta = (node *) malloc(sizeof(node) * _deg);
     index neighbor_processed = (_deg/16)*16;
@@ -88,57 +103,56 @@ void testClockSpeed(int _deg, int iteration){
     pnt_outEdges = &outEdges[0];
     float fr_implicit = 0.0, fr_no_vector = 0.0, fr_vector = 0.0;
     fr_implicit = ProcSpeedCalc();
-    struct timespec start_implicit, end_implicit, start_no_vec, end_no_vec;
-    clock_gettime(CLOCK_MONOTONIC, &start_implicit);
-    #pragma omp parallel for schedule(guided)
-	for(int k=0; k<iteration; ++k){
-	    #pragma omp simd
-        for(index edge=0; edge<_deg; ++edge){
-            // index C = zeta[pnt_outEdges[edge]];
-            pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
-        }
-	}
-    clock_gettime(CLOCK_MONOTONIC, &end_implicit);
-    double elapsed_implicit_time = ((end_implicit.tv_sec * 1000 + (end_implicit.tv_nsec / 1.0e6)) - (start_implicit.tv_sec * 1000 + (start_implicit.tv_nsec / 1.0e6)));
-    cout<<"Implicit Vectorization Init Time: "<<elapsed_implicit_time<<endl;
 
+    struct timespec start_implicit, end_implicit, start_no_vec, end_no_vec, start_impl_vec, end_impl_vec;
+    
     fr_no_vector = ProcSpeedCalc();
+    clock_gettime(CLOCK_MONOTONIC, &start_impl_vec);
+    
+    implicitely_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+
+    clock_gettime(CLOCK_MONOTONIC, &end_impl_vec);
+    double elapsed_impl_vector_time = ((end_impl_vec.tv_sec * 1000 + (end_impl_vec.tv_nsec / 1.0e6)) - (start_impl_vec.tv_sec * 1000 + (start_impl_vec.tv_nsec / 1.0e6)));
+    cout<<"Init Time With Implicit Vectorization: "<<elapsed_impl_vector_time<<endl;
+
+
     clock_gettime(CLOCK_MONOTONIC, &start_no_vec);
-    #pragma omp parallel for schedule(guided)
-	for(int k=0; k<iteration; ++k){
-	    #pragma novector
-        for(index edge=0; edge<_deg; ++edge){
-            // index C = zeta[pnt_outEdges[edge]];
-            pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
-        }
-	}
+    
+    no_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+
     clock_gettime(CLOCK_MONOTONIC, &end_no_vec);
     double elapsed_no_vector_time = ((end_no_vec.tv_sec * 1000 + (end_no_vec.tv_nsec / 1.0e6)) - (start_no_vec.tv_sec * 1000 + (start_no_vec.tv_nsec / 1.0e6)));
     cout<<"Init Time Without Vectorization: "<<elapsed_no_vector_time<<endl;
 
+
+
     fr_vector = ProcSpeedCalc();
     struct timespec start_init, end_init;    
     clock_gettime(CLOCK_MONOTONIC, &start_init);
-    #pragma omp parallel for schedule(guided)	
-	for(int	k=0; k<iteration;	++k){
-		#pragma unroll
-        for(index i=0; i<neighbor_processed; i+=16){
-            __m512i v_vec = _mm512_loadu_si512((__m512i *) &pnt_outEdges[i]);
-            /// Gather community of the neighbor vertices.
-            __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
-            /// Scatter affinity value to the affinity pointer.
-            _mm512_i32scatter_ps(&pnt_affinity[0], C_vec, fl_set1, 4);
-        }
-//	    #pragma omp simd
-        for(index edge=neighbor_processed; edge<_deg; ++edge){
-            pnt_affinity[zeta[pnt_outEdges[edge]]] = -1.0;
-        }
-	}
+
+    explicitely_vectorized(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+
     clock_gettime(CLOCK_MONOTONIC, &end_init);
     double elapsed_init_time = ((end_init.tv_sec * 1000 + (end_init.tv_nsec / 1.0e6)) - (start_init.tv_sec * 1000 + (start_init.tv_nsec / 1.0e6)));
-    cout<<"Vectorized Init Time: "<<elapsed_init_time<<endl;
-    f_init_log << _deg << "," << iteration << "," << elapsed_implicit_time << "," << elapsed_no_vector_time << "," << elapsed_init_time << "," << fr_implicit << "," << fr_no_vector << "," << fr_vector << endl;
+    cout<<"Explicitely Vectorized Init Time: "<<elapsed_init_time<<endl;
 
+
+    struct timespec start_initload, end_initload;    
+    clock_gettime(CLOCK_MONOTONIC, &start_initload);
+
+    explicitely_vectorizedload(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+
+    clock_gettime(CLOCK_MONOTONIC, &end_initload);
+    double elapsed_initload_time = ((end_initload.tv_sec * 1000 + (end_initload.tv_nsec / 1.0e6)) - (start_initload.tv_sec * 1000 + (start_initload.tv_nsec / 1.0e6)));
+    cout<<"Explicitely Vectorized Init Time aligned: "<<elapsed_initload_time<<endl;
+
+
+    f_init_log << _deg << "," << iteration << "," << elapsed_impl_vector_time << "," << elapsed_no_vector_time << "," << elapsed_init_time << "," << elapsed_initload_time<<std::endl;
+
+
+    free(pnt_affinity);
+    free(outEdges);
+    free(zeta);
 
 }
 
@@ -388,15 +402,26 @@ void testVector(int _deg, int iteration) {
 	}
 	cout<<endl;
 }
-int main(){
+int main(int argc, char **argv){
     // cout<<"CLOCKS_PER_SEC: "<<CLOCKS_PER_SEC<<endl;
     // return 0;
-    int iteration = 100;
-    for(int k=0; k<5; ++k){
-        for(int i=0; i<50; i+=1){
-            testClockSpeed((i*i*30) + 20, iteration);
-        }
-        iteration *=10;
-    }
+  if(argc>=2){
+    std::cout<<"Set the max thread: "<< atoi(argv[1]) <<std::endl;
+    omp_set_dynamic(0);
+    omp_set_num_threads(atoi(argv[1]));
+    thread_num = argv[1];
+  }
+  for (long deg = 8; deg <= 1024*2014; deg *=2)
+    for (long iter =2; iter <= 512*1024; iter*=2)
+
+      testClockSpeed(deg, iter); 
+
+    // int iteration = 100;
+    // for(int k=0; k<5; ++k){
+    //     for(int i=0; i<50; i+=1){
+    //         testClockSpeed((i*i*30) + 20, iteration);
+    //     }
+    //     iteration *=10;
+    // }
     return 0;
 }
