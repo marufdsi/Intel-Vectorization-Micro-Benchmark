@@ -21,10 +21,13 @@ using namespace std;
 typedef int32_t index, sint, node, count;
 typedef float edgeweight;
 
-void explicitely_vectorized(node *pnt_outEdges, node *outEdges, node *zeta, edgeweight *pnt_affinity, int _deg,
-                            int iteration);
+void explicitely_vectorized(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+void no_vector(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+void implicitely_vector(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+void explicitely_vectorizedload(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+void explicitely_vectorizedloadgatheradd(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+void explicitely_vectorizedloadgatheraddstore(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
 
-void no_vector(node *pnt_outEdges, node *outEdges, node *zeta, edgeweight *pnt_affinity, int _deg, int iteration);
 
 void testClockSpeed(int _deg, int iteration, int thread_num){
 
