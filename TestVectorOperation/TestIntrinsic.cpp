@@ -36,7 +36,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
   {
     std::stringstream ss;
     ss<<"init_log_file_thread_" << thread_num << ".csv";
-    string init_log_file = ss.str();
+    init_log_file = ss.str();
   }
     std::ofstream f_init_log;
     std::ifstream infile(init_log_file);
@@ -54,7 +54,9 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
 
     posix_memalign((void**)&pnt_affinity, 64, sizeof(edgeweight) * _deg * NBTHREAD);
     posix_memalign((void**)&outEdges, 64, sizeof(node) * _deg);
-    posix_memalign((void**)&outEdges, 64, sizeof(node) * _deg);
+    posix_memalign((void**)&zeta, 64, sizeof(node) * _deg);
+
+    std::cout<<"memory allocated"<<std::endl;
 
     index neighbor_processed = (_deg/16)*16;
      // 512 bit floating register initialize by all -1.0
@@ -66,6 +68,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
     }
     pnt_outEdges = &outEdges[0];
 
+    std::cout<<"memory initialized"<<std::endl;
 
     //////////////////////////Different methods/////////////
 
@@ -140,7 +143,7 @@ int main(int argc, char **argv){
     thread_num = atoi(argv[1]); //atoi really?
   }
 
-  long deglow   = 64;
+  long deglow   = 256;
   long deghigh  = 1024*64;
   long iterlow  = 64;
   long iterhigh = 16777216;
