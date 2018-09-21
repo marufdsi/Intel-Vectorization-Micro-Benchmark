@@ -13,3 +13,6 @@ TESTINTRINSICOBJS=TestIntrinsic.o TestIntrinsic_explicit.o TestIntrinsic_novecto
 
 TestIntrinsic: ${TESTINTRINSICOBJS}
 	$(LD) -o $@ $(LDFLAGS)  ${TESTINTRINSICOBJS}
+
+benchscatter: TestIntrinsic
+	qsub -q copperhead -l walltime=4:00:00 -l nodes=1:ppn=36:skylake  bench_scatter.sh -d $(shell pwd)
