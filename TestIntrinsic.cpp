@@ -38,7 +38,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
     bool existing_file = infile.good();
     f_init_log.open(init_log_file, std::ios_base::out | std::ios_base::app | std::ios_base::ate);
     if (!existing_file) {
-        f_init_log << "Degree" << "," << "Iteration" << "," << "Implicit Time" << "," << "No Vector Time" << "," << "Intrinsic Time" << "," << "Intrinsic load time" << std::endl;
+      f_init_log << "Degree" << "," << "Iteration" << "," << "No Vector Time" <<"," << "Implicit Time" << "," << "Intrinsic Time" << "," << "Intrinsic aligned" << "," << "LGA" << "," << "LGAS"<<std::endl;
     }
 
 
@@ -84,16 +84,16 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
     clock_gettime(CLOCK_MONOTONIC, &start_init);
     explicitely_vectorized(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &end_init);
-    double elapsed_init_time = ((end_init.tv_sec * 1000 + (end_init.tv_nsec / 1.0e6)) - (start_init.tv_sec * 1000 + (start_init.tv_nsec / 1.0e6)));
-    cout<<"Explicitely Vectorized Init Time: "<<elapsed_init_time<<endl;
+    double elapsed_explicit_time = ((end_init.tv_sec * 1000 + (end_init.tv_nsec / 1.0e6)) - (start_init.tv_sec * 1000 + (start_init.tv_nsec / 1.0e6)));
+    cout<<"Explicitely Vectorized Init Time: "<<elapsed_explicit_time<<endl;
 
 
     struct timespec start_initload, end_initload;    
     clock_gettime(CLOCK_MONOTONIC, &start_initload);
     explicitely_vectorizedload(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &end_initload);
-    double elapsed_initload_time = ((end_initload.tv_sec * 1000 + (end_initload.tv_nsec / 1.0e6)) - (start_initload.tv_sec * 1000 + (start_initload.tv_nsec / 1.0e6)));
-    cout<<"Explicitely Vectorized Init Time aligned: "<<elapsed_initload_time<<endl;
+    double elapsed_explicitaligned_time = ((end_initload.tv_sec * 1000 + (end_initload.tv_nsec / 1.0e6)) - (start_initload.tv_sec * 1000 + (start_initload.tv_nsec / 1.0e6)));
+    cout<<"Explicitely Vectorized Init Time aligned: "<<elapsed_explicitaligned_time<<endl;
 
 
     struct timespec start_initlga, end_initlga;    
@@ -108,12 +108,12 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
     clock_gettime(CLOCK_MONOTONIC, &start_initlgas);
     explicitely_vectorizedloadgatheraddstore(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &end_initlgas);
-    double elapsed_initlgas_time = ((end_initlgas.tv_sec * 1000 + (end_initlgas.tv_nsec / 1.0e6)) - (start_initlgas.tv_sec * 1000 + (start_initlgas.tv_nsec / 1.0e6)));
-    cout<<"Explicitely Vectorized Init lgas Time: "<<elapsed_initlgas_time<<endl;
+    double elapsed_lgas_time = ((end_initlgas.tv_sec * 1000 + (end_initlgas.tv_nsec / 1.0e6)) - (start_initlgas.tv_sec * 1000 + (start_initlgas.tv_nsec / 1.0e6)));
+    cout<<"Explicitely Vectorized Init lgas Time: "<<elapsed_lgas_time<<endl;
 
 
 
-    f_init_log << _deg << "," << iteration << "," << elapsed_impl_vector_time << "," << elapsed_no_vector_time << "," << elapsed_init_time << "," << elapsed_initload_time<<std::endl;
+    f_init_log << _deg << "," << iteration << "," << elapsed_no_vector_time << "," << elapsed_impl_vector_time << "," << elapsed_explicit_time << "," << elapsed_explicitaligned_time << "," << elapsed_lga_time<< "," << elapsed_lgas_time<<std::endl;
 
 
     free(pnt_affinity);
