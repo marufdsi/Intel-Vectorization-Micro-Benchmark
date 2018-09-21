@@ -7,7 +7,7 @@
 #include <xmmintrin.h>
 #include <emmintrin.h>
 #include <immintrin.h>
-#include <math.h> 
+#include <math.h>
 #include <sstream>
 #include <fstream>
 #include <cstdlib>
@@ -21,14 +21,10 @@ using namespace std;
 typedef int32_t index, sint, node, count;
 typedef float edgeweight;
 
-void explicitely_vectorized(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
-void no_vector(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
-void implicitely_vector(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
-void explicitely_vectorizedload(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
-void explicitely_vectorizedloadgatheradd(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
-void explicitely_vectorizedloadgatheraddstore(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+void explicitely_vectorized(node *pnt_outEdges, node *outEdges, node *zeta, edgeweight *pnt_affinity, int _deg,
+                            int iteration);
 
- 
+void no_vector(node *pnt_outEdges, node *outEdges, node *zeta, edgeweight *pnt_affinity, int _deg, int iteration);
 
 void testClockSpeed(int _deg, int iteration, int thread_num){
 
@@ -74,17 +70,18 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
     clock_gettime(CLOCK_MONOTONIC, &start_impl_vec);
     implicitely_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &end_impl_vec);
-    double elapsed_impl_vector_time = ((end_impl_vec.tv_sec * 1000 + (end_impl_vec.tv_nsec / 1.0e6)) - (start_impl_vec.tv_sec * 1000 + (start_impl_vec.tv_nsec / 1.0e6)));
-    cout<<"Init Time With Implicit Vectorization: "<<elapsed_impl_vector_time<<endl;
+    double elapsed_impl_vector_time = ((end_impl_vec.tv_sec * 1000 + (end_impl_vec.tv_nsec / 1.0e6)) -
+                                       (start_impl_vec.tv_sec * 1000 + (start_impl_vec.tv_nsec / 1.0e6)));
+    cout << "Init Time With Implicit Vectorization: " << elapsed_impl_vector_time << endl;
 
 
     struct timespec start_no_vec, end_no_vec;
     clock_gettime(CLOCK_MONOTONIC, &start_no_vec);
     no_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &end_no_vec);
-    double elapsed_no_vector_time = ((end_no_vec.tv_sec * 1000 + (end_no_vec.tv_nsec / 1.0e6)) - (start_no_vec.tv_sec * 1000 + (start_no_vec.tv_nsec / 1.0e6)));
-    cout<<"Init Time Without Vectorization: "<<elapsed_no_vector_time<<endl;
-
+    double elapsed_no_vector_time = ((end_no_vec.tv_sec * 1000 + (end_no_vec.tv_nsec / 1.0e6)) -
+                                     (start_no_vec.tv_sec * 1000 + (start_no_vec.tv_nsec / 1.0e6)));
+    cout << "Init Time Without Vectorization: " << elapsed_no_vector_time << endl;
 
     struct timespec start_init, end_init;    
     clock_gettime(CLOCK_MONOTONIC, &start_init);
@@ -94,7 +91,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
     cout<<"Explicitely Vectorized Init Time: "<<elapsed_explicit_time<<endl;
 
 
-    struct timespec start_initload, end_initload;    
+    struct timespec start_initload, end_initload;
     clock_gettime(CLOCK_MONOTONIC, &start_initload);
     explicitely_vectorizedload(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &end_initload);
@@ -102,7 +99,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
     cout<<"Explicitely Vectorized Init Time aligned: "<<elapsed_explicitaligned_time<<endl;
 
 
-    struct timespec start_initlga, end_initlga;    
+    struct timespec start_initlga, end_initlga;
     clock_gettime(CLOCK_MONOTONIC, &start_initlga);
     explicitely_vectorizedloadgatheradd(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &end_initlga);
@@ -110,7 +107,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
     cout<<"Explicitely Vectorized Init lga Time: "<<elapsed_lga_time<<endl;
 
 
-    struct timespec start_initlgas, end_initlgas;    
+    struct timespec start_initlgas, end_initlgas;
     clock_gettime(CLOCK_MONOTONIC, &start_initlgas);
     explicitely_vectorizedloadgatheraddstore(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &end_initlgas);
