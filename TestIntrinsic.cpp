@@ -43,8 +43,8 @@ void explicitely_vectorized(   node *pnt_outEdges, node *outEdges, node *zeta,  
 void no_vector(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
 void implicitely_vector(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
 void explicitely_vectorizedload(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
-
-
+void explicitely_vectorizedloadgatheradd(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
+void explicitely_vectorizedloadgatheraddstore(   node *pnt_outEdges, node *outEdges, node *zeta,  edgeweight *pnt_affinity, int _deg, int iteration);
 
  
 
@@ -97,7 +97,7 @@ void testClockSpeed(int _deg, int iteration){
     const __m512 fl_set1 = _mm512_set1_ps(-1.0); 
     for (index edge = 0; edge < _deg; ++edge) {
         outEdges[edge] = edge;
-        zeta[edge] = edge % 10;
+        zeta[edge] = (edge%16) *16 + (edge % 16);
 //        zeta[edge] = 1;
     }
     pnt_outEdges = &outEdges[0];
@@ -145,6 +145,26 @@ void testClockSpeed(int _deg, int iteration){
     clock_gettime(CLOCK_MONOTONIC, &end_initload);
     double elapsed_initload_time = ((end_initload.tv_sec * 1000 + (end_initload.tv_nsec / 1.0e6)) - (start_initload.tv_sec * 1000 + (start_initload.tv_nsec / 1.0e6)));
     cout<<"Explicitely Vectorized Init Time aligned: "<<elapsed_initload_time<<endl;
+
+    struct timespec start_initlga, end_initlga;    
+    clock_gettime(CLOCK_MONOTONIC, &start_initlga);
+
+    explicitely_vectorizedloadgatheradd(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+
+    clock_gettime(CLOCK_MONOTONIC, &end_initlga);
+    double elapsed_initlga_time = ((end_initlga.tv_sec * 1000 + (end_initlga.tv_nsec / 1.0e6)) - (start_initlga.tv_sec * 1000 + (start_initlga.tv_nsec / 1.0e6)));
+    cout<<"Explicitely Vectorized Init lga Time: "<<elapsed_initlga_time<<endl;
+
+
+    struct timespec start_initlgas, end_initlgas;    
+    clock_gettime(CLOCK_MONOTONIC, &start_initlgas);
+
+    explicitely_vectorizedloadgatheraddstore(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+
+    clock_gettime(CLOCK_MONOTONIC, &end_initlgas);
+    double elapsed_initlgas_time = ((end_initlgas.tv_sec * 1000 + (end_initlgas.tv_nsec / 1.0e6)) - (start_initlgas.tv_sec * 1000 + (start_initlgas.tv_nsec / 1.0e6)));
+    cout<<"Explicitely Vectorized Init lgas Time: "<<elapsed_initlgas_time<<endl;
+
 
 
     f_init_log << _deg << "," << iteration << "," << elapsed_impl_vector_time << "," << elapsed_no_vector_time << "," << elapsed_init_time << "," << elapsed_initload_time<<std::endl;
@@ -411,8 +431,8 @@ int main(int argc, char **argv){
     omp_set_num_threads(atoi(argv[1]));
     thread_num = argv[1];
   }
-  for (long deg = 8; deg <= 1024*2014; deg *=2)
-    for (long iter =2; iter <= 512*1024; iter*=2)
+  for (long deg = 32; deg <= 1024*64; deg *=2)
+    for (long iter =2; iter <= 1024; iter*=2)
 
       testClockSpeed(deg, iter); 
 
