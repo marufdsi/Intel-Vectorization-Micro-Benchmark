@@ -12,6 +12,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <stdint.h>
+#include <sstream>
 // #include <likwid.h>
 
 
@@ -32,7 +33,12 @@ void explicitely_vectorizedloadgatheraddstore(   node *pnt_outEdges, node *outEd
 void testClockSpeed(int _deg, int iteration, int thread_num){
 
   std::cout<<"deg: "<<_deg<<" iteration: "<<iteration<<std::endl;
-    string init_log_file = "init_log_file_thread_" + thread_num + ".csv";
+  string init_log_file;
+  {
+    std::stringstream ss;
+    ss<<"init_log_file_thread_" << thread_num << ".csv";
+    string init_log_file = ss.str();
+  }
     std::ofstream f_init_log;
     std::ifstream infile(init_log_file);
     bool existing_file = infile.good();
@@ -100,8 +106,8 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
     clock_gettime(CLOCK_MONOTONIC, &start_initlga);
     explicitely_vectorizedloadgatheradd(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &end_initlga);
-    double elapsed_initlga_time = ((end_initlga.tv_sec * 1000 + (end_initlga.tv_nsec / 1.0e6)) - (start_initlga.tv_sec * 1000 + (start_initlga.tv_nsec / 1.0e6)));
-    cout<<"Explicitely Vectorized Init lga Time: "<<elapsed_initlga_time<<endl;
+    double elapsed_lga_time = ((end_initlga.tv_sec * 1000 + (end_initlga.tv_nsec / 1.0e6)) - (start_initlga.tv_sec * 1000 + (start_initlga.tv_nsec / 1.0e6)));
+    cout<<"Explicitely Vectorized Init lga Time: "<<elapsed_lga_time<<endl;
 
 
     struct timespec start_initlgas, end_initlgas;    
@@ -126,21 +132,22 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
 int main(int argc, char **argv){
     // cout<<"CLOCKS_PER_SEC: "<<CLOCKS_PER_SEC<<endl;
     // return 0;
+  int thread_num=1;
   if(argc>=2){
     std::cout<<"Set the max thread: "<< atoi(argv[1]) <<std::endl;
     omp_set_dynamic(0);
     omp_set_num_threads(atoi(argv[1]));
-    thread_num = argv[1];
+    thread_num = atoi(argv[1]); //atoi really?
   }
 
   long deglow   = 64;
   long deghigh  = 1024*64;
   long iterlow  = 64;
-  long iterhigh = 16777216
+  long iterhigh = 16777216;
   
   for (long deg = deglow; deg <= deghigh; deg *=2)
     for (long iter = iterlow; iter <= iterhigh; iter*=2)
-      testClockSpeed(deg, iter); 
+      testClockSpeed(deg, iter, thread_num); 
 
   return 0;
 }
