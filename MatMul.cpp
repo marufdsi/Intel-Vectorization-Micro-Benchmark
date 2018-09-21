@@ -16,8 +16,9 @@
 
 using namespace std;
 int main(){
-  int block = 100000000;
+  int block = 1024*1024*4;
   int size = block*16;
+  int innerloop=2;
   //	  float A[size], B[size];
   float *A, *B;
   posix_memalign((void**)&A, 64, sizeof(float) * size);
@@ -28,24 +29,28 @@ int main(){
     B[i] = i+1;
   }
  
-  for (int iterations = 0; iterations< 100; ++iterations) {
+  for (int iterations = 0; iterations< 20; ++iterations) {
     struct timespec start_v, end_v, start, end;
     clock_gettime(CLOCK_MONOTONIC, &start);
+    for (int ll=0; ll<innerloop; ll++)
+#pragma omp parallel for schedule(dynamic, 64)
 #pragma novector
-    for(int i=0; i<size; ++i){
-      A[i] += B[i];
-    }
+      for(int i=0; i<size; ++i){
+	A[i] += B[i];
+      }
     clock_gettime(CLOCK_MONOTONIC, &end);
     double elapsed_no_vec_time = ((end.tv_sec * 1000 + (end.tv_nsec / 1.0e6)) - (start.tv_sec * 1000 + (start.tv_nsec / 1.0e6)));
   
     clock_gettime(CLOCK_MONOTONIC, &start_v);
+    for (int ll=0; ll<innerloop; ++ll)
+#pragma omp parallel for schedule(dynamic, 64)
 #pragma unroll(4)
-    for(int i=0; i<size; i+=16){
-      __m512 A_v = _mm512_load_ps((__m512 *)&A[i]);
-      __m512 B_v = _mm512_load_ps((__m512 *)&B[i]);
-      A_v = _mm512_add_ps(A_v, B_v);
-      _mm512_store_ps(&A[i], A_v);
-    }
+      for(int i=0; i<size; i+=16){
+	__m512 A_v = _mm512_load_ps((__m512 *)&A[i]);
+	__m512 B_v = _mm512_load_ps((__m512 *)&B[i]);
+	A_v = _mm512_add_ps(A_v, B_v);
+	_mm512_store_ps(&A[i], A_v);
+      }
     clock_gettime(CLOCK_MONOTONIC, &end_v);                                                                                                                                                                 
     double elapsed_intrinsic_time = ((end_v.tv_sec * 1000 + (end_v.tv_nsec / 1.0e6)) - (start_v.tv_sec * 1000 + (start_v.tv_nsec / 1.0e6))); 
     /*
@@ -58,7 +63,8 @@ int main(){
       double elapsed_no_vec_time = ((end.tv_sec * 1000 + (end.tv_nsec / 1.0e6)) - (start.tv_sec * 1000 + (start.tv_nsec / 1.0e6)));
     */  
     std::cout<<"Intrinsic Time: "<< elapsed_intrinsic_time << "  No Vector Time: " << elapsed_no_vec_time 
-	     <<" Intrinsic BW: "<<(sizeof(float) * size/elapsed_intrinsic_time)*1000./1000./1000./1000.<<" GB/s"<<std::endl;
+	     <<" Intrinsic flops: "<<(size/elapsed_intrinsic_time)*innerloop*1000./1000./1000./1000.<<" GFlop/s"
+             <<" Intrinsic BW(r+w): "<<3.*sizeof(float)*(size/elapsed_intrinsic_time)*innerloop*1000./1000./1000./1000.<<" GB/s"<<std::endl;
   }
   return 0;
 }

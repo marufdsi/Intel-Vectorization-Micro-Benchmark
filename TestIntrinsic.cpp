@@ -431,8 +431,9 @@ int main(int argc, char **argv){
     omp_set_num_threads(atoi(argv[1]));
     thread_num = argv[1];
   }
-  for (long deg = 32; deg <= 1024*64; deg *=2)
-    for (long iter =2; iter <= 1024; iter*=2)
+  for (long deg = 64; deg <= 1024*64; deg *=2)
+    //    for (long iter =2; iter <= 1024; iter*=2)
+    for (long iter = 262144; iter <= 262144; iter*=2)
 
       testClockSpeed(deg, iter); 
 

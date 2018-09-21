@@ -6,6 +6,9 @@ LDFLAGS=-fopenmp
 
 MatMul:
 
+%s:%cpp
+	$(CXX) -S $(CXXFLAGS) -o $@ $<
+
 TESTINTRINSICOBJS=TestIntrinsic.o TestIntrinsic_explicit.o TestIntrinsic_novector.o TestIntrinsic_lgas.o  TestIntrinsic_loadgatheradd.o TestIntrinsic_implicit.o TestIntrinsic_explicitload.o
 
 TestIntrinsic: ${TESTINTRINSICOBJS}
