@@ -3,10 +3,6 @@
 #include <functional>
 //#include <chrono>                                                                                                                                                                                                
 #include <vector>
-#include <mmintrin.h>
-#include <xmmintrin.h>
-#include <emmintrin.h>
-#include <immintrin.h>
 #include <math.h>
 #include <sstream>
 #include <fstream>
@@ -59,8 +55,6 @@ void testClockSpeed(int _deg, int iteration, int thread_num){
     std::cout<<"memory allocated"<<std::endl;
 
     index neighbor_processed = (_deg/16)*16;
-     // 512 bit floating register initialize by all -1.0
-    const __m512 fl_set1 = _mm512_set1_ps(-1.0); 
     for (index edge = 0; edge < _deg; ++edge) {
         outEdges[edge] = edge;
 	zeta[edge] = (edge%16);
