@@ -11,8 +11,6 @@ OBJ=Test.o
 Affinity: ${OBJ}
 	$(LD) -o $@ $(LDFLAGS)  ${OBJ}
 
-%s:%cpp
-	$(CXX) -S $(CXXFLAGS) -o $@ $<
 
 clean:
 	rm -r ${OBJ} Affinity
