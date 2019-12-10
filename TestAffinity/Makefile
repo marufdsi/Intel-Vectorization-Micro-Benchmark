@@ -25,7 +25,7 @@ $(TARGET): $(OBJ) $(SOURCES)
 	$(CXX) $(OBJ) $(CXXFLAGS) -o $@
 
 %s:%cpp
-	$(CXX) -S $(CXXFLAGS) $<
+	$(CXX) -S $(CXXFLAGS) -o $@ $<
 
 clean:
 	rm -r $(TARGET) $(OBJ)
