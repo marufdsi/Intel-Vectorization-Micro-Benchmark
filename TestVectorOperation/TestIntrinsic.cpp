@@ -1,6 +1,6 @@
 #include<omp.h>
 #include <iostream>
-//#include <functional>
+#include <functional>
 //#include <chrono>                                                                                                                                                                                                
 #include <vector>
 #include <math.h>
