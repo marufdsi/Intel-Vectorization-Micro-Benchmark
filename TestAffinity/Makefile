@@ -24,7 +24,7 @@ all: $(TARGET)
 $(TARGET): $(OBJ) $(SOURCES)
 	$(CXX) $(OBJ) $(CXXFLAGS) -o $@
 
-%s:%cpp
+%.s:%.cpp
 	$(CXX) -S $(CXXFLAGS) -o $@ $<
 
 clean:
