@@ -15,8 +15,17 @@ DEPS = $(wildcard *.h) $(wildcard */*.h) $(wildcard */*/*.h)
 
 OBJ := $(SOURCES:.cpp=.o)
 
+
+.PHONY: all
+
+all: $(TARGET)
+
+
 $(TARGET): $(OBJ) $(SOURCES)
 	$(CXX) $(OBJ) $(CXXFLAGS) -o $@
+
+%s:%cpp
+	$(CXX) -S $(CXXFLAGS) -o $@ $<
 
 clean:
 	rm -r $(TARGET) $(OBJ)
