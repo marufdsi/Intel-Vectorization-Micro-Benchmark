@@ -131,10 +131,10 @@ int main(int argc, char **argv){
     // return 0;
   int thread_num=1;
   if(argc>=2){
-    std::cout<<"Set the max thread: "<< atoi(argv[1]) <<std::endl;
+    std::cout<<"Set the max thread: "<< strtol(argv[1], (char **)NULL, 10) <<std::endl;
     omp_set_dynamic(0);
-    omp_set_num_threads(atoi(argv[1]));
-    thread_num = atoi(argv[1]); //atoi really?
+    omp_set_num_threads(strtol(argv[1], (char **)NULL, 10));
+    thread_num = strtol(argv[1], (char **)NULL, 10);
   }
 
   long deglow   = 64;
