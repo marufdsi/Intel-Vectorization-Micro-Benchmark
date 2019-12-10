@@ -22,7 +22,7 @@ all: $(TARGET)
 
 
 $(TARGET): $(OBJ) $(SOURCES)
-	$(CXX) $(OBJ) $(CXXFLAGS) -o $@
+	$(CXX) -S $(OBJ) $(CXXFLAGS) -o $@
 
 %.s:%.cpp
 	$(CXX) -S $(CXXFLAGS) -o $@ $<
