@@ -24,7 +24,7 @@ all: $(TARGET)
 $(TARGET): $(OBJ) $(SOURCES)
 	$(CXX) $(OBJ) $(CXXFLAGS) -o $@
 
-Assembly:%.cpp
+Assembly: $(SOURCES)
 	$(CXX) -S $(CXXFLAGS) -o $@ $<
 
 clean:
