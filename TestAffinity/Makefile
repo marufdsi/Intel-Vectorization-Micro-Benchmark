@@ -1,16 +1,31 @@
+TARGET := Affinity
 CC=icpc
 CXX=icpc
 LD=icpc
-CXXFLAGS=-O3 -xCORE-AVX512 -fopenmp -std=c++14
+
 LDFLAGS=-fopenmp
+CXXFLAGS=-O3 -xCORE-AVX512 -fopenmp -std=c++14
+
+LIBS = -lm
 
 
+SOURCES = $(wildcard *.cpp) $(wildcard */*.cpp) $(wildcard */*/*.cpp)
 
-OBJ=Test.o
+DEPS = $(wildcard *.h) $(wildcard */*.h) $(wildcard */*/*.h)
 
-Affinity: ${OBJ}
-	$(LD) -o $@ $(LDFLAGS)  ${OBJ}
+OBJ := $(SOURCES:.cpp=.o)
 
+
+.PHONY: all
+
+all: $(TARGET)
+
+
+$(TARGET): $(OBJ) $(SOURCES)
+	$(CXX) $(OBJ) $(CXXFLAGS) -o $@
+
+%s:%cpp
+	$(CXX) -S $(CXXFLAGS) -o $@ $<
 
 clean:
-	rm -r ${OBJ} Affinity
+	rm -r $(TARGET) $(OBJ)
