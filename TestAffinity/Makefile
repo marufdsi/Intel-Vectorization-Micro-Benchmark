@@ -4,7 +4,7 @@ CXX=icpc
 LD=icpc
 
 LDFLAGS=-fopenmp
-CXXFLAGS=-O3 -xCORE-AVX512 -fopenmp -std=c++14
+CXXFLAGS=-O3 -axCORE-AVX512 -fopenmp -std=c++14
 
 LIBS = -lm
 
