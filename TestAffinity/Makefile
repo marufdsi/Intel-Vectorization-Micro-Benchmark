@@ -18,8 +18,5 @@ OBJ := $(SOURCES:.cpp=.o)
 $(TARGET): $(OBJ) $(SOURCES)
 	$(CXX) $(OBJ) $(CXXFLAGS) -o $@
 
-%s:%cpp
-	$(CXX) -S $(CXXFLAGS) -o $@ $<
-
 clean:
 	rm -r $(TARGET) $(OBJ)
