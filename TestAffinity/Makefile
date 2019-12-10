@@ -6,7 +6,7 @@ LDFLAGS=-fopenmp
 
 
 
-OBJ=Test.o Util.o
+OBJ=Test.o
 
 Affinity: ${OBJ}
 	$(LD) -o $@ $(LDFLAGS)  ${OBJ}
