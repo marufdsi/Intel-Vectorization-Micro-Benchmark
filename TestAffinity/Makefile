@@ -22,9 +22,9 @@ all: $(TARGET)
 
 
 $(TARGET): $(OBJ) $(SOURCES)
-	$(CXX) -S $(OBJ) $(CXXFLAGS) -o $@
+	$(CXX) $(OBJ) $(CXXFLAGS) -o $@
 
-%.s:%.cpp
+Assembly:%.cpp
 	$(CXX) -S $(CXXFLAGS) -o $@ $<
 
 clean:
