@@ -92,9 +92,11 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
         }
         outEdges[edge] = (possibleNeighbor++) % size_of_community;
         zeta[outEdges[edge]] = (possibleComm++) % size_of_community;
-        pnt_outEdgeWeight[zeta[outEdges[edge]]] = (edge % 10 + 1) * 1.0;
+        pnt_outEdgeWeight[] = (edge % 10 + 1) * 1.0;
         //zeta[edge] = (edge%16) *16 + (edge % 16);
     }
+    for(int i=0; i<size_of_community*NBTHREAD; ++i)
+        pnt_affinity[i] = 0.0;
     pnt_outEdges = &outEdges[0];
 
     std::cout << "memory initialized" << std::endl;
