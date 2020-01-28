@@ -17,9 +17,13 @@ using namespace std;
 typedef int32_t index, sint, node, count;
 typedef float edgeweight;
 
-void vecLoadGatherScatter(node *pnt_outEdges, edgeweight *pnt_outEdgeWeight, node *zeta, edgeweight *pnt_affinity, int _deg, int iteration);
+void
+vecLoadGatherScatter(node *pnt_outEdges, edgeweight *pnt_outEdgeWeight, node *zeta, edgeweight *pnt_affinity, int _deg,
+                     int iteration);
 
-void OMPLoadGatherScatter(node *pnt_outEdges, edgeweight *pnt_outEdgeWeight, node *zeta, edgeweight *pnt_affinity, int _deg, int iteration);
+void
+OMPLoadGatherScatter(node *pnt_outEdges, edgeweight *pnt_outEdgeWeight, node *zeta, edgeweight *pnt_affinity, int _deg,
+                     int iteration);
 
 void explicitely_vectorized(node *pnt_outEdges, node *outEdges, node *zeta, edgeweight *pnt_affinity, int _deg,
                             int iteration);
@@ -63,7 +67,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     std::ifstream checkFile(benchmark_output_file);
     blog.open(init_log_file, std::ios_base::out | std::ios_base::app | std::ios_base::ate);
     if (!checkFile.good()) {
-        blog << "Degree" << "," << "Iteration" << "," << "OMPTime" << "," << "VecTime"<< std::endl;
+        blog << "Degree" << "," << "Iteration" << "," << "OMPTime" << "," << "VecTime" << std::endl;
     }
 
     ///////////////////memory layout///////////////////////
@@ -82,7 +86,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     for (index edge = 0; edge < _deg; ++edge) {
         outEdges[edge] = edge;
         zeta[edge] = (edge % 16);
-        pnt_outEdgeWeight[edge] = (edge%10 +1) * 1.0;
+        pnt_outEdgeWeight[edge] = (edge % 10 + 1) * 1.0;
         //zeta[edge] = (edge%16) *16 + (edge % 16);
     }
     pnt_outEdges = &outEdges[0];
@@ -97,14 +101,16 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     clock_gettime(CLOCK_MONOTONIC, &_start_);
     OMPLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &_end_);
-    double time_omp = ((_end_.tv_sec * 1000 + (_end_.tv_nsec / 1.0e6)) - (_start_.tv_sec * 1000 + (_start_.tv_nsec / 1.0e6)));
+    double time_omp = ((_end_.tv_sec * 1000 + (_end_.tv_nsec / 1.0e6)) -
+                       (_start_.tv_sec * 1000 + (_start_.tv_nsec / 1.0e6)));
     /************** End OMP Load, Gather and Scatter ***************/
     /************** Run Vec Load, Gather and Scatter ***************/
-    vecLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight , zeta, pnt_affinity, _deg, iteration);
+    vecLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &_start_);
-    vecLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight , zeta, pnt_affinity, _deg, iteration);
+    vecLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &_end_);
-    double time_vec = ((_end_.tv_sec * 1000 + (_end_.tv_nsec / 1.0e6)) - (_start_.tv_sec * 1000 + (_start_.tv_nsec / 1.0e6)));
+    double time_vec = ((_end_.tv_sec * 1000 + (_end_.tv_nsec / 1.0e6)) -
+                       (_start_.tv_sec * 1000 + (_start_.tv_nsec / 1.0e6)));
     /************** End Vec Load, Gather and Scatter ***************/
     /// Warm up implicit vectorization
     implicitely_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
@@ -172,8 +178,8 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
                << elapsed_lgas_time << std::endl;
     f_init_log.close();
     blog << _deg << "," << iteration << "," << time_omp << "," << time_vec << std::endl;
-
-         free(pnt_affinity);
+    blog.close();
+    free(pnt_affinity);
     free(outEdges);
     free(zeta);
 
