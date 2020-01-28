@@ -65,7 +65,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     string benchmark_output_file = "BenchMarkLogFile.csv";
     std::ofstream blog;
     std::ifstream checkFile(benchmark_output_file);
-    blog.open(init_log_file, std::ios_base::out | std::ios_base::app | std::ios_base::ate);
+    blog.open(benchmark_output_file, std::ios_base::out | std::ios_base::app | std::ios_base::ate);
     if (!checkFile.good()) {
         blog << "Degree" << "," << "Iteration" << "," << "OMPTime" << "," << "VecTime" << std::endl;
     }
