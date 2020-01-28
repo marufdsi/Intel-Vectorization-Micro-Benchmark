@@ -24,12 +24,12 @@ do
     awk "{if (\$2 == ${iter}){print \$0} }" < edge_per_second > edge_per_second_iter_${iter}
 
     GNUPLOTCMDIT="${GNUPLOTCMDIT}; set title 'iter = ${iter}'; "
-    GNUPLOTCMDIT="${GNUPLOTCMDIT}; plot 'edge_per_second_iter_${iter}' u 1:3 t 'novec', \
-                                        'edge_per_second_iter_${iter}' u 1:4 t 'impl', \
-                                        'edge_per_second_iter_${iter}' u 1:5 t 'intrin', \
-                                        'edge_per_second_iter_${iter}' u 1:6 t 'intrin align', \
-                                        'edge_per_second_iter_${iter}' u 1:7 t 'lga',  \
-                                        'edge_per_second_iter_${iter}' u 1:8 t 'lgas'"
+    GNUPLOTCMDIT="${GNUPLOTCMDIT}; plot 'edge_per_second_iter_${iter}' u 1:3 t 'Scalar', \
+                                        'edge_per_second_iter_${iter}' u 1:4 t 'Intrinsic'"#, \
+                                       # 'edge_per_second_iter_${iter}' u 1:5 t 'intrin', \
+                                       # 'edge_per_second_iter_${iter}' u 1:6 t 'intrin align', \
+                                       # 'edge_per_second_iter_${iter}' u 1:7 t 'lga',  \
+                                       # 'edge_per_second_iter_${iter}' u 1:8 t 'lgas'"
 done
 
 
