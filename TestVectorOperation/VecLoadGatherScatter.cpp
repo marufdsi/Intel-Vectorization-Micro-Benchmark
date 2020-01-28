@@ -17,14 +17,13 @@ typedef float edgeweight;
 void
 vecLoadGatherScatter(node *pnt_outEdges, edgeweight *pnt_outEdgeWeight, node *zeta, edgeweight *pnt_affinity, int _deg,
                      int iteration) {
-    index neighbor_processed = (_deg / 16) * 16;
 #pragma omp parallel
     {
         edgeweight *real_affinity = pnt_affinity + _deg * omp_get_thread_num();
 #pragma omp for schedule(guided)
         for (int k = 0; k < iteration; ++k) {
-#pragma unroll (4)
-            for (index i = 0; i < neighbor_processed; i += 16) {
+//#pragma unroll (4)
+            for (index i = 0; i < _deg; i += 16) {
                 /// Load Neighbors
                 __m512i v_vec = _mm512_loadu_si512((__m512i * ) & pnt_outEdges[i]);
                 /// Load at most 16 neighbor vertex edge weight.
