@@ -105,7 +105,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
 
     /************** Run OMP Load, Gather and Scatter ***************/
     struct timespec _start_, _end_;
-    OMPLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight, zeta, pnt_affinity, _deg, iteration);
+//    OMPLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &_start_);
     OMPLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &_end_);
@@ -113,7 +113,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
                        (_start_.tv_sec * 1000 + (_start_.tv_nsec / 1.0e6)));
     /************** End OMP Load, Gather and Scatter ***************/
     /************** Run Vec Load, Gather and Scatter ***************/
-    vecLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight, zeta, pnt_affinity, _deg, iteration);
+//    vecLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &_start_);
     vecLoadGatherScatter(pnt_outEdges, pnt_outEdgeWeight, zeta, pnt_affinity, _deg, iteration);
     clock_gettime(CLOCK_MONOTONIC, &_end_);
@@ -121,7 +121,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
                        (_start_.tv_sec * 1000 + (_start_.tv_nsec / 1.0e6)));
     /************** End Vec Load, Gather and Scatter ***************/
     /// Warm up implicit vectorization
-    implicitely_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+//    implicitely_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     struct timespec start_impl_vec, end_impl_vec;
     clock_gettime(CLOCK_MONOTONIC, &start_impl_vec);
     implicitely_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
@@ -131,7 +131,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     cout << "Init Time With Implicit Vectorization: " << elapsed_impl_vector_time << endl;
 
     /// Warm up no vectorization
-    no_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+//    no_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     struct timespec start_no_vec, end_no_vec;
     clock_gettime(CLOCK_MONOTONIC, &start_no_vec);
     no_vector(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
@@ -141,7 +141,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     cout << "Init Time Without Vectorization: " << elapsed_no_vector_time << endl;
 
     /// Warm up explicit vectorization
-    explicitely_vectorized(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+//    explicitely_vectorized(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     struct timespec start_init, end_init;
     clock_gettime(CLOCK_MONOTONIC, &start_init);
     explicitely_vectorized(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
@@ -151,7 +151,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     cout << "Explicitely Vectorized Init Time: " << elapsed_explicit_time << endl;
 
     /// Warm up explicit vectorization load
-    explicitely_vectorizedload(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+//    explicitely_vectorizedload(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     struct timespec start_initload, end_initload;
     clock_gettime(CLOCK_MONOTONIC, &start_initload);
     explicitely_vectorizedload(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
@@ -161,7 +161,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     cout << "Explicitely Vectorized Init Time aligned: " << elapsed_explicitaligned_time << endl;
 
     /// Warm up explicit vectorization load, gather and add
-    explicitely_vectorizedloadgatheradd(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+//    explicitely_vectorizedloadgatheradd(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     struct timespec start_initlga, end_initlga;
     clock_gettime(CLOCK_MONOTONIC, &start_initlga);
     explicitely_vectorizedloadgatheradd(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
@@ -171,7 +171,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     cout << "Explicitely Vectorized Init lga Time: " << elapsed_lga_time << endl;
 
     /// Warm up explicit vectorization load, gather, add and store
-    explicitely_vectorizedloadgatheraddstore(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
+//    explicitely_vectorizedloadgatheraddstore(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
     struct timespec start_initlgas, end_initlgas;
     clock_gettime(CLOCK_MONOTONIC, &start_initlgas);
     explicitely_vectorizedloadgatheraddstore(pnt_outEdges, outEdges, zeta, pnt_affinity, _deg, iteration);
