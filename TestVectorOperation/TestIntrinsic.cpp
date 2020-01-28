@@ -62,7 +62,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
                    << "Intrinsic Time" << "," << "Intrinsic aligned" << "," << "LGA" << "," << "LGAS" << std::endl;
     }
 
-    string benchmark_output_file = "BenchMarkLogFile_" + thread_num + ".csv";
+    string benchmark_output_file = "BenchMarkLogFile_" + std::to_string(thread_num) + ".csv";
     std::ofstream blog;
     std::ifstream checkFile(benchmark_output_file);
     blog.open(benchmark_output_file, std::ios_base::out | std::ios_base::app | std::ios_base::ate);
