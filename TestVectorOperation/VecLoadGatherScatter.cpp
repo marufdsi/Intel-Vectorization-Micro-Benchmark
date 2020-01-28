@@ -38,9 +38,6 @@ vecLoadGatherScatter(node *pnt_outEdges, edgeweight *pnt_outEdgeWeight, node *ze
                 /// Scatter affinity value to the affinity pointer.
                 _mm512_i32scatter_ps(&real_affinity[0], C_vec, affinity_vec, 4);
             }
-            for(index edge=neighbor_processed; edge<_deg; ++edge){
-                real_affinity[zeta[pnt_outEdges[edge]]] += pnt_outEdgeWeight[edge];
-            }
         }
     }
 }

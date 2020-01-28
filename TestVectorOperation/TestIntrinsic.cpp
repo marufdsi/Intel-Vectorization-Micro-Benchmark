@@ -71,22 +71,28 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     }
 
     ///////////////////memory layout///////////////////////
+    index size_of_community = _deg>100000 ? _deg : 100000;
     node *pnt_outEdges, *outEdges, *zeta;
     edgeweight *pnt_affinity, *pnt_outEdgeWeight;
     int NBTHREAD = thread_num;
 
-    posix_memalign((void **) &pnt_affinity, 64, sizeof(edgeweight) * _deg * NBTHREAD);
+    posix_memalign((void **) &pnt_affinity, 64, sizeof(edgeweight) * size_of_community * NBTHREAD);
     posix_memalign((void **) &outEdges, 64, sizeof(node) * _deg);
     posix_memalign((void **) &pnt_outEdgeWeight, 64, sizeof(edgeweight) * _deg);
-    posix_memalign((void **) &zeta, 64, sizeof(node) * _deg);
+    posix_memalign((void **) &zeta, 64, sizeof(node) * size_of_community);
 
     std::cout << "memory allocated" << std::endl;
-
+    srand(time(0));
     index neighbor_processed = (_deg / 16) * 16;
+    index possibleNeighbor = rand() % size_of_community;
+    index possibleComm = 0;
     for (index edge = 0; edge < _deg; ++edge) {
-        outEdges[edge] = edge;
-        zeta[edge] = (edge % 16);
-        pnt_outEdgeWeight[edge] = (edge % 10 + 1) * 1.0;
+        if(edge%16 == 0){
+            possibleComm = rand() % size_of_community;
+        }
+        outEdges[edge] = (possibleNeighbor++) % size_of_community;
+        zeta[outEdges[edge]] = (possibleComm++) % size_of_community;
+        pnt_outEdgeWeight[zeta[outEdges[edge]]] = (edge % 10 + 1) * 1.0;
         //zeta[edge] = (edge%16) *16 + (edge % 16);
     }
     pnt_outEdges = &outEdges[0];
