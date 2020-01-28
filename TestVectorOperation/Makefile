@@ -6,7 +6,7 @@ LDFLAGS=-fopenmp
 
 
 
-TESTINTRINSICOBJS=TestIntrinsic.o TestIntrinsic_explicit.o TestIntrinsic_novector.o TestIntrinsic_lgas.o  TestIntrinsic_loadgatheradd.o TestIntrinsic_implicit.o TestIntrinsic_explicitload.o
+TESTINTRINSICOBJS=TestIntrinsic.o OMPLoadGatherScatter.o VecLoadGatherScatter.o TestIntrinsic_explicit.o TestIntrinsic_novector.o TestIntrinsic_lgas.o  TestIntrinsic_loadgatheradd.o TestIntrinsic_implicit.o TestIntrinsic_explicitload.o
 
 TestIntrinsic: ${TESTINTRINSICOBJS}
 	$(LD) -o $@ $(LDFLAGS)  ${TESTINTRINSICOBJS}
