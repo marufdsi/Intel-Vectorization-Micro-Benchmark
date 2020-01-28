@@ -25,7 +25,7 @@ do
 
     GNUPLOTCMDIT="${GNUPLOTCMDIT}; set title 'iter = ${iter}'; "
     GNUPLOTCMDIT="${GNUPLOTCMDIT}; plot 'edge_per_second_iter_${iter}' u 1:3 t 'Scalar', \
-                                       # 'edge_per_second_iter_${iter}' u 1:4 t 'impl', \
+                                        'edge_per_second_iter_${iter}' u 1:4 t 'impl', \
                                         'edge_per_second_iter_${iter}' u 1:5 t 'intrin'"#, \
                                        # 'edge_per_second_iter_${iter}' u 1:6 t 'intrin align', \
                                        # 'edge_per_second_iter_${iter}' u 1:7 t 'lga',  \
@@ -41,7 +41,7 @@ do
 
     GNUPLOTCMDDEG="${GNUPLOTCMDDEG}; set title 'degree = ${deg}'; "
     GNUPLOTCMDDEG="${GNUPLOTCMDDEG}; plot 'edge_per_second_degree_${deg}' u 2:3 t 'Scalar', \
-                                         # 'edge_per_second_degree_${deg}' u 2:4 t 'impl', \
+                                          'edge_per_second_degree_${deg}' u 2:4 t 'impl', \
                                           'edge_per_second_degree_${deg}' u 2:5 t 'Intrinsic'"#, \
                                          # 'edge_per_second_degree_${deg}' u 2:6 t 'intrin align', \
                                          # 'edge_per_second_degree_${deg}' u 2:7 t 'lga', \
