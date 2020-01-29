@@ -21,7 +21,7 @@ implVecLoadGatherScatter(std::vector<node> pnt_outEdges, std::vector<edgeweight>
         index tid = omp_get_thread_num();
 #pragma omp for
         for (int k = 0; k < iteration; ++k) {
-#pragma omp simd 
+#pragma omp simd
             for (index edge = 0; edge < _deg; ++edge) {
                 auto oe = pnt_outEdges[edge];
                 auto z = zeta[oe];
