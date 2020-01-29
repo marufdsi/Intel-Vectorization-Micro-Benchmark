@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 #include <omp.h>
-
+#include <iostream>
 #include <mmintrin.h>
 #include <xmmintrin.h>
 #include <emmintrin.h>

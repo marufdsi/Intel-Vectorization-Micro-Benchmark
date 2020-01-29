@@ -76,7 +76,7 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     node *pnt_outEdges, *outEdges, *zeta;
     edgeweight *pnt_affinity, *pnt_outEdgeWeight;
     int NBTHREAD = thread_num;
-    
+
     std::vector<node> vec_outEdges(_deg);
     std::vector<node> vec_zeta(size_of_community);
     std::vector<edgeweight> vec_outEdgeWeight(_deg);

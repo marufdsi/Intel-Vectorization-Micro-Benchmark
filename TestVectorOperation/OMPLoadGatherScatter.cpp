@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 #include <omp.h>
-
+#include <iostream>
 #include <mmintrin.h>
 #include <xmmintrin.h>
 #include <emmintrin.h>
@@ -19,7 +19,6 @@ OMPLoadGatherScatter(std::vector<node> pnt_outEdges, std::vector<edgeweight> pnt
 #pragma omp parallel
     {
         index tid = omp_get_thread_num();
-
 #pragma omp for schedule(guided)
         for (int k = 0; k < iteration; ++k) {
 #pragma novector
