@@ -15,11 +15,10 @@ typedef int32_t index, sint, node, count;
 typedef float edgeweight;
 
 void
-vecLoadGatherScatter(node *pnt_outEdges, edgeweight *pnt_outEdgeWeight, node *zeta, edgeweight *pnt_affinity, int _deg,
-                     int iteration) {
+vecLoadGatherScatter(std::vector<node> pnt_outEdges, std::vector<edgeweight> pnt_outEdgeWeight, std::vector<node> zeta, std::vector<std::vector<edgeweight> > pnt_affinity, int _deg, int iteration) {
 #pragma omp parallel
     {
-        edgeweight *real_affinity = pnt_affinity + _deg * omp_get_thread_num();
+        index tid = omp_get_thread_num();
 #pragma omp for schedule(guided)
         for (int k = 0; k < iteration; ++k) {
 //#pragma unroll (4)
@@ -31,11 +30,11 @@ vecLoadGatherScatter(node *pnt_outEdges, edgeweight *pnt_outEdgeWeight, node *ze
                 /// Gather community of the neighbor vertices.
                 __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
                 /// Gather affinity of the corresponding community.
-                __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &real_affinity[0], 4);
+                __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &real_affinity[tid][0], 4);
                 /// Add edge weight to the affinity and if mask doesn't set load from affinity
                 affinity_vec = _mm512_add_ps(affinity_vec, w_vec);
                 /// Scatter affinity value to the affinity pointer.
-                _mm512_i32scatter_ps(&real_affinity[0], C_vec, affinity_vec, 4);
+                _mm512_i32scatter_ps(&pnt_affinity[tid][0], C_vec, affinity_vec, 4);
             }
         }
     }

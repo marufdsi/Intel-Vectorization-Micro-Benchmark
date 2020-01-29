@@ -15,14 +15,13 @@ typedef int32_t index, sint, node, count;
 typedef float edgeweight;
 
 void
-OMPLoadGatherScatter(std::vector<node> pnt_outEdges, std::vector<edgeweight> pnt_outEdgeWeight, std::vector<node> zeta, std::vector<std::vector<edgeweight> > pnt_affinity, int _deg, int iteration) {
+implVecLoadGatherScatter(std::vector<node> pnt_outEdges, std::vector<edgeweight> pnt_outEdgeWeight, std::vector<node> zeta, std::vector<std::vector<edgeweight> > pnt_affinity, int _deg, int iteration) {
 #pragma omp parallel
     {
         index tid = omp_get_thread_num();
-
-#pragma omp for schedule(guided)
+#pragma omp for
         for (int k = 0; k < iteration; ++k) {
-#pragma novector
+#pragma omp simd reduction(+:pnt_affinity)
             for (index edge = 0; edge < _deg; ++edge) {
                 auto oe = pnt_outEdges[edge];
                 auto z = zeta[oe];
