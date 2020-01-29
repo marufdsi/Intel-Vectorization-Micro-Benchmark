@@ -30,7 +30,7 @@ vecLoadGatherScatter(std::vector<node> pnt_outEdges, std::vector<edgeweight> pnt
                 /// Gather community of the neighbor vertices.
                 __m512i C_vec = _mm512_i32gather_epi32(v_vec, &zeta[0], 4);
                 /// Gather affinity of the corresponding community.
-                __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &real_affinity[tid][0], 4);
+                __m512 affinity_vec = _mm512_i32gather_ps(C_vec, &pnt_affinity[tid][0], 4);
                 /// Add edge weight to the affinity and if mask doesn't set load from affinity
                 affinity_vec = _mm512_add_ps(affinity_vec, w_vec);
                 /// Scatter affinity value to the affinity pointer.
