@@ -74,6 +74,9 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     ///////////////////memory layout///////////////////////
     index size_of_community = _deg>100000 ? _deg : 100000;
     node *pnt_outEdges, *outEdges, *zeta;
+    edgeweight *pnt_affinity, *pnt_outEdgeWeight;
+    int NBTHREAD = thread_num;
+    
     std::vector<node> vec_outEdges(_deg);
     std::vector<node> vec_zeta(size_of_community);
     std::vector<edgeweight> vec_outEdgeWeight(_deg);
@@ -81,8 +84,6 @@ void testClockSpeed(int _deg, int iteration, int thread_num) {
     for (int tid = 0; tid < NBTHREAD; ++tid) {
         vec_affinity[tid].resize(size_of_community, 0.0);
     }
-    edgeweight *pnt_affinity, *pnt_outEdgeWeight;
-    int NBTHREAD = thread_num;
 
     posix_memalign((void **) &pnt_affinity, 64, sizeof(edgeweight) * size_of_community * NBTHREAD);
     posix_memalign((void **) &outEdges, 64, sizeof(node) * _deg);
