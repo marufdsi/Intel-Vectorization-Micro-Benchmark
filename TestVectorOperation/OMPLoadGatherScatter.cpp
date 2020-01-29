@@ -9,7 +9,7 @@
 #include <xmmintrin.h>
 #include <emmintrin.h>
 #include <immintrin.h>
-
+#include <vector>
 
 typedef int32_t index, sint, node, count;
 typedef float edgeweight;
