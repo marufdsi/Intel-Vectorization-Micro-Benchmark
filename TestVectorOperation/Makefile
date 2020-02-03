@@ -1,7 +1,7 @@
 CC=icpc
 CXX=icpc
 LD=icpc
-CXXFLAGS=-O3 -xCORE-AVX512 -fopenmp -std=c++14
+CXXFLAGS=-O3 -xMIC-AVX512 -fopenmp -std=c++14
 LDFLAGS=-fopenmp
 
 
