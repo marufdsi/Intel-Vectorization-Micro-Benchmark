@@ -5,6 +5,8 @@ def printvals (type, maxedgepersecond, unit, threads, degrees, latexfileout):
     print ('================='+ type +'===================')
     print ('=========================================')
 
+    degreemap = {16:"16", 32:"32", 64: "64", 128:"128", 256:"256", 512:"512", 1024:"1k", 2048:"2k", 4096:"4k", 8192:"8k", 16384:"16k", 32768:"32k", 65536:"64k"}
+    
     print ('\\begin{tabular}{r |', end='', file=latexfileout)
     for degree in degrees:
         print (' r', end='', file=latexfileout)
@@ -14,7 +16,7 @@ def printvals (type, maxedgepersecond, unit, threads, degrees, latexfileout):
     print (' ', end='\t', file=latexfileout)
     for degree in degrees:
         print (degree, end='\t')
-        print (' &' + str(degree) , end='\t', file=latexfileout)
+        print (' &' + degreemap[degree] , end='\t', file=latexfileout)
     print ('\\\\ \\hline', file=latexfileout)
     print ('')
         
@@ -22,8 +24,8 @@ def printvals (type, maxedgepersecond, unit, threads, degrees, latexfileout):
         print (thread, end='\t')
         print (thread, end='\t', file=latexfileout)
         for degree in degrees:
-            print ("%2.2f"% float(maxedgepersecond[thread][degree][type]/unit), end='\t')
-            print ("& %2.2f"% float(maxedgepersecond[thread][degree][type]/unit), end='\t', file=latexfileout)
+            print ("%2.1f"% float(maxedgepersecond[thread][degree][type]/unit), end='\t')
+            print ("& %2.1f"% float(maxedgepersecond[thread][degree][type]/unit), end='\t', file=latexfileout)
         print ('')
         print ('\\\\', file=latexfileout)
     
@@ -76,7 +78,8 @@ def process(threads, degrees):
 
 
 threads = [1, 64, 128, 192, 256 ]
-degrees = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
+#degrees = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
+degrees = [16, 32, 128, 512, 1024, 2048, 4096, 8192, 16384, 32768]
 maxedgepersecond = process (threads, degrees)
 
 #print (maxedgepersecond)
