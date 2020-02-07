@@ -31,13 +31,13 @@ def printvals (type, maxedgepersecond, unit, threads, degrees, latexfileout):
     
     print ('\\end{tabular}', file=latexfileout)
 
-def process(threads, degrees):
+def process(threads, degrees, dir):
 
     timings = {}
 
     for thread in threads:
         timings[thread] = {}
-        with open('../results_KNL/BenchMarkLogFile_'+str(thread)+'.csv', newline='') as csvfile:
+        with open(dir+'BenchMarkLogFile_'+str(thread)+'.csv', newline='') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 degree = int(row['Degree'])
@@ -77,10 +77,19 @@ def process(threads, degrees):
     return maxedgepersecond
 
 
-threads = [1, 64, 128, 192, 256 ]
-#degrees = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
+##KNL values
+# threads = [1, 64, 128, 192, 256 ]
+# #degrees = [16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536]
+# degrees = [16, 32, 128, 512, 1024, 2048, 4096, 8192, 16384, 32768]
+# resultdir = '../results_KNL/'
+
+##SkylakeX values
+threads = [1, 18]
 degrees = [16, 32, 128, 512, 1024, 2048, 4096, 8192, 16384, 32768]
-maxedgepersecond = process (threads, degrees)
+resultdir = '../results_SkylakeX/'
+
+
+maxedgepersecond = process (threads, degrees, resultdir)
 
 #print (maxedgepersecond)
 
