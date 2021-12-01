@@ -225,14 +225,16 @@ int main(int argc, char **argv) {
         thread_num = (int) strtol(argv[1], (char **) NULL, 10);
     }
 
-    long deglow = 16;
+    long deglow = 256;
     long deghigh = 1024 * 64;
     long iterlow = 64;
     long iterhigh = 16777216;
 
     for (long deg = deglow; deg <= deghigh; deg *= 2)
-        for (long iter = iterlow; iter <= iterhigh; iter *= 2)
-            testClockSpeed(deg, iter, thread_num);
+        testClockSpeed(deg, 4096, thread_num);
+//    for (long deg = deglow; deg <= deghigh; deg *= 2)
+//        for (long iter = iterlow; iter <= iterhigh; iter *= 2)
+//            testClockSpeed(deg, iter, thread_num);
 
     return 0;
 }
